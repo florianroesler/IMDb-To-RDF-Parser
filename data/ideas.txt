@@ -1,0 +1,7 @@
+###################################################################################################################
+IDEAS
+###################################################################################################################
+
+01) Sheduler abstract Meta class
+02) Crawler stop und config function
+03) vllt zum config plus bilden eine Erbauer oder Factory Classe für Crawler (CrawlerBuilder oder Crawler Sheduler)
