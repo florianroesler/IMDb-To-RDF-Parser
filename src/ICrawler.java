@@ -7,22 +7,28 @@ import java.util.Date;
 
 public abstract class ICrawler implements Runnable{
 
-
+	protected abstract void startCrawling();
+	
+	private boolean stopped = true;
+	
 	@Override
 	public void run() {
+		stopped = false;
 		startCrawling();		
 	}
 
-	protected abstract void startCrawling();
+	public void stop(){
+		stopped = true;
+	}
 	
-	protected abstract void stop();
-	
-	protected abstract void config();
-	
-	protected static void saveTriples(Collection<Triple> triples) throws FileNotFoundException{
+	public boolean isStopped() {
+		return stopped;
+	}
+
+	protected static void saveTriples(Collection<Quad> triples) throws FileNotFoundException{
 		File file = new File("Crawler"+new Date().getTime()+"_"+String.valueOf(Math.random()).replace(".", "")+".triples");
 		StringBuilder builder = new  StringBuilder();
-		for(Triple triple:triples){
+		for(Quad triple:triples){
 			builder.append(triple.toString()+"\n");
 		}
 		PrintWriter out = new PrintWriter(file);

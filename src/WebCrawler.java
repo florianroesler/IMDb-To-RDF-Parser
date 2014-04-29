@@ -23,7 +23,7 @@ public abstract class WebCrawler extends ICrawler {
 	private Queue<WebLink> pagesToVisit = new PriorityQueue<WebLink>();
 	protected abstract String defineSeedPage();
 	protected abstract boolean shouldFollowLink(String link);
-	protected abstract Collection<Triple> extract(TagNode rootNode);
+	protected abstract Collection<Quad> extract(TagNode rootNode);
 
 	private static String baseUrl;
 
@@ -39,7 +39,7 @@ public abstract class WebCrawler extends ICrawler {
 
 		WebLink seedLink = new WebLink(defineSeedPage(), 0);
 		pagesToVisit.add(seedLink);
-		while(!pagesToVisit.isEmpty()){
+		while(!isStopped() && !pagesToVisit.isEmpty()){
 			crawlPage(pagesToVisit.poll());
 		}
 	}
@@ -61,7 +61,7 @@ public abstract class WebCrawler extends ICrawler {
 
 		if(rootNode == null) return;
 
-		Collection<Triple> triples = extract(rootNode);
+		Collection<Quad> triples = extract(rootNode);
 
 		try {
 			saveTriples(triples);

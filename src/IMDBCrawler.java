@@ -19,23 +19,11 @@ public class IMDBCrawler extends WebCrawler{
 	protected boolean shouldFollowLink(String link) {
 		return link.contains("search/title?at=0&count=100");
 	}
-	
+
 
 	@Override
-	protected void stop() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void config() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected Collection<Triple> extract(TagNode rootNode) {
-		List<Triple> triples = new LinkedList<Triple>();
+	protected Collection<Quad> extract(TagNode rootNode) {
+		List<Quad> triples = new LinkedList<Quad>();
 		try {
 			triples = retrieveIMDBRecords(rootNode);
 		} catch (XPatherException e) {
@@ -44,14 +32,14 @@ public class IMDBCrawler extends WebCrawler{
 		return triples;
 	}
 	
-	private static List<Triple> retrieveIMDBRecords(TagNode node) throws XPatherException{
-		List<Triple> triples = new LinkedList<Triple>();
+	private static List<Quad> retrieveIMDBRecords(TagNode node) throws XPatherException{
+		List<Quad> triples = new LinkedList<Quad>();
 		Object[] foundObjects = node.evaluateXPath(".//*[@id='main']/table/tbody/tr/td[@class='image']/a");
 		for(Object o:foundObjects){
 			TagNode foundNode = (TagNode)o;
 			String link = foundNode.getAttributeByName("href");
 
-			triples.add(new Triple(link, "a", "link"));
+			triples.add(new Quad(link, "a", "link", "graph"));
 		}
 		return triples;
 
