@@ -14,9 +14,13 @@ public abstract class ICrawler implements Runnable{
 	}
 
 	protected abstract void startCrawling();
-
+	
+	protected abstract void stop();
+	
+	protected abstract void config();
+	
 	protected static void saveTriples(Collection<Triple> triples) throws FileNotFoundException{
-		File file = new File("Crawler"+new Date().getTime()+"_"+String.valueOf(Math.random()).replace(".", "")+".txt");
+		File file = new File("Crawler"+new Date().getTime()+"_"+String.valueOf(Math.random()).replace(".", "")+".triples");
 		StringBuilder builder = new  StringBuilder();
 		for(Triple triple:triples){
 			builder.append(triple.toString()+"\n");

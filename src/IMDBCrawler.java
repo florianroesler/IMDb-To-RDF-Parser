@@ -19,6 +19,19 @@ public class IMDBCrawler extends WebCrawler{
 	protected boolean shouldFollowLink(String link) {
 		return link.contains("search/title?at=0&count=100");
 	}
+	
+
+	@Override
+	protected void stop() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void config() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	protected Collection<Triple> extract(TagNode rootNode) {
@@ -43,5 +56,6 @@ public class IMDBCrawler extends WebCrawler{
 		return triples;
 
 	}
+
 
 }
