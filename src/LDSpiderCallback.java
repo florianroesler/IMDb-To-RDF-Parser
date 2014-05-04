@@ -27,11 +27,11 @@ public class LDSpiderCallback  implements Callback {
         public synchronized void processStatement(Node[] nx) {
         		_cnt++;
         		System.out.println("["+_cnt+"]");
-        		this._out.add(new Quad(nx[1].toN3().toString(), nx[2].toN3().toString(), 
-        							   nx[3].toN3().toString(), nx[0].toN3().toString()));
-        		System.out.println(nx[1].toN3().toString());
-        		System.out.println(nx[2].toN3().toString());       
+        		this._out.add(new Quad(nx[3].toN3().toString(), nx[1].toN3().toString(), 
+        							   nx[2].toN3().toString(), nx[0].toN3().toString()));
         		System.out.println(nx[3].toN3().toString());
+        		System.out.println(nx[1].toN3().toString());       
+        		System.out.println(nx[2].toN3().toString());
         		System.out.println(nx[0].toN3().toString());
         		System.out.println("-----------------------------------------------------------------------------------");  
                         
