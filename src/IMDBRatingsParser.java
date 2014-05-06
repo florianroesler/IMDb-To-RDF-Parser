@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class RatingsCrawler extends PlainTextCrawler{
+public class IMDBRatingsParser extends PlainTextCrawler{
 
 	private boolean isRelevantContent = false;
 	@Override
@@ -43,8 +43,6 @@ public class RatingsCrawler extends PlainTextCrawler{
 					}
 					title = title.trim();
 					title=title.replaceAll("^\"|\"$", "");
-					
-					String encodedTitle = new String(Charset.forName("UTF8").encode(title).array());
 					System.out.println(title+" "+yearOfProduction+" "+rating);
 
 			}else{
@@ -54,6 +52,11 @@ public class RatingsCrawler extends PlainTextCrawler{
 			}
 
 		}
+	}
+
+	@Override
+	protected String defineEncoding() {
+		return "Windows-1252";
 	}
 
 
