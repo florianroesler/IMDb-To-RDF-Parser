@@ -59,7 +59,7 @@ public class IMDBActorsParser extends IMDBToCSVParser{
 			String year = RegexHelper.findFirstOccurence(cleanLine, "\\(\\d+\\)").replace("(", "").replace(")", "");
 			String role = RegexHelper.findFirstOccurence(cleanLine, "\\[\\w+\\]").replace("[", "").replace("]", "");
 
-			writeCSV(new String[]{currentActor, title, year, role});
+			writeCSV(currentActor, title, year, role);
 
 		}
 

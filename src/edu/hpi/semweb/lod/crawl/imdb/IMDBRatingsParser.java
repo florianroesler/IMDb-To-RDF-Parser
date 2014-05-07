@@ -55,7 +55,7 @@ public class IMDBRatingsParser extends IMDBToCSVParser{
 				
 				String yearOfProduction = cleanedParts.get(cleanedParts.size()-1).replace("(", "").replace(")", "");
 
-				writeCSV(new String[]{title, yearOfProduction, rating, ratingCount, ratingDistribution});
+				writeCSV(title, yearOfProduction, rating, ratingCount, ratingDistribution);
 			}
 
 		}

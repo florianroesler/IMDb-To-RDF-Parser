@@ -57,7 +57,7 @@ public abstract class PlainTextCrawler extends ICrawler{
 			}
 			
 			if(isInRelevantPart){
-				if(line.contains(defineRelevanceEndingLine())){
+				if(defineRelevanceEndingLine()!=null && line.contains(defineRelevanceEndingLine())){
 					isInRelevantPart = false;
 					continue;
 				}

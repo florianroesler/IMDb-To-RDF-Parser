@@ -27,7 +27,7 @@ public abstract class IMDBToCSVParser extends PlainTextCrawler{
 		}
 	}
 	
-	protected void writeCSV(String[] tiles){
+	protected void writeCSV(String... tiles){
 		if(tiles.length == 0) return;
 		StringBuilder builder = new StringBuilder();
 		for(String s:tiles){
