@@ -16,7 +16,6 @@ public abstract class IMDBToCSVParser extends PlainTextCrawler{
 		try {
 			writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(defineInputFilePath()+".csv"), Charset.forName(defineEncoding())));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -32,6 +31,7 @@ public abstract class IMDBToCSVParser extends PlainTextCrawler{
 		builder.append("\n");
 		writer.write(builder.toString());
 	}
+	
 	protected void closeWriter(){
 		writer.close();
 	}
