@@ -1,3 +1,4 @@
+package edu.hpi.semweb.lod.data;
 
 public class Quad {
 

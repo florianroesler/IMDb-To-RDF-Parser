@@ -1,11 +1,10 @@
+package edu.hpi.semweb.lod.crawl.ldspider;
 import java.awt.List;
 import java.io.File;
 import java.io.FileNotFoundException;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
-
 
 import com.ontologycentral.ldspider.Crawler;
 import com.ontologycentral.ldspider.frontier.BasicFrontier;
@@ -19,6 +18,9 @@ import com.ontologycentral.ldspider.hooks.links.LinkFilter;
 import com.ontologycentral.ldspider.hooks.links.LinkFilterDomain;
 import com.ontologycentral.ldspider.hooks.sink.Sink;
 import com.ontologycentral.ldspider.hooks.sink.SinkCallback;
+
+import edu.hpi.semweb.lod.crawl.ICrawler;
+import edu.hpi.semweb.lod.data.Quad;
 
 
 public class LDSpiderCrawler extends ICrawler{

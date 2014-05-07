@@ -1,9 +1,13 @@
+package edu.hpi.semweb.lod.crawl.imdb;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.htmlcleaner.TagNode;
 import org.htmlcleaner.XPatherException;
+
+import edu.hpi.semweb.lod.crawl.WebCrawler;
+import edu.hpi.semweb.lod.data.Quad;
 
 
 public class IMDBCrawler extends WebCrawler{

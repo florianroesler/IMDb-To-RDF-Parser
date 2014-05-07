@@ -1,3 +1,4 @@
+package edu.hpi.semweb.lod.crawl;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,6 +16,8 @@ import java.util.Set;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.TagNode;
 import org.htmlcleaner.XPatherException;
+
+import edu.hpi.semweb.lod.data.Quad;
 
 
 public abstract class WebCrawler extends ICrawler {

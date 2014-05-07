@@ -1,9 +1,12 @@
+package edu.hpi.semweb.lod.crawl.ldspider;
 import java.util.Collection;
 import java.util.LinkedList;
 
 import org.semanticweb.yars.nx.Node;
 import org.semanticweb.yars.nx.parser.Callback;
 import org.semanticweb.yars.util.LRUMapCache;
+
+import edu.hpi.semweb.lod.data.Quad;
 
 
 public class LDSpiderCallback  implements Callback {

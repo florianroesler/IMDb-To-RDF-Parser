@@ -1,3 +1,4 @@
+package edu.hpi.semweb.lod.crawl.imdb;
 import java.util.HashMap;
 import java.util.Map;
 

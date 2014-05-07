@@ -1,9 +1,10 @@
-import java.nio.charset.Charset;
+package edu.hpi.semweb.lod.crawl.imdb;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class IMDBRatingsParser extends PlainTextCrawler{
+public class IMDBRatingsParser extends IMDBToCSVParser{
+
 
 	private boolean isRelevantContent = false;
 	@Override
@@ -16,13 +17,14 @@ public class IMDBRatingsParser extends PlainTextCrawler{
 		if(!isStopped()){
 			if(line.startsWith("-")){
 				isRelevantContent = false;
+				closeWriter();
 				return;
 			}
-			
+
 			if(isRelevantContent && line.startsWith(" ")){
 
 				if(line.contains("{")) return;
-				
+
 				String[] parts  = line.replace("\\s+", " ").split(" ");
 				List<String> cleanedParts = new ArrayList<String>();
 				for(String s:parts){
@@ -30,21 +32,24 @@ public class IMDBRatingsParser extends PlainTextCrawler{
 						cleanedParts.add(s);
 					}
 				}
-					String rating = cleanedParts.get(2);
-					
-					String title = "";
-					String yearOfProduction = "";
-					for(int i = 3; i<cleanedParts.size()-1;i++){
-						if(cleanedParts.get(i).startsWith("(")){
-							yearOfProduction = cleanedParts.get(i).replace("(", "").replace(")", "");
-							break;
-						}
-						title+=cleanedParts.get(i)+" ";
-					}
-					title = title.trim();
-					title=title.replaceAll("^\"|\"$", "");
-					System.out.println(title+" "+yearOfProduction+" "+rating);
 
+				String ratingDistribution = cleanedParts.get(0);
+				String ratingCount = cleanedParts.get(1);
+
+				String rating = cleanedParts.get(2);
+
+				String title = "";
+				String yearOfProduction = "";
+				for(int i = 3; i<cleanedParts.size()-1;i++){
+					if(cleanedParts.get(i).startsWith("(")){
+						yearOfProduction = cleanedParts.get(i).replace("(", "").replace(")", "");
+						break;
+					}
+					title+=cleanedParts.get(i)+" ";
+				}
+				title = title.trim();
+				title = title.replaceAll("^\"|\"$", "");
+				writeCSV(new String[]{title, yearOfProduction, rating, ratingCount, ratingDistribution});
 			}else{
 				if(line.startsWith("New")){
 					isRelevantContent = true;

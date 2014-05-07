@@ -1,3 +1,4 @@
+package edu.hpi.semweb.lod.misc;
 import java.util.Date;
 
 

@@ -1,8 +1,11 @@
+package edu.hpi.semweb.lod.crawl;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Date;
+
+import edu.hpi.semweb.lod.data.Quad;
 
 
 public abstract class ICrawler implements Runnable{
