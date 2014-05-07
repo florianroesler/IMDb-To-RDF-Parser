@@ -6,11 +6,7 @@ import java.util.List;
 public class IMDBActorsParser extends IMDBToCSVParser{
 
 	private String currentActor = "";
-	@Override
-	public void run() {
-		super.run();
-		closeWriter();
-	};
+
 
 	@Override
 	protected String defineInputFilePath() {

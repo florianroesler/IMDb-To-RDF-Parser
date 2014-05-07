@@ -12,6 +12,13 @@ public abstract class IMDBToCSVParser extends PlainTextCrawler{
 
 	private PrintWriter writer;
 	
+	
+	@Override
+	public void run() {
+		super.run();
+		closeWriter();
+	};
+	
 	public IMDBToCSVParser(){
 		try {
 			writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(defineInputFilePath()+".csv"), Charset.forName(defineEncoding())));
@@ -32,7 +39,7 @@ public abstract class IMDBToCSVParser extends PlainTextCrawler{
 		writer.write(builder.toString());
 	}
 	
-	protected void closeWriter(){
+	private void closeWriter(){
 		writer.close();
 	}
 

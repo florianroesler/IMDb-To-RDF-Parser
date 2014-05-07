@@ -34,10 +34,8 @@ public abstract class PlainTextCrawler extends ICrawler{
 	private void readFile() throws IOException{
 		File file = new File(defineInputFilePath());
 			
-		LineNumberReader  lnr = new LineNumberReader(new FileReader(file));
-		lnr.skip(Long.MAX_VALUE);
-		lineCount = lnr.getLineNumber();
-		lnr.close();
+		lineCount = countLineNumbers(file);
+
 		
 		InputStreamReader streamReader = null;
 
@@ -74,7 +72,15 @@ public abstract class PlainTextCrawler extends ICrawler{
 		System.out.println("DONE\n");
 
 	}
-
+	
+	private int countLineNumbers(File f) throws IOException{
+		
+		LineNumberReader  lnr = new LineNumberReader(new FileReader(f));
+		lnr.skip(Long.MAX_VALUE);
+		int count = lnr.getLineNumber();
+		lnr.close();
+		return count;
+	}
 
 
 

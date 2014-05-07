@@ -44,16 +44,17 @@ public class IMDBRatingsParser extends IMDBToCSVParser{
 				String rating = cleanedParts.get(2);
 
 				String title = "";
-				String yearOfProduction = "";
 				for(int i = 3; i<cleanedParts.size()-1;i++){
 					if(cleanedParts.get(i).startsWith("(")){
-						yearOfProduction = cleanedParts.get(i).replace("(", "").replace(")", "");
 						break;
 					}
 					title+=cleanedParts.get(i)+" ";
 				}
 				title = title.trim();
 				title = title.replaceAll("^\"|\"$", "");
+				
+				String yearOfProduction = cleanedParts.get(cleanedParts.size()-1).replace("(", "").replace(")", "");
+
 				writeCSV(new String[]{title, yearOfProduction, rating, ratingCount, ratingDistribution});
 			}
 
