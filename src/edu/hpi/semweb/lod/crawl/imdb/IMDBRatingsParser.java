@@ -6,22 +6,27 @@ import java.util.List;
 public class IMDBRatingsParser extends IMDBToCSVParser{
 
 
-	private boolean isRelevantContent = false;
 	@Override
 	protected String defineInputFilePath() {
 		return "/Users/froesler/Downloads/moviedb-3.24/lists/ratings.list";
+	}
+	
+
+	@Override
+	protected String defineRelevanceStartingLine() {
+		return "MOVIE RATINGS REPORT";
+	}
+
+	@Override
+	protected String defineRelevanceEndingLine() {
+		return "------------------------------------------------------------------------------";
 	}
 
 	@Override
 	protected void onNewLine(String line) {
 		if(!isStopped()){
-			if(line.startsWith("-")){
-				isRelevantContent = false;
-				closeWriter();
-				return;
-			}
 
-			if(isRelevantContent && line.startsWith(" ")){
+			if(line.startsWith(" ")){
 
 				if(line.contains("{")) return;
 
@@ -50,10 +55,6 @@ public class IMDBRatingsParser extends IMDBToCSVParser{
 				title = title.trim();
 				title = title.replaceAll("^\"|\"$", "");
 				writeCSV(new String[]{title, yearOfProduction, rating, ratingCount, ratingDistribution});
-			}else{
-				if(line.startsWith("New")){
-					isRelevantContent = true;
-				}
 			}
 
 		}
@@ -63,6 +64,7 @@ public class IMDBRatingsParser extends IMDBToCSVParser{
 	protected String defineEncoding() {
 		return "Windows-1252";
 	}
+
 
 
 }

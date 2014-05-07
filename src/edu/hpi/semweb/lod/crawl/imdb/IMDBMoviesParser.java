@@ -19,4 +19,16 @@ public class IMDBMoviesParser extends PlainTextCrawler{
 		return "Windows-1252";
 	}
 
+	@Override
+	protected String defineRelevanceStartingLine() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected String defineRelevanceEndingLine() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

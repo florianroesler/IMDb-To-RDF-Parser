@@ -14,4 +14,17 @@ public class CleaningHelper {
 		}
 		return cleanedParts;
 	}
+	
+	public static String cleanActorName(String name){
+		
+		if(name.contains(",")){
+			String[] nameTiles = name.split(",");
+			if(nameTiles.length>1){
+				name = nameTiles[1]+" "+ nameTiles[0];
+				name = name.trim();
+			}
+
+		}
+		return name;
+	}
 }

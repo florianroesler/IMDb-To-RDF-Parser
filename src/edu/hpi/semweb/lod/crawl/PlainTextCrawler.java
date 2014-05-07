@@ -12,11 +12,15 @@ import java.nio.charset.Charset;
 public abstract class PlainTextCrawler extends ICrawler{
 
 	private int lineCount = 0;
+	private boolean isInRelevantPart = false;
+	
+	
 	protected abstract String defineInputFilePath();
 	protected abstract String defineEncoding();
-
 	protected abstract void onNewLine(String line);
-	
+	protected abstract String defineRelevanceStartingLine();
+	protected abstract String defineRelevanceEndingLine();
+
 	@Override
 	protected void startCrawling() {
 		try {
@@ -53,7 +57,18 @@ public abstract class PlainTextCrawler extends ICrawler{
 				recentProgress = progress;
 				System.out.print(recentProgress+"%\r");
 			}
-			onNewLine(line);
+			
+			if(isInRelevantPart){
+				if(line.contains(defineRelevanceEndingLine())){
+					isInRelevantPart = false;
+					continue;
+				}
+				onNewLine(line);
+			}else{
+				if(line.contains(defineRelevanceStartingLine())){
+					isInRelevantPart = true;
+				}
+			}
 		}
 		reader.close();
 		System.out.println("DONE\n");
