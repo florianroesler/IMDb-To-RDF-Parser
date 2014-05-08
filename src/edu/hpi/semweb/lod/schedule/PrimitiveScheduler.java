@@ -1,6 +1,7 @@
 package edu.hpi.semweb.lod.schedule;
 
 import edu.hpi.semweb.lod.crawl.imdb.IMDBAkaNamesParser;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBAkaTitlesParser;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBRatingsParser;
 
 public class PrimitiveScheduler extends IScheduler{
@@ -12,7 +13,8 @@ public class PrimitiveScheduler extends IScheduler{
 		//IMDBRatingsParser crawler = new IMDBRatingsParser();
 		//IMDBActorsParser crawler = new IMDBActorsParser();
 		//IMDBActressesParser crawler = new IMDBActressesParser();
-		IMDBAkaNamesParser crawler = new IMDBAkaNamesParser();
+		//IMDBAkaNamesParser crawler = new IMDBAkaNamesParser();
+		IMDBAkaTitlesParser crawler = new IMDBAkaTitlesParser();
 		crawler.run();
 	
 	}

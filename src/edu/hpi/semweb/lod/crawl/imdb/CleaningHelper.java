@@ -27,4 +27,12 @@ public class CleaningHelper {
 		}
 		return name;
 	}
+	
+	public static String removeRoundBrackets(String s){
+		return s.replace("(", "").replace(")", "");
+	}
+	
+	public static String removeSquareBrackets(String s){
+		return s.replace("[", "").replace("]", "");
+	}
 }
