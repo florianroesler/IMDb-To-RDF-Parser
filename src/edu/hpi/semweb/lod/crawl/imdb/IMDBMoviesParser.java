@@ -31,4 +31,10 @@ public class IMDBMoviesParser extends PlainTextCrawler{
 		return null;
 	}
 
+	@Override
+	protected void onFileEnd() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

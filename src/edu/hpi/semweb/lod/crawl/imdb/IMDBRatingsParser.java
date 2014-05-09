@@ -67,5 +67,12 @@ public class IMDBRatingsParser extends IMDBToCSVParser{
 	}
 
 
+	@Override
+	protected void onFileEnd() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 }

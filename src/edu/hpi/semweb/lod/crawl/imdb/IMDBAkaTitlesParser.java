@@ -60,4 +60,10 @@ public class IMDBAkaTitlesParser extends IMDBToCSVParser{
 		return "-----------------------------------------------------------------------------";
 	}
 
+	@Override
+	protected void onFileEnd() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

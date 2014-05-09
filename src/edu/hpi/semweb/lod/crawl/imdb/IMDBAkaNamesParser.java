@@ -35,4 +35,10 @@ public class IMDBAkaNamesParser extends IMDBToCSVParser{
 		return null;
 	}
 
+	@Override
+	protected void onFileEnd() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

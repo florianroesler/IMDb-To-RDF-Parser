@@ -35,4 +35,8 @@ public class CleaningHelper {
 	public static String removeSquareBrackets(String s){
 		return s.replace("[", "").replace("]", "");
 	}
+	
+	public static String removeUnderscore(String s){
+		return s.replace("_", "");
+	}
 }

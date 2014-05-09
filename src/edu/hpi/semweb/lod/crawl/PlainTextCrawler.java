@@ -18,6 +18,7 @@ public abstract class PlainTextCrawler extends ICrawler{
 	protected abstract String defineInputFilePath();
 	protected abstract String defineEncoding();
 	protected abstract void onNewLine(String line);
+	protected abstract void onFileEnd();
 	protected abstract String defineRelevanceStartingLine();
 	protected abstract String defineRelevanceEndingLine();
 
@@ -57,18 +58,19 @@ public abstract class PlainTextCrawler extends ICrawler{
 			}
 			
 			if(isInRelevantPart){
-				if(defineRelevanceEndingLine()!=null && line.contains(defineRelevanceEndingLine())){
+				if(defineRelevanceEndingLine()!=null && line.equals(defineRelevanceEndingLine())){
 					isInRelevantPart = false;
 					continue;
 				}
 				onNewLine(line);
 			}else{
-				if(line.contains(defineRelevanceStartingLine())){
+				if(line.equals(defineRelevanceStartingLine())){
 					isInRelevantPart = true;
 				}
 			}
 		}
 		reader.close();
+		onFileEnd();
 		System.out.println("DONE\n");
 
 	}

@@ -73,6 +73,12 @@ public class IMDBActorsParser extends IMDBToCSVParser{
 		return dirtyTitle;
 	}
 
+	@Override
+	protected void onFileEnd() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 }

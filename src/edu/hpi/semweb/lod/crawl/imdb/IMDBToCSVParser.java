@@ -19,6 +19,7 @@ public abstract class IMDBToCSVParser extends PlainTextCrawler{
 		closeWriter();
 	};
 	
+	
 	public IMDBToCSVParser(){
 		try {
 			writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(defineInputFilePath()+".csv"), Charset.forName(defineEncoding())));
