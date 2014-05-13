@@ -5,6 +5,7 @@ import edu.hpi.semweb.lod.crawl.imdb.IMDBAkaTitlesParser;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBAlternateVersionsParser;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBBiographiesParser;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBBusinessParser;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBCountriesParser;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBDirectorsParser;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBMoviesParser;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBRatingsParser;
@@ -24,7 +25,8 @@ public class PrimitiveScheduler extends IScheduler{
 		//IMDBBiographiesParser crawler = new IMDBBiographiesParser();
 		//IMDBBusinessParser crawler = new IMDBBusinessParser();
 		//IMDBMoviesParser crawler = new IMDBMoviesParser();
-		IMDBDirectorsParser crawler = new IMDBDirectorsParser();
+		//IMDBDirectorsParser crawler = new IMDBDirectorsParser();
+		IMDBCountriesParser crawler = new IMDBCountriesParser();
 		crawler.run();
 	
 	}
