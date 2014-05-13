@@ -20,7 +20,7 @@ public class IMDBMoviesParser extends IMDBToCSVParser{
 		String titlePart = tiles.get(0);
 		String yearPart = tiles.get(1).trim();
 		
-		String title = RegexHelper.findFirstOccurence(titlePart, ".+\\s\\(").replace("(", "").replace("\"", "").trim();
+		String title = RegexHelper.findFirstOccurence(titlePart, ".+?\\s\\(").replace("(", "").replace("\"", "").trim();
 		
 		writeCSV(title, yearPart);
 

@@ -46,7 +46,7 @@ public class IMDBAkaTitlesParser extends IMDBToCSVParser{
 			writeCSV(currentTitle, currentYear, alternativeTitle, alternativeYear, country, type);
 
 		}else{
-			currentTitle = RegexHelper.findFirstOccurence(line, "\".+\"").replace("\"", "");
+			currentTitle = RegexHelper.findFirstOccurence(line, "\".+?\"").replace("\"", "");
 			currentYear = RegexHelper.findFirstOccurence(line, "\\(\\d+\\)").replace("(", "").replace(")", "");
 		}		
 	}
