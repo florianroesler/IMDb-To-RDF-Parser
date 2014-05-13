@@ -1,9 +1,14 @@
 package edu.hpi.semweb.lod.crawl.imdb;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
+import java.util.Properties;
 
 import edu.hpi.semweb.lod.crawl.PlainTextCrawler;
 
@@ -12,6 +17,50 @@ public abstract class IMDBToCSVParser extends PlainTextCrawler{
 
 	private PrintWriter writer;
 	
+	private String pathToDump;
+	
+	protected abstract String defineFileName();
+	
+	
+	
+	public IMDBToCSVParser(){
+		
+		Properties prop = new Properties();
+		InputStream input = null;
+	 
+		try {
+	 
+			input = new FileInputStream("config/imdb.properties");
+	 
+			prop.load(input);
+	 
+			// get the property value and print it out
+			pathToDump = prop.getProperty("dump.path");
+
+	 
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally {
+			if (input != null) {
+				try {
+					input.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		boolean isDir = new File(pathToDump).isDirectory();
+		if(pathToDump == null || !isDir){
+			throw new IllegalArgumentException("Path to IMDB-dumps is not correctly defined. Currently defined Path is: "+pathToDump);
+		}
+		
+		try {
+			writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(defineInputFilePath()+".csv"), Charset.forName(defineEncoding())));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	@Override
 	public void run() {
@@ -19,14 +68,10 @@ public abstract class IMDBToCSVParser extends PlainTextCrawler{
 		closeWriter();
 	};
 	
-	
-	public IMDBToCSVParser(){
-		try {
-			writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(defineInputFilePath()+".csv"), Charset.forName(defineEncoding())));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
+	@Override
+	protected String defineInputFilePath() {
+		return pathToDump+defineFileName();
+	};
 	
 	protected void writeCSV(String... tiles){
 		if(tiles.length == 0) return;

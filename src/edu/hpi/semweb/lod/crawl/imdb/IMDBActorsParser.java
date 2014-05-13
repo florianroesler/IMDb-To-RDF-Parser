@@ -9,8 +9,8 @@ public class IMDBActorsParser extends IMDBToCSVParser{
 
 
 	@Override
-	protected String defineInputFilePath() {
-		return "/Users/froesler/Downloads/moviedb-3.24/lists/actors.list";
+	protected String defineFileName() {
+		return "actors.list";
 	}
 
 	@Override

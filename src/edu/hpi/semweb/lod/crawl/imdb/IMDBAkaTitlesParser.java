@@ -5,9 +5,10 @@ import java.util.List;
 public class IMDBAkaTitlesParser extends IMDBToCSVParser{
 	private String currentTitle;
 	private String currentYear;
+	
 	@Override
-	protected String defineInputFilePath() {
-		return "/Users/froesler/Downloads/moviedb-3.24/lists/aka-titles.list";
+	protected String defineFileName() {
+		return "aka-titles.list";
 	}
 
 	@Override

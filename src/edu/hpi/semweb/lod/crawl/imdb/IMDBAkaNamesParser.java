@@ -4,8 +4,8 @@ public class IMDBAkaNamesParser extends IMDBToCSVParser{
 
 	private String currentActor;
 	@Override
-	protected String defineInputFilePath() {
-		return "/Users/froesler/Downloads/moviedb-3.24/lists/aka-names.list";
+	protected String defineFileName() {
+		return "aka-names.list";
 	}
 
 	@Override

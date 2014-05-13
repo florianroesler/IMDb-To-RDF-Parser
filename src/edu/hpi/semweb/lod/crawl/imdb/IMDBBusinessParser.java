@@ -38,8 +38,8 @@ public class IMDBBusinessParser extends IMDBToCSVParser{
 	}	
 	
 	@Override
-	protected String defineInputFilePath() {
-		return "/Users/froesler/Downloads/moviedb-3.24/lists/business.list";
+	protected String defineFileName() {
+		return "business.list";
 
 	}
 

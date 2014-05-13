@@ -10,8 +10,8 @@ public class IMDBAlternateVersionsParser extends IMDBToCSVParser{
 	private List<StringBuilder> versions = new ArrayList<StringBuilder>();
 
 	@Override
-	protected String defineInputFilePath() {
-		return "/Users/froesler/Downloads/moviedb-3.24/lists/alternate-versions.list";
+	protected String defineFileName() {
+		return "alternate-versions.list";
 	}
 
 	@Override

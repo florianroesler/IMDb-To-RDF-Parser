@@ -7,8 +7,8 @@ public class IMDBRatingsParser extends IMDBToCSVParser{
 
 
 	@Override
-	protected String defineInputFilePath() {
-		return "/Users/froesler/Downloads/moviedb-3.24/lists/ratings.list";
+	protected String defineFileName() {
+		return "ratings.list";
 	}
 	
 

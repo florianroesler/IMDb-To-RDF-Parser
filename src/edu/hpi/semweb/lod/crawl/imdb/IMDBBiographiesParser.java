@@ -70,8 +70,8 @@ public class IMDBBiographiesParser extends IMDBToCSVParser{
 	}
 	
 	@Override
-	protected String defineInputFilePath() {
-		return "/Users/froesler/Downloads/moviedb-3.24/lists/biographies.list";
+	protected String defineFileName() {
+		return "biographies.list";
 	}
 
 	@Override
