@@ -1,8 +1,12 @@
-package edu.hpi.semweb.lod.crawl.imdb;
+package edu.hpi.semweb.lod.crawl.imdb.impl;
 
 import java.util.List;
 
-public class IMDBMiscFilmographyParser extends IMDBToCSVParser{
+import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBToCSVParser;
+import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
+
+public class MiscFilmographyParser extends IMDBToCSVParser{
 
 	@Override
 	protected String defineFileName() {

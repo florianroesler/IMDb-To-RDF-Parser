@@ -1,11 +1,14 @@
-package edu.hpi.semweb.lod.crawl.imdb;
+package edu.hpi.semweb.lod.crawl.imdb.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class IMDBBusinessParser extends IMDBToCSVParser{
+import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBToCSVParser;
+
+public class BusinessParser extends IMDBToCSVParser{
 
 	private String movieTitle;
 	private List<String>  rentals;
@@ -21,7 +24,7 @@ public class IMDBBusinessParser extends IMDBToCSVParser{
 
 	private Map<String, List<String>> listMappings = new HashMap<String, List<String>>();
 
-	public IMDBBusinessParser(){
+	public BusinessParser(){
 		movieTitle = "";
 		
 		listMappings.put("RT", rentals);

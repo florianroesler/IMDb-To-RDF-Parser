@@ -1,10 +1,12 @@
-package edu.hpi.semweb.lod.crawl.imdb;
+package edu.hpi.semweb.lod.crawl.imdb.impl;
 
-public class IMDBProductionDesigners extends IMDBGenericPersonParser{
+import edu.hpi.semweb.lod.crawl.imdb.IMDBGenericPersonParser;
+
+public class DirectorsParser extends IMDBGenericPersonParser{
 
 	@Override
 	protected String defineFileName() {
-		return "production-designers.list";
+		return "directors.list";
 	}
 
 	@Override

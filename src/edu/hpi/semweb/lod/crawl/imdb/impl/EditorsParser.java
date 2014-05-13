@@ -1,15 +1,17 @@
-package edu.hpi.semweb.lod.crawl.imdb;
+package edu.hpi.semweb.lod.crawl.imdb.impl;
 
-public class IMDBDirectorsParser extends IMDBGenericPersonParser{
+import edu.hpi.semweb.lod.crawl.imdb.IMDBGenericPersonParser;
+
+public class EditorsParser extends IMDBGenericPersonParser{
 
 	@Override
 	protected String defineFileName() {
-		return "directors.list";
+		return "editors.list";
 	}
 
 	@Override
 	protected String defineRelevanceStartingLine() {
-		return "----			------";
+		return "----                    ------";
 	}
 
 	@Override

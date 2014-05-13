@@ -1,4 +1,4 @@
-package edu.hpi.semweb.lod.crawl.imdb;
+package edu.hpi.semweb.lod.crawl.imdb.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +8,10 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class IMDBBiographiesParser extends IMDBToCSVParser{
+import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBToCSVParser;
+
+public class BiographiesParser extends IMDBToCSVParser{
 	
 
 	private List<String> articles;
@@ -39,7 +42,7 @@ public class IMDBBiographiesParser extends IMDBToCSVParser{
 
 	private Set<String> sortedStringKeys = new TreeSet<String>();
 	
-	public IMDBBiographiesParser(){
+	public BiographiesParser(){
 		listMappings.put("AR", articles);
 		listMappings.put("CV", covers);
 		listMappings.put("OW", otherWorks);

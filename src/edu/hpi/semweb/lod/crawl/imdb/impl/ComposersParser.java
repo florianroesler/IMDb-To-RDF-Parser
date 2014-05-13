@@ -1,10 +1,12 @@
-package edu.hpi.semweb.lod.crawl.imdb;
+package edu.hpi.semweb.lod.crawl.imdb.impl;
 
-public class IMDBCostumeDesigners extends IMDBGenericPersonParser{
+import edu.hpi.semweb.lod.crawl.imdb.IMDBGenericPersonParser;
+
+public class ComposersParser extends IMDBGenericPersonParser{
 
 	@Override
 	protected String defineFileName() {
-		return "costume-designers.list";
+		return "composers.list";
 	}
 
 	@Override

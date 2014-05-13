@@ -1,9 +1,12 @@
-package edu.hpi.semweb.lod.crawl.imdb;
+package edu.hpi.semweb.lod.crawl.imdb.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class IMDBAlternateVersionsParser extends IMDBToCSVParser{
+import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBToCSVParser;
+
+public class AlternateVersionsParser extends IMDBToCSVParser{
 
 	private String title = "";
 	private String year = "";

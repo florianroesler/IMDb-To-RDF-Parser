@@ -1,6 +1,6 @@
-package edu.hpi.semweb.lod.crawl.imdb;
+package edu.hpi.semweb.lod.crawl.imdb.impl;
 
-public class IMDBActressesParser extends IMDBActorsParser{
+public class ActressesParser extends ActorsParser{
 
 	@Override
 	protected String defineInputFilePath() {

@@ -1,6 +1,8 @@
-package edu.hpi.semweb.lod.crawl.imdb;
+package edu.hpi.semweb.lod.crawl.imdb.impl;
 
-public class IMDBProducersParser extends IMDBGenericPersonParser{
+import edu.hpi.semweb.lod.crawl.imdb.IMDBGenericPersonParser;
+
+public class ProducersParser extends IMDBGenericPersonParser{
 
 	@Override
 	protected String defineFileName() {
