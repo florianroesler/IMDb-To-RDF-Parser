@@ -22,7 +22,11 @@ import edu.hpi.semweb.lod.crawl.imdb.Config;
 import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
 public class Patcher {
-
+	
+	public static void patchFile(PatchFile originalFile, PatchFile patch){
+		CommandLineHelper.execCommand("patch " + originalFile.getFile().getAbsolutePath()+" < " + patch.getFile().getAbsolutePath());
+	}
+	
 	public static List<PatchJob> identifyPatchJobs(){
 		
 		Set<PatchFile> originalFiles = findFilesEligibleForPatch();

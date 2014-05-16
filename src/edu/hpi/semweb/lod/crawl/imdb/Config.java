@@ -55,6 +55,6 @@ public class Config {
 				}
 			}
 		}
-		return null;
+		return "";
 	}
 }

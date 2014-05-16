@@ -13,7 +13,7 @@ public class PrimitiveScheduler extends IScheduler{
 
 	public static void main(String[] args) throws IOException, ParseException{
 		for(PatchJob d:Patcher.identifyPatchJobs()){
-			System.out.println(d.getOriginalFile().getFile().getName() + ": "+ d.getPatchList().size());
+			d.patchToMostRecentVersion();
 		}
 	}
 }

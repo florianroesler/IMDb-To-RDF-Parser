@@ -1,6 +1,7 @@
 package edu.hpi.semweb.lod.crawl.imdb.diff;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PatchJob {
@@ -29,7 +30,13 @@ public class PatchJob {
 		return patchList;
 	}
 	
-	
+	public void patchToMostRecentVersion(){
+		Collections.sort(patchList);
+		Collections.reverse(patchList);
+		for(PatchFile patch:patchList){
+			Patcher.patchFile(originalFile, patch);
+		}
+	}
 	
 	
 	
