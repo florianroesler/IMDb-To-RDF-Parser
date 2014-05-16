@@ -1,14 +1,9 @@
 package edu.hpi.semweb.lod.crawl.imdb;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
-import java.util.Properties;
 
 import edu.hpi.semweb.lod.crawl.PlainTextCrawler;
 
@@ -25,15 +20,10 @@ public abstract class IMDBToCSVParser extends PlainTextCrawler{
 	
 	public IMDBToCSVParser(){
 		
-		pathToDump = ConfigReader.readPath();
-		
-		boolean isDir = new File(pathToDump).isDirectory();
-		if(pathToDump == null || !isDir){
-			throw new IllegalArgumentException("Path to IMDB-dumps is not correctly defined. Currently defined Path is: "+pathToDump);
-		}
+		pathToDump = Config.ROOTPATH;
 		
 		try {
-			writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(defineInputFilePath()+".csv"), Charset.forName(defineEncoding())));
+			writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(Config.PARSEDPATH+defineFileName()+"_parsed"), Charset.forName(defineEncoding())));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
