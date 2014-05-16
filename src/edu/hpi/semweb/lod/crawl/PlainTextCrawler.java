@@ -13,8 +13,8 @@ public abstract class PlainTextCrawler extends ICrawler{
 
 	private int lineCount = 0;
 	private boolean isInRelevantPart = false;
-	
-	
+
+
 	protected abstract String defineInputFilePath();
 	protected abstract String defineEncoding();
 	protected abstract void onNewLine(String line);
@@ -34,18 +34,20 @@ public abstract class PlainTextCrawler extends ICrawler{
 
 	private void readFile() throws IOException{
 		File file = new File(defineInputFilePath());
-			
+
 		lineCount = countLineNumbers(file);
 
-		
+
 		InputStreamReader streamReader = null;
 
 		if(defineEncoding()==null){
 			streamReader = new InputStreamReader(new FileInputStream(file));
 		}else{
 			streamReader = new InputStreamReader(new FileInputStream(file), Charset.forName(defineEncoding()));
-		}		BufferedReader reader = new BufferedReader(streamReader);
-		
+		}		
+
+		BufferedReader reader = new BufferedReader(streamReader);
+
 		String line = null;
 		int count = 0;
 		int recentProgress = 0;
@@ -56,7 +58,7 @@ public abstract class PlainTextCrawler extends ICrawler{
 				recentProgress = progress;
 				System.out.print(recentProgress+"%\r");
 			}
-			
+
 			if(isInRelevantPart){
 				if(defineRelevanceEndingLine()!=null && line.equals(defineRelevanceEndingLine())){
 					isInRelevantPart = false;
@@ -74,9 +76,9 @@ public abstract class PlainTextCrawler extends ICrawler{
 		System.out.println("DONE\n");
 
 	}
-	
+
 	private int countLineNumbers(File f) throws IOException{
-		
+
 		LineNumberReader  lnr = new LineNumberReader(new FileReader(f));
 		lnr.skip(Long.MAX_VALUE);
 		int count = lnr.getLineNumber();

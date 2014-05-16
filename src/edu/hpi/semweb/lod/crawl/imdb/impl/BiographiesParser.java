@@ -13,7 +13,8 @@ import edu.hpi.semweb.lod.crawl.imdb.IMDBToCSVParser;
 
 public class BiographiesParser extends IMDBToCSVParser{
 	
-
+	// all these attributes are not really neccessary but shall 
+	// give insight into the mapping of the found abbreviations to their respective meaning
 	private List<String> articles;
 	private List<String> covers;
 	private List<String> otherWorks;

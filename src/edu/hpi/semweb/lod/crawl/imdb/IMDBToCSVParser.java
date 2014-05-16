@@ -25,30 +25,7 @@ public abstract class IMDBToCSVParser extends PlainTextCrawler{
 	
 	public IMDBToCSVParser(){
 		
-		Properties prop = new Properties();
-		InputStream input = null;
-	 
-		try {
-	 
-			input = new FileInputStream("config/imdb.properties");
-	 
-			prop.load(input);
-	 
-			// get the property value and print it out
-			pathToDump = prop.getProperty("dump.path");
-
-	 
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		} finally {
-			if (input != null) {
-				try {
-					input.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+		pathToDump = ConfigReader.readPath();
 		
 		boolean isDir = new File(pathToDump).isDirectory();
 		if(pathToDump == null || !isDir){
