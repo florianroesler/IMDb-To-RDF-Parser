@@ -6,15 +6,15 @@ import java.util.regex.Pattern;
 public class RegexHelper {
 
 	public static String findFirstOccurence(String target, String pattern){
-		 Pattern p = Pattern.compile(pattern);
+		Pattern p = Pattern.compile(pattern);
 
-		    Matcher matcher = p.matcher(target);
-		    
-		    if (matcher.find()) {
-		      return matcher.group();
-		    }else{
-		    	return "";
-		    }
+		Matcher matcher = p.matcher(target);
+
+		if (matcher.find()) {
+			return matcher.group();
+		}else{
+			return "";
+		}
 	}
 
 }

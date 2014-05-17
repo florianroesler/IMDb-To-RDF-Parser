@@ -27,6 +27,10 @@ public class Patcher {
 		CommandLineHelper.execCommand("patch " + originalFile.getFile().getAbsolutePath()+" < " + patch.getFile().getAbsolutePath());
 	}
 	
+	public static void unPatchFile(PatchFile originalFile, PatchFile patch){
+		CommandLineHelper.execCommand("patch -R " + originalFile.getFile().getAbsolutePath()+" < " + patch.getFile().getAbsolutePath());
+	}
+	
 	public static List<PatchJob> identifyPatchJobs(){
 		
 		Set<PatchFile> originalFiles = findFilesEligibleForPatch();
@@ -62,9 +66,20 @@ public class Patcher {
 		return new ArrayList<PatchJob>(patchJobs.values());
 	}
 	
+	public static Date retrieveOldestPatchDate(){
+		Date oldestDate = new Date();
+		for(PatchFile p:findFilesEligibleForPatch()){
+			if(p.getPatchDate().before(oldestDate)){
+				oldestDate = p.getPatchDate();
+				System.out.println(p.getFile().getName());
+			}
+		}
+		return oldestDate;
+	}
+	
 	private static Set<PatchFile> findFilesEligibleForPatch(){
 		try {
-			return getPatchDates(false);
+			return getDumpFiles(false);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
@@ -75,7 +90,7 @@ public class Patcher {
 	
 	private static Set<PatchFile> findPatches(){
 		try {
-			return getPatchDates(true);
+			return getDumpFiles(true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
@@ -84,7 +99,7 @@ public class Patcher {
 		return new TreeSet<PatchFile>();
 	}
 	
-	private static Set<PatchFile> getPatchDates(boolean isPatch) throws IOException, ParseException{
+	private static Set<PatchFile> getDumpFiles(boolean isPatch) throws IOException, ParseException{
 		String pathToFiles = "";
 		if(isPatch){
 			pathToFiles = Config.DIFFPATH;
@@ -124,14 +139,12 @@ public class Patcher {
 			
 			//deal with cases where files have no changes etc
 			if(firstLine == null){
-				System.out.println(f.getName()+" does not contain patch date!");
 				continue;
 			}
 			
 			String dateLine = RegexHelper.findFirstOccurence(firstLine, "Date:\\s.+");
 			
 			if(!dateLine.contains("Date:")){
-				System.out.println(f.getName()+" does not contain patch date!");
 				continue;
 			}
 			String dateString = dateLine.replace("Date:", "").trim();
