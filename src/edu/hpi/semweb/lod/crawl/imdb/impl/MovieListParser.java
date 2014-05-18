@@ -27,6 +27,11 @@ public class MovieListParser extends IMDBToCSVParser {
 		if(line.contains("{")) return;
 		
 		if(line.startsWith(" ")){
+			//List<String> tiles = CleaningHelper.removeEmptyElements(line.trim().split("\t"));
+			//String titlePart = tiles.get(0);
+
+			//List<String> titleTiles = CleaningHelper.removeEmptyElements(titlePart.trim().replace("(aka ", "").split("\\("));
+			//String alternativeTitle = titleTiles.get(0).trim().replace("\"", "");
 			currentFilm = line;
 			currentFilm = currentFilm.replace("{{SUSPENDED}}", "").replace("(TV)", "").replace("(V)", "").replaceAll("\\(\\d+\\)", "").replace("(VG)", "").replace("(????)", "");
 			tripleComplete = true;
@@ -56,6 +61,23 @@ public class MovieListParser extends IMDBToCSVParser {
 		
 		if (tripleComplete) writeCSV(baseFilm, tripleType, currentFilm);
 
+
+		/*	if(line.startsWith(" ")){
+		
+			if(line.startsWith("  (follows")) {
+				return;
+			}
+			if(line.startsWith("  (followed by")) {
+				return;
+			}
+			if(line.startsWith("  (version of")) {
+				return;
+			}
+			if(line.startsWith("  (alternate language version of")) {
+				return;
+			}
+			writeCSV(line);
+		}*/
 	}
 
 	@Override
