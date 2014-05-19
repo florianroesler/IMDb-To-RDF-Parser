@@ -16,5 +16,17 @@ public class RegexHelper {
 			return "";
 		}
 	}
+	
+	public static String returnGroup(String target, String pattern, int group){
+		Pattern p = Pattern.compile(pattern);
+
+		Matcher matcher = p.matcher(target);
+
+		if (matcher.find()) {
+			return matcher.group(group);
+		}else{
+			return "";
+		}
+	}
 
 }
