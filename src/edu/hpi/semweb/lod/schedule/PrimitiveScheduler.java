@@ -15,11 +15,6 @@ public class PrimitiveScheduler extends IScheduler{
 
 
 	public static void main(String[] args) throws IOException, ParseException{
-		Date d = Patcher.retrieveOldestPatchDate();
-		FTPConnection conn = new FTPConnection();
-		for(FTPFile f:conn.retrieveRelevantDiffFiles(d).values()){
-			conn.downloadFileToDiffFolder(f);
-			
-		}
+		new FTPConnection().downloadMissingDiffs();
 	}
 }
