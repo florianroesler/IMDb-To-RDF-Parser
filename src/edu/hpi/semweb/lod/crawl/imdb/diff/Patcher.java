@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -22,6 +23,14 @@ import edu.hpi.semweb.lod.crawl.imdb.Config;
 import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
 public class Patcher {
+	
+	
+	private static final Set<String> ignoreFiles = new HashSet<String>();
+	static{
+		ignoreFiles.add("complete-cast.list");
+		ignoreFiles.add("complete-crew.list");
+		ignoreFiles.add("laserdisc.list");
+	}
 	
 	public static void patchFile(PatchFile originalFile, PatchFile patch){
 		CommandLineHelper.execCommand("patch " + originalFile.getFile().getAbsolutePath()+" < " + patch.getFile().getAbsolutePath());
@@ -71,7 +80,6 @@ public class Patcher {
 		for(PatchFile p:findFilesEligibleForPatch()){
 			if(p.getPatchDate().before(oldestDate)){
 				oldestDate = p.getPatchDate();
-				System.out.println(p.getFile().getName());
 			}
 		}
 		return oldestDate;
@@ -124,7 +132,7 @@ public class Patcher {
 		Set<PatchFile> dates = new TreeSet<PatchFile>();
 		
 		for(File f:diffFiles){
-			if(!f.getName().endsWith(".list")) continue;
+			if(!f.getName().endsWith(".list") || ignoreFiles.contains(f.getName())) continue;
 			InputStreamReader streamReader = new InputStreamReader(new FileInputStream(f));
 			BufferedReader reader = new BufferedReader(streamReader);
 			
