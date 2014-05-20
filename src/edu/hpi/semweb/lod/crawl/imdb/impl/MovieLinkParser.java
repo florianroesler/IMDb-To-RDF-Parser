@@ -27,13 +27,7 @@ public class MovieLinkParser extends IMDBToCSVParser {
 		if(line.contains("{")) return;
 		
 		if(line.startsWith(" ")){
-			//List<String> tiles = CleaningHelper.removeEmptyElements(line.trim().split("\t"));
-			//String titlePart = tiles.get(0);
-
-			//List<String> titleTiles = CleaningHelper.removeEmptyElements(titlePart.trim().replace("(aka ", "").split("\\("));
-			//String alternativeTitle = titleTiles.get(0).trim().replace("\"", "");
 			currentFilm = line;
-			currentFilm = currentFilm.replace("{{SUSPENDED}}", "").replace("(TV)", "").replace("(V)", "").replaceAll("\\(\\d+\\)", "").replace("(VG)", "").replace("(????)", "");
 			tripleComplete = true;
 			if(currentFilm.startsWith("  (follows ")) {
 				tripleType = "follows";
@@ -44,40 +38,23 @@ public class MovieLinkParser extends IMDBToCSVParser {
 				currentFilm = currentFilm.replace("  (followed by ", "");
 			}
 			if(currentFilm.startsWith("  (version of ")) {
-				tripleType = "relatedTo/remake";
+				tripleType = "version of";
 				currentFilm = currentFilm.replace("  (version of ", "");
 			}
 			if(currentFilm.startsWith("  (alternate language version of ")) {
-				tripleType = "different_language";
+				tripleType = "alternate language version of";
 				currentFilm = currentFilm.replace("  (alternate language version of ", "");
 			}
-			currentFilm = currentFilm.substring(0, currentFilm.length()-2).replace("\"", "");
+			currentFilm = currentFilm.substring(0, currentFilm.length()-1).replace("\"", "").trim();
 
 
 		}else{
-			baseFilm = line.replace("{{SUSPENDED}}", "").replace("(TV)", "").replace("(V)", "").replaceAll("\\(\\d+\\)", "").replace("(VG)", "").replace("(????)", "").trim();
+			baseFilm = line.replace("\"", "").trim();
 			tripleComplete = false;
 		}	
 		
 		if (tripleComplete) writeCSV(baseFilm, tripleType, currentFilm);
 
-
-		/*	if(line.startsWith(" ")){
-		
-			if(line.startsWith("  (follows")) {
-				return;
-			}
-			if(line.startsWith("  (followed by")) {
-				return;
-			}
-			if(line.startsWith("  (version of")) {
-				return;
-			}
-			if(line.startsWith("  (alternate language version of")) {
-				return;
-			}
-			writeCSV(line);
-		}*/
 	}
 
 	@Override

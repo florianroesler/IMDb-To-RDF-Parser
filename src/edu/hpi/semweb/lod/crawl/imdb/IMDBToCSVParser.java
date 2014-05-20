@@ -52,6 +52,28 @@ public abstract class IMDBToCSVParser extends PlainTextCrawler{
 		writer.write(builder.toString());
 	}
 	
+	protected void writeRDF(String s, String p, String o, String sType, String pType, String oType){
+		String sT = "movie";
+		String pT = "resource";
+		String oT = "movie";
+		
+		if(s.length() == 0 || p.length() == 0 || o.length() == 0) return;
+		StringBuilder builder = new StringBuilder();
+
+		if(sType == "person") sT = "actor";
+		if(oType == "person") oT = "actor";
+		builder.append("<http://www.imdb.com/"+sT+"/");
+		builder.append(s+">,");
+		builder.append("<http://www.imdb.com/"+pT+"/");
+		builder.append(p+">,");
+		builder.append("<http://www.imdb.com/"+oT+"/");
+		builder.append(o+">,");
+		
+		builder.deleteCharAt(builder.length()-1);
+		builder.append("\n");
+		writer.write(builder.toString());
+	}
+	
 	private void closeWriter(){
 		writer.close();
 	}

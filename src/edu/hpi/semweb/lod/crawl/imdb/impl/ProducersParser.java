@@ -33,7 +33,7 @@ public class ProducersParser extends IMDBGenericPersonParser{
 				//thats a new producer and a trailing movie
 				producer = CleaningHelper.cleanActorName(tiles.get(0));
 				currentFilm = tiles.get(1);
-				producer = producer.replace("{{SUSPENDED}}", "").replace("(TV)", "").replace("(V)", "").replaceAll("\\(\\d+\\)", "").replace("(VG)", "").replace("(????)", "").replaceAll("\\(.*?\\)","").trim();
+				producer = producer.replace("(TV)", "").replace("(V)", "").replaceAll("\\(\\d+\\)", "").replace("(VG)", "").replace("(????)", "").replaceAll("\\(.*?\\)","").trim();
 			}
 			if ((localType = RegexHelper.returnGroup(currentFilm, "\\(([^\\(]*producer[^\\)]*)\\)", 1)) != "") {
 				type = localType;
@@ -41,7 +41,7 @@ public class ProducersParser extends IMDBGenericPersonParser{
 			else {
 				type = "producer";
 			}
-			currentFilm = currentFilm.replace("{{SUSPENDED}}", "").trim();
+			currentFilm = currentFilm.trim();
 		}	
 	currentFilm = currentFilm.replaceAll("\\([^\\(]*producer.*\\)","").replaceAll("\\(as [^\\)]*\\)","");
 	
