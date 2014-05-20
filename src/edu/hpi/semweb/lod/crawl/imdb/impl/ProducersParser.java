@@ -19,14 +19,13 @@ public class ProducersParser extends IMDBGenericPersonParser{
 		
 		if(line.startsWith("\t")){
 			currentFilm = line;
-			currentFilm = currentFilm.replace("{{SUSPENDED}}", "").replace("(TV)", "").replace("(V)", "").replaceAll("\\(\\d+\\)", "").replace("(VG)", "").replace("(????)", "").replaceAll("\t","").replace("\"","").trim();
+			currentFilm = currentFilm.replace("{{SUSPENDED}}", "").trim();
 			if ((localType = RegexHelper.returnGroup(currentFilm, "\\(([^\\(]*producer[^\\)]*)\\)", 1)) != "") {
 				type = localType;
 			}
 			else {
 				type = "producer";
 			}
-			currentFilm = currentFilm.replaceAll("\\(.*?\\)","");
 		
 		}else{
 			List<String> tiles = CleaningHelper.removeEmptyElements(line.split("\t"));
@@ -42,8 +41,9 @@ public class ProducersParser extends IMDBGenericPersonParser{
 			else {
 				type = "producer";
 			}
-			currentFilm = currentFilm.replace("{{SUSPENDED}}", "").replace("(TV)", "").replace("(V)", "").replaceAll("\\(\\d+\\)", "").replace("(VG)", "").replace("(????)", "").replaceAll("\t","").replace("\"","").replaceAll("\\(.*?\\)","").trim();
+			currentFilm = currentFilm.replace("{{SUSPENDED}}", "").trim();
 		}	
+	currentFilm = currentFilm.replaceAll("\\([^\\(]*producer.*\\)","").replaceAll("\\(as [^\\)]*\\)","");
 	
 	writeCSV(producer, type, currentFilm);
 		
