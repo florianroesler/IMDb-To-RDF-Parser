@@ -15,6 +15,7 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
@@ -30,6 +31,7 @@ public class FTPConnection {
 			client.connect(Config.FTPSERVER);
 			client.login(Config.FTPUSER, Config.FTPPASSWORD);
 			String reply = client.getStatus();
+		    client.setFileType(FTP.BINARY_FILE_TYPE);
 			client.changeWorkingDirectory(Config.FTPPATH);
 		} catch (SocketException e) {
 			e.printStackTrace();
@@ -38,38 +40,12 @@ public class FTPConnection {
 		}
 
 	}
-	
-	public void downloadMissingDiffs(){
-		Date d = Patcher.retrieveOldestPatchDate();
-		FTPConnection conn = new FTPConnection();
-		Collection<FTPFile> diffFiles = conn.retrieveRelevantDiffFiles(d).values();	
-		
-		for(FTPFile f:filterAlreadyExistantFiles(diffFiles)){
-			conn.downloadFileToDiffFolder(f);
-			
-		}
-	}
-	
-	private Collection<FTPFile> filterAlreadyExistantFiles(Collection<FTPFile> diffFiles){
-		Collection<FTPFile> notExistantFiles = new ArrayList<FTPFile>();
-		for(FTPFile f: diffFiles){
-			File localFile = new File(Config.DIFFPATH+ f.getName());
-			long localFileSize = localFile.length();
-			long ftpFileSize = f.getSize();
-			System.out.println(localFileSize+" "+ftpFileSize);
-			if(!localFile.exists()){
-				notExistantFiles.add(f);
-			}
-		}
-		return notExistantFiles;
-	}
 
 	public void disconnect(){
 		try {
 			client.logout();
 			client.disconnect();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -115,7 +91,6 @@ public class FTPConnection {
 			output.close();
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
