@@ -6,7 +6,7 @@ import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBToCSVParser;
 import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
-public class MovieListParser extends IMDBToCSVParser {
+public class MovieLinkParser extends IMDBToCSVParser {
 	private String currentFilm;
 	private String baseFilm;
 	private boolean tripleComplete;
