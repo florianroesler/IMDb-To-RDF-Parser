@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
-import edu.hpi.semweb.lod.crawl.imdb.IMDBToCSVParser;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 
-public class BusinessParser extends IMDBToCSVParser{
+public class BusinessParser extends IMDBParser{
 
 	private String movieTitle;
 	private List<String>  rentals;

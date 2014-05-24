@@ -2,10 +2,10 @@ package edu.hpi.semweb.lod.crawl.imdb.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.hpi.semweb.lod.crawl.imdb.IMDBToCSVParser;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 
 
-public class RatingsParser extends IMDBToCSVParser{
+public class RatingsParser extends IMDBParser{
 
 
 	@Override

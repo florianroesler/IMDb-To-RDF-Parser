@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Simple Parser for IMDB-dumps that follow the same structure as the directors.list
  */
-public abstract class IMDBGenericPersonParser extends IMDBToCSVParser{
+public abstract class IMDBGenericPersonParser extends IMDBParser{
 
 	
 	private String currentPerson;

@@ -8,7 +8,7 @@ import java.nio.charset.Charset;
 import edu.hpi.semweb.lod.crawl.PlainTextCrawler;
 
 
-public abstract class IMDBToCSVParser extends PlainTextCrawler{
+public abstract class IMDBParser extends PlainTextCrawler{
 
 	private PrintWriter writer;
 	
@@ -18,7 +18,7 @@ public abstract class IMDBToCSVParser extends PlainTextCrawler{
 	
 	
 	
-	public IMDBToCSVParser(){
+	public IMDBParser(){
 		
 		pathToDump = Config.ROOTPATH;
 		

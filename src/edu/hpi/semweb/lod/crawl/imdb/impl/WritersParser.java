@@ -3,10 +3,10 @@ package edu.hpi.semweb.lod.crawl.imdb.impl;
 import java.util.List;
 
 import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
-import edu.hpi.semweb.lod.crawl.imdb.IMDBToCSVParser;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
-public class WritersParser extends IMDBToCSVParser{
+public class WritersParser extends IMDBParser{
 
 	@Override
 	protected String defineFileName() {

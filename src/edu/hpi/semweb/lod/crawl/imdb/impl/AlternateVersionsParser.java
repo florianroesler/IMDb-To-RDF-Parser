@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
-import edu.hpi.semweb.lod.crawl.imdb.IMDBToCSVParser;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 
-public class AlternateVersionsParser extends IMDBToCSVParser{
+public class AlternateVersionsParser extends IMDBParser{
 
 	private String title = "";
 	private String year = "";

@@ -9,9 +9,9 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
-import edu.hpi.semweb.lod.crawl.imdb.IMDBToCSVParser;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 
-public class BiographiesParser extends IMDBToCSVParser{
+public class BiographiesParser extends IMDBParser{
 	
 	// all these attributes are not really neccessary but shall 
 	// give insight into the mapping of the found abbreviations to their respective meaning

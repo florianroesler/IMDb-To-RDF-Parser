@@ -1,14 +1,17 @@
 package edu.hpi.semweb.lod.crawl.imdb.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import edu.hpi.semweb.lod.crawl.PlainTextCrawler;
 import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
-import edu.hpi.semweb.lod.crawl.imdb.IMDBToCSVParser;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
-public class MoviesParser extends IMDBToCSVParser{
+public class MoviesParser extends IMDBParser{
 
+	Map<String,Integer> map = new HashMap<String, Integer>();
+	
 	@Override
 	protected String defineFileName() {
 		return "movies.list";
@@ -20,13 +23,18 @@ public class MoviesParser extends IMDBToCSVParser{
 		
 		List<String> tiles = CleaningHelper.removeEmptyElements(line.split("\t"));
 		
-		String titlePart = tiles.get(0);
-		String yearPart = tiles.get(1).trim();
+		//String titlePart = tiles.get(0);
+		//String yearPart = tiles.get(1).trim();
 		
-		String title = RegexHelper.findFirstOccurence(titlePart, ".+?\\s\\(").replace("(", "").replace("\"", "").trim();
+		//String title = RegexHelper.findFirstOccurence(titlePart, ".+?\\s\\(").replace("(", "").replace("\"", "").trim();
 		
-		writeCSV(title, yearPart);
-
+		String titleAndYear = CleaningHelper.uniquifyMovie(line);
+		writeCSV(titleAndYear);
+		if(!map.containsKey(titleAndYear)){
+			map.put(titleAndYear, 1);
+		}else{
+			map.put(titleAndYear, map.get(titleAndYear)+1);
+		}
 	}
 
 	@Override
@@ -46,8 +54,12 @@ public class MoviesParser extends IMDBToCSVParser{
 
 	@Override
 	protected void onFileEnd() {
-		// TODO Auto-generated method stub
-		
+
+		for(String s:map.keySet()){
+			if(map.get(s)>1){
+				System.out.println(s+": "+map.get(s));
+			}
+		}
 	}
 
 }

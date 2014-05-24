@@ -1,10 +1,10 @@
 package edu.hpi.semweb.lod.crawl.imdb.impl;
 
 import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
-import edu.hpi.semweb.lod.crawl.imdb.IMDBToCSVParser;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
-public class AkaNamesParser extends IMDBToCSVParser{
+public class AkaNamesParser extends IMDBParser{
 
 	private String currentActor;
 	@Override
