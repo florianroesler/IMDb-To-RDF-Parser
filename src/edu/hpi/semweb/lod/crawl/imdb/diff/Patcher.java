@@ -36,6 +36,7 @@ public class Patcher {
 	}
 	
 	public static void patch(){
+		
 		downloadMissingDiffs();
 		Decompressor.decompressDiffs(true);
 
@@ -69,6 +70,16 @@ public class Patcher {
 		return notExistantFiles;
 	}
 	
+	public static void copyPatchjobFilesToPatchedFolder(){
+		File originalDir = new File(Config.ORIGINALPATH);
+		for(File f: originalDir.listFiles()){
+			String fileName = f.getName();
+			if(f.isDirectory() || !fileName.endsWith(".list") || ignoreFiles.contains(fileName)) continue;
+			System.out.println("Copying File: "+fileName);
+			CommandLineHelper.execCommand("cp " + f.getAbsolutePath()+" " + Config.PATCHEDPATH+fileName);
+		}
+	}
+	
 	public static void patchFile(PatchFile originalFile, PatchFile patch){
 		CommandLineHelper.execCommand("patch " + originalFile.getFile().getAbsolutePath()+" < " + patch.getFile().getAbsolutePath());
 	}
@@ -81,7 +92,7 @@ public class Patcher {
 		CommandLineHelper.execCommand("diff " + f1.getAbsolutePath()+" " + f2.getAbsolutePath() + " >" + output.getAbsolutePath());
 	}
 	
-	private static List<PatchJob> identifyPatchJobs(){
+	public static List<PatchJob> identifyPatchJobs(){
 		
 		Set<PatchFile> originalFiles = findFilesEligibleForPatch();
 		Set<PatchFile> availablePatches = findPatches();
@@ -153,7 +164,7 @@ public class Patcher {
 		if(isPatch){
 			pathToFiles = Config.DIFFPATH;
 		}else{
-			pathToFiles = Config.ROOTPATH;
+			pathToFiles = Config.PATCHEDPATH;
 		}
 		
 		File dir = new File(pathToFiles);

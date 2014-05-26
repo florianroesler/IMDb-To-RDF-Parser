@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBMovie;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
@@ -33,7 +34,8 @@ public class MoviesParser extends IMDBParser{
 		
 		//String title = RegexHelper.findFirstOccurence(titlePart, ".+?\\s\\(").replace("(", "").replace("\"", "").trim();
 		
-		String titleAndYear = CleaningHelper.uniquifyMovie(line);
+		IMDBMovie movie = new IMDBMovie(line);
+		String titleAndYear = movie.toString();
 		writeCSV(titleAndYear);
 		if(!map.containsKey(titleAndYear)){
 			map.put(titleAndYear, 1);
