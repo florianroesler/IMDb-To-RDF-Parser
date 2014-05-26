@@ -7,19 +7,32 @@ public class CleaningHelper {
 
 	public static String uniquifyMovie(String movie){
 		boolean tvSeries = movie.contains("\"");
+		movie = movie.replace("\"", "");
+		
 		boolean tvMovie = movie.contains("(TV)");
+		movie = movie.replace("(TV)", "");
+
 		boolean videoGame = movie.contains("(VG)");
+		movie = movie.replace("(VG)", "");
+
 		boolean videoMovie = movie.contains("(V)");
+		movie = movie.replace("(V)", "");
+
 		boolean mini = movie.contains("(mini)");
+		movie = movie.replace("(mini)", "");
+
 		
 		String quarter = "";
-		String year = RegexHelper.findFirstOccurence(movie, "\\((\\d+|\\?{4})(/\\w+)?\\)");
+		String yearRegex = "\\((\\d+|\\?{4})(/\\w+)?\\)";
+		String year = RegexHelper.findFirstOccurence(movie, yearRegex);
 		year = CleaningHelper.removeRoundBrackets(year);
 		if(year.contains("/")){
 			quarter = year.split("/")[1];
 		}
-		String title = RegexHelper.findFirstOccurence(movie, ".+?\\s\\(([^\\d].+\\s)?").replace("(", "").replace("\"", "").trim();
+		String movieWithoutYear = movie.replaceAll(yearRegex, "");
 		
+		//String title = RegexHelper.findFirstOccurence(movie, ".+?\\s\\(([^\\d].+\\s)?").replace("(", "").replace("\"", "").trim();
+		String title = movieWithoutYear.split("\t")[0].replace("\"", "").trim();
 		StringBuilder builder = new  StringBuilder(title.replace(" ", "_"));
 		
 		if(year.length()>0){
