@@ -8,6 +8,11 @@ import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
 public class MiscFilmographyParser extends IMDBParser{
 
+	public MiscFilmographyParser(boolean isPatchedFile) {
+		super(isPatchedFile);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	protected String defineFileName() {
 		return "miscellaneous.list";

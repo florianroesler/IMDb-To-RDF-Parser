@@ -6,6 +6,11 @@ import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
 public class AkaNamesParser extends IMDBParser{
 
+	public AkaNamesParser(boolean isPatchedFile) {
+		super(isPatchedFile);
+		// TODO Auto-generated constructor stub
+	}
+
 	private String currentActor;
 	@Override
 	protected String defineFileName() {

@@ -8,6 +8,11 @@ import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
 public class WritersParser extends IMDBParser{
 
+	public WritersParser(boolean isPatchedFile) {
+		super(isPatchedFile);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	protected String defineFileName() {
 		return "writers.list";

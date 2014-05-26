@@ -8,6 +8,12 @@ import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 public class RatingsParser extends IMDBParser{
 
 
+	public RatingsParser(boolean isPatchedFile) {
+		super(isPatchedFile);
+		// TODO Auto-generated constructor stub
+	}
+
+
 	@Override
 	protected String defineFileName() {
 		return "ratings.list";

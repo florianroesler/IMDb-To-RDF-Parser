@@ -10,6 +10,11 @@ import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
 public class MoviesParser extends IMDBParser{
 
+	public MoviesParser(boolean isPatchedFile) {
+		super(isPatchedFile);
+		// TODO Auto-generated constructor stub
+	}
+
 	Map<String,Integer> map = new HashMap<String, Integer>();
 	
 	@Override

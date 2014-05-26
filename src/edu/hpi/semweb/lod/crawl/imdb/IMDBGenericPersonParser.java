@@ -8,6 +8,10 @@ import java.util.List;
 public abstract class IMDBGenericPersonParser extends IMDBParser{
 
 	
+	public IMDBGenericPersonParser(boolean isPatchedFile) {
+		super(isPatchedFile);
+	}
+
 	private String currentPerson;
 	
 

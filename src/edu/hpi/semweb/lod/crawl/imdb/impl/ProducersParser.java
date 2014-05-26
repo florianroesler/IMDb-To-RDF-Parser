@@ -7,6 +7,11 @@ import edu.hpi.semweb.lod.crawl.imdb.IMDBGenericPersonParser;
 import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
 public class ProducersParser extends IMDBGenericPersonParser{
+	public ProducersParser(boolean isPatchedFile) {
+		super(isPatchedFile);
+		// TODO Auto-generated constructor stub
+	}
+
 	private String type;
 	private String localType;
 	private String currentFilm;

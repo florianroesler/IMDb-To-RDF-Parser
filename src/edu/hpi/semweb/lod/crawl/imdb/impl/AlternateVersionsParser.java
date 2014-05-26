@@ -8,6 +8,11 @@ import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 
 public class AlternateVersionsParser extends IMDBParser{
 
+	public AlternateVersionsParser(boolean isPatchedFile) {
+		super(isPatchedFile);
+		// TODO Auto-generated constructor stub
+	}
+
 	private String title = "";
 	private String year = "";
 	private List<StringBuilder> versions = new ArrayList<StringBuilder>();

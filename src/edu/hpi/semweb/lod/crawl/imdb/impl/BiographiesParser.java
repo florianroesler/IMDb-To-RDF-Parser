@@ -43,7 +43,8 @@ public class BiographiesParser extends IMDBParser{
 
 	private Set<String> sortedStringKeys = new TreeSet<String>();
 	
-	public BiographiesParser(){
+	public BiographiesParser(boolean isPatchedFile){
+		super(isPatchedFile);
 		listMappings.put("AR", articles);
 		listMappings.put("CV", covers);
 		listMappings.put("OW", otherWorks);

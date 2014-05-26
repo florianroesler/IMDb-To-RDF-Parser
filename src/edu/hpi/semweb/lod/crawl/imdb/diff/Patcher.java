@@ -77,6 +77,10 @@ public class Patcher {
 		CommandLineHelper.execCommand("patch -R " + originalFile.getFile().getAbsolutePath()+" < " + patch.getFile().getAbsolutePath());
 	}
 	
+	public static void diffFiles(File f1, File f2, File output){
+		CommandLineHelper.execCommand("diff " + f1.getAbsolutePath()+" " + f2.getAbsolutePath() + " >" + output.getAbsolutePath());
+	}
+	
 	private static List<PatchJob> identifyPatchJobs(){
 		
 		Set<PatchFile> originalFiles = findFilesEligibleForPatch();

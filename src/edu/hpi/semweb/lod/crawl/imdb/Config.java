@@ -24,8 +24,12 @@ public class Config {
 
 	public static final String DIFFPATH = ROOTPATH+"diffs/";
 
-	public static final String PARSEDPATH = ROOTPATH+"parsed/";
 
+	public static final String ORIGINALPATH = ROOTPATH+"original/";
+	public static final String ORIGINALPARSEDPATH = ORIGINALPATH+"parsed/";
+	
+	public static final String PATCHEDPATH = ROOTPATH+"patched/";
+	public static final String PATCHEDPARSEDPATH = PATCHEDPATH+"parsed/";
 	
 	public static final String FTPSERVER = properties.getProperty("ftp.server");
 	public static final String FTPPATH = properties.getProperty("ftp.path");
@@ -39,7 +43,7 @@ public class Config {
 			throw new IllegalArgumentException("Path to IMDB-dumps is not correctly defined. Please check the config.");
 		}
 
-		for(String path: new String[]{DIFFPATH,PARSEDPATH}){
+		for(String path: new String[]{DIFFPATH,ORIGINALPATH,ORIGINALPARSEDPATH,PATCHEDPATH,PATCHEDPARSEDPATH}){
 			File subDir = new File(path);
 			boolean isDir = subDir.isDirectory();
 			if(!isDir){

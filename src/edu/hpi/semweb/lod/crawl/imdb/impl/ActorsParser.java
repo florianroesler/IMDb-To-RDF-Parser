@@ -9,6 +9,10 @@ import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
 public class ActorsParser extends IMDBParser{
 
+	public ActorsParser(boolean isPatchedFile) {
+		super(isPatchedFile);
+	}
+
 	private String currentActor = "";
 
 

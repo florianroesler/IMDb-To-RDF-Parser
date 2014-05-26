@@ -7,6 +7,11 @@ import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
 public class MovieLinkParser extends IMDBParser {
+	public MovieLinkParser(boolean isPatchedFile) {
+		super(isPatchedFile);
+		// TODO Auto-generated constructor stub
+	}
+
 	private String currentFilm;
 	private String baseFilm;
 	private boolean tripleComplete;

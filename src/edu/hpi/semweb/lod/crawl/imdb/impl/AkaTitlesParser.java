@@ -7,6 +7,11 @@ import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
 public class AkaTitlesParser extends IMDBParser{
+	public AkaTitlesParser(boolean isPatchedFile) {
+		super(isPatchedFile);
+		// TODO Auto-generated constructor stub
+	}
+
 	private String currentTitle;
 	private String currentYear;
 	

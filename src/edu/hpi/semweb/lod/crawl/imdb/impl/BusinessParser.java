@@ -24,7 +24,8 @@ public class BusinessParser extends IMDBParser{
 
 	private Map<String, List<String>> listMappings = new HashMap<String, List<String>>();
 
-	public BusinessParser(){
+	public BusinessParser(boolean isPatchedFile){
+		super(isPatchedFile);
 		movieTitle = "";
 		
 		listMappings.put("RT", rentals);
