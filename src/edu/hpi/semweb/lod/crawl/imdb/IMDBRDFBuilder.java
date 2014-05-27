@@ -1,12 +1,12 @@
 package edu.hpi.semweb.lod.crawl.imdb;
 
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 
 public class IMDBRDFBuilder {
 
+
+	private static final String IMDBACTOR = "<http://www.imdb.com/actor/";
+	private static final String PROPERTY = "<http://www.imdb.com/property/";
+	private static final String RESOURCE = "<http://www.imdb.com/resource/";
 	private static final String ACTOR = "<http://dbpedia.org/ontology/Actor>";
 	private static final String FILM = "<http://dbpedia.org/ontology/Film>";
 	private static final String IS = "<rdf:type>";
@@ -20,31 +20,34 @@ public class IMDBRDFBuilder {
 		return "\""+s+"\"";
 	}
 
-	public static final String imdbMovie(String movieURI){
-		URI uri;
-		try {
-			uri = new URI(
-					"http", 
-					"imdb.com",
-					"/movie/"+movieURI,
-					null
-					);
-			return "<"+uri.toASCIIString()+">";
-
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-		return "";
+	public static final String imdbMovie(String uniqueMovieTitle){
+		return buildRDF(IMDBMOVIE, uniqueMovieTitle);
 	}
 
 	public static final String actor(){
 		return ACTOR;
 	}
 
+	public static final String imdbActor(String uniqueActorName){
+		return buildRDF(IMDBACTOR, uniqueActorName);
+	}
+	
 	public static final String film(){
 		return FILM;
 	}
-
+	
+	public static final String prop(String specific){
+		return buildRDF(PROPERTY, specific);
+	}
+	
+	public static final String res(String specific){
+		return buildRDF(RESOURCE, specific);
+	}
+	
+	public static final String arbitrary(String URI,String specificObject){
+		return buildRDF(RESOURCE,URI+"/"+specificObject);
+	}
+	
 	public static final String is(){
 		return IS;
 	}

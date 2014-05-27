@@ -75,8 +75,14 @@ public class IMDBMovie{
 
 	@Override
 	public String toString(){
-		StringBuilder builder = new  StringBuilder(title);
 
+		StringBuilder builder = new  StringBuilder(title);
+		
+		String localTitle = title;
+		while (localTitle.contains("  ")){
+			localTitle = localTitle.replace("  "," ");
+		}
+			
 		if(year.length()>0){
 			builder.append("_"+year);
 		}

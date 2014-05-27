@@ -67,7 +67,7 @@ public abstract class IMDBParser extends PlainTextCrawler{
 		builder.append(p+" ");
 		builder.append(o);
 
-		builder.append("\n");
+		builder.append(" .\n");
 		writer.write(builder.toString());
 	}
 	
