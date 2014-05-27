@@ -12,6 +12,6 @@ public class PrimitiveScheduler extends IScheduler{
 
 
 	public static void main(String[] args) throws IOException, ParseException{
-		Patcher.diffParsedAndOriginalFolder();
+		new MoviesParser(false).run();;
 	}
 }

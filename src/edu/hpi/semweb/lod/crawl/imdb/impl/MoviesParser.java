@@ -36,7 +36,7 @@ public class MoviesParser extends IMDBParser{
 		
 		IMDBMovie movie = new IMDBMovie(line);
 		String titleAndYear = movie.toString();
-		writeRDF(movie.getTitle(), IMDBRDFBuilder.is(), IMDBRDFBuilder.movie(movie.toString()));
+		writeRDF(IMDBRDFBuilder.imdbMovie(movie.toString()), IMDBRDFBuilder.is(), IMDBRDFBuilder.film());
 
 	}
 
