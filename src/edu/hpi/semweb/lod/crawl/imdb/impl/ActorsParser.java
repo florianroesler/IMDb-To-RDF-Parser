@@ -3,7 +3,9 @@ package edu.hpi.semweb.lod.crawl.imdb.impl;
 import java.util.List;
 
 import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBMovie;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBRDFBuilder;
 import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
 
@@ -14,6 +16,7 @@ public class ActorsParser extends IMDBParser{
 	}
 
 	private String currentActor = "";
+	private IMDBRDFBuilder builder = new IMDBRDFBuilder();
 
 
 	@Override
@@ -55,7 +58,7 @@ public class ActorsParser extends IMDBParser{
 
 				String name = cleanedTiles.get(0);
 
-				currentActor = CleaningHelper.cleanActorName(name);
+				currentActor = CleaningHelper.cleanActorName(name).replace(" ", "_");
 
 				dirtyTitle = cleanedTiles.get(1);
 			}
@@ -63,11 +66,13 @@ public class ActorsParser extends IMDBParser{
 			String cleanLine = cleanTitleLine(dirtyTitle);
 
 			String title = RegexHelper.findFirstOccurence(cleanLine, ".+?[(]").replace("(", "").trim();
-
+			IMDBMovie mov = new IMDBMovie(cleanLine.replaceAll("\\[[^\\[\\]]*\\]",""));
+			title = mov.toString();
 			String year = RegexHelper.findFirstOccurence(cleanLine, "\\(\\d+\\)").replace("(", "").replace(")", "");
-			String role = RegexHelper.findFirstOccurence(cleanLine, "\\[\\w+\\]").replace("[", "").replace("]", "");
+			String role = RegexHelper.findFirstOccurence(cleanLine, "\\[\\w+\\]").replace("[", "").replace("]", "").replace(" ", "_");
 
-			writeCSV(currentActor, title, year, role);
+			writeRDF(builder.movie(title), builder.prop("starring"), builder.actor(currentActor));
+			if ((role.length() > 0)&&!(role.contains("Himself"))&&!(role.contains("Themselves"))) writeRDF(builder.actor(currentActor), builder.prop("starringAs"), builder.arbitrary("resource/fictional_character", role));
 
 		}
 
