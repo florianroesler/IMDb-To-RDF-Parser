@@ -7,7 +7,7 @@ import java.util.Map;
 import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBMovie;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
-import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBRDFBuilder;
 
 public class MoviesParser extends IMDBParser{
 
@@ -36,12 +36,8 @@ public class MoviesParser extends IMDBParser{
 		
 		IMDBMovie movie = new IMDBMovie(line);
 		String titleAndYear = movie.toString();
-		writeCSV(titleAndYear);
-		if(!map.containsKey(titleAndYear)){
-			map.put(titleAndYear, 1);
-		}else{
-			map.put(titleAndYear, map.get(titleAndYear)+1);
-		}
+		writeRDF(movie.getTitle(), IMDBRDFBuilder.is(), IMDBRDFBuilder.movie(movie.toString()));
+
 	}
 
 	@Override
@@ -62,11 +58,6 @@ public class MoviesParser extends IMDBParser{
 	@Override
 	protected void onFileEnd() {
 
-		for(String s:map.keySet()){
-			if(map.get(s)>1){
-				System.out.println(s+": "+map.get(s));
-			}
-		}
 	}
 
 }

@@ -41,6 +41,38 @@ public class IMDBMovie{
 		title = movieWithoutYear.split("\t")[0].replace("\"", "").trim();
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public String getQuarter() {
+		return quarter;
+	}
+
+	public boolean isTvSeries() {
+		return tvSeries;
+	}
+
+	public boolean isTvMovie() {
+		return tvMovie;
+	}
+
+	public boolean isVideoGame() {
+		return videoGame;
+	}
+
+	public boolean isVideoMovie() {
+		return videoMovie;
+	}
+
+	public boolean isMini() {
+		return mini;
+	}
+
 	@Override
 	public String toString(){
 		StringBuilder builder = new  StringBuilder(title.replace(" ", "_"));

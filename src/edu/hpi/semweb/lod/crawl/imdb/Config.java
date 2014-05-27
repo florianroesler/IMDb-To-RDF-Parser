@@ -31,6 +31,8 @@ public class Config {
 	public static final String PATCHEDPATH = ROOTPATH+"patched/";
 	public static final String PATCHEDPARSEDPATH = PATCHEDPATH+"parsed/";
 	
+	public static final String RDFDIFFPATH = ROOTPATH+"RDF_Diff/";
+
 	public static final String FTPSERVER = properties.getProperty("ftp.server");
 	public static final String FTPPATH = properties.getProperty("ftp.path");
 	public static final String FTPUSER = properties.getProperty("ftp.user");
@@ -43,7 +45,7 @@ public class Config {
 			throw new IllegalArgumentException("Path to IMDB-dumps is not correctly defined. Please check the config.");
 		}
 
-		for(String path: new String[]{DIFFPATH,ORIGINALPATH,ORIGINALPARSEDPATH,PATCHEDPATH,PATCHEDPARSEDPATH}){
+		for(String path: new String[]{DIFFPATH,ORIGINALPATH,ORIGINALPARSEDPATH,PATCHEDPATH,PATCHEDPARSEDPATH, RDFDIFFPATH}){
 			File subDir = new File(path);
 			boolean isDir = subDir.isDirectory();
 			if(!isDir){

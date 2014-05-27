@@ -63,7 +63,8 @@ public class Patcher {
 			long localFileSize = localFile.length();
 			long ftpFileSize = f.getSize();
 			//System.out.println(localFileSize+" "+ftpFileSize);
-			if(!localFile.exists()){
+			File unpackedFolder = new File(Config.DIFFPATH+f.getName().replace(".tar.gz", ""));
+			if(!localFile.exists() && !unpackedFolder.exists()){
 				notExistantFiles.add(f);
 			}
 		}
@@ -78,6 +79,10 @@ public class Patcher {
 			System.out.println("Copying File: "+fileName);
 			CommandLineHelper.execCommand("cp " + f.getAbsolutePath()+" " + Config.PATCHEDPATH+fileName);
 		}
+	}
+	
+	public static void diffParsedAndOriginalFolder(){
+		diffFiles(new File(Config.ORIGINALPARSEDPATH), new File(Config.PATCHEDPARSEDPATH), new File(Config.RDFDIFFPATH+"rdf_diff.diff"));
 	}
 	
 	public static void patchFile(PatchFile originalFile, PatchFile patch){
