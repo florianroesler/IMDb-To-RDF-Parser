@@ -23,6 +23,7 @@ public class IMDBRDFBuilder {
 	private static final String SOUNDTRACK = "<http://www.imdb.com/soundtrack/>";
 	private static final String PLOT = "<http://www.imdb.com/plot/>";
 	private static final String RUNTIME = "<http://www.imdb.com/runtime/>";
+	private static final String KEYWORD = "<http://www.imdb.com/keyword/>";
 
 
 	public static final String string(String s){
@@ -94,6 +95,10 @@ public class IMDBRDFBuilder {
 	
 	public static final String runtime(){
 		return RUNTIME;
+	}
+	
+	public static final String keyword(){
+		return KEYWORD;
 	}
 	
 	private static String buildRDF(String genericURI, String specificPart){
