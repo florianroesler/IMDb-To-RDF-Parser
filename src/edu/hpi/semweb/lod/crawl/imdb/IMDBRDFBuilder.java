@@ -1,5 +1,10 @@
 package edu.hpi.semweb.lod.crawl.imdb;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+
 
 public class IMDBRDFBuilder {
 
@@ -9,19 +14,28 @@ public class IMDBRDFBuilder {
 	private static final String RESOURCE = "<http://www.imdb.com/resource/";
 	private static final String ACTOR = "<http://dbpedia.org/ontology/Actor>";
 	private static final String FILM = "<http://dbpedia.org/ontology/Film>";
-	private static final String IS = "<rdf:type>";
+	private static final String IS = "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>";
 	private static final String NAME = "<http://dbpedia.org/property/name>";
 	private static final String LABEL = "<http://www.w3.org/2000/01/rdf-schema#label>";
 	private static final String RELEASEDATE = "<http://dbpedia.org/property/releaseDate>";
 	private static final String IMDBMOVIE = "<http://www.imdb.com/movie/";
+	private static final String TRIVIA = "<http://www.imdb.com/trivia/>";
+	private static final String SOUNDTRACK = "<http://www.imdb.com/soundtrack/>";
 
 
 	public static final String string(String s){
-		return "\""+s+"\"";
+		return "\""+s.replace("\\", "\\\\")+"\"";
 	}
 
 	public static final String imdbMovie(String uniqueMovieTitle){
-		return buildRDF(IMDBMOVIE, uniqueMovieTitle);
+		uniqueMovieTitle = uniqueMovieTitle.replace("/", "_");
+		try {
+			return "<"+new URI("http", "www.imdb.com", "/movie/"+uniqueMovieTitle, null).toASCIIString()+">";
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
 	}
 
 	public static final String actor(){
@@ -62,6 +76,14 @@ public class IMDBRDFBuilder {
 
 	public static final String label(){
 		return LABEL;
+	}
+	
+	public static final String trivia(){
+		return TRIVIA;
+	}
+	
+	public static final String soundtack(){
+		return SOUNDTRACK;
 	}
 
 	private static String buildRDF(String genericURI, String specificPart){

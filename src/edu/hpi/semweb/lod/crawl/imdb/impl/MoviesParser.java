@@ -26,17 +26,12 @@ public class MoviesParser extends IMDBParser{
 	@Override
 	protected void onNewLine(String line) {
 		if(line.length() == 0 || line.contains("{")) return;
-		
-		List<String> tiles = CleaningHelper.removeEmptyElements(line.split("\t"));
-		
-		//String titlePart = tiles.get(0);
-		//String yearPart = tiles.get(1).trim();
-		
-		//String title = RegexHelper.findFirstOccurence(titlePart, ".+?\\s\\(").replace("(", "").replace("\"", "").trim();
-		
+	
 		IMDBMovie movie = new IMDBMovie(line);
-		String titleAndYear = movie.toString();
 		writeRDF(IMDBRDFBuilder.imdbMovie(movie.toString()), IMDBRDFBuilder.is(), IMDBRDFBuilder.film());
+		writeRDF(IMDBRDFBuilder.imdbMovie(movie.toString()), IMDBRDFBuilder.label(), IMDBRDFBuilder.string(movie.getTitle()));
+		writeRDF(IMDBRDFBuilder.imdbMovie(movie.toString()), IMDBRDFBuilder.name(), IMDBRDFBuilder.string(movie.getTitle()));
+		//writeRDF(IMDBRDFBuilder.imdbMovie(movie.toString()), IMDBRDFBuilder.releaseDate(), IMDBRDFBuilder.string(movie.getYear()));
 
 	}
 
