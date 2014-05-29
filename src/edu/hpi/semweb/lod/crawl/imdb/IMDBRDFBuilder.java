@@ -21,6 +21,8 @@ public class IMDBRDFBuilder {
 	private static final String IMDBMOVIE = "<http://www.imdb.com/movie/";
 	private static final String TRIVIA = "<http://www.imdb.com/trivia/>";
 	private static final String SOUNDTRACK = "<http://www.imdb.com/soundtrack/>";
+	private static final String PLOT = "<http://www.imdb.com/plot/>";
+	private static final String RUNTIME = "<http://www.imdb.com/runtime/>";
 
 
 	public static final String string(String s){
@@ -85,7 +87,15 @@ public class IMDBRDFBuilder {
 	public static final String soundtack(){
 		return SOUNDTRACK;
 	}
-
+	
+	public static final String plot(){
+		return PLOT;
+	}
+	
+	public static final String runtime(){
+		return RUNTIME;
+	}
+	
 	private static String buildRDF(String genericURI, String specificPart){
 		return new StringBuilder(genericURI).append(specificPart).append(">").toString();
 	}
