@@ -2,12 +2,15 @@ package edu.hpi.semweb.lod.crawl.imdb.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.hpi.semweb.lod.crawl.imdb.IMDBMovie;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBRDFBuilder;
 
 
 public class RatingsParser extends IMDBParser{
 
-
+	private String currentMovie;
+	
 	public RatingsParser(boolean isPatchedFile) {
 		super(isPatchedFile);
 		// TODO Auto-generated constructor stub
@@ -58,12 +61,13 @@ public class RatingsParser extends IMDBParser{
 					}
 					title+=cleanedParts.get(i)+" ";
 				}
-				title = title.trim();
-				title = title.replaceAll("^\"|\"$", "");
+				//title = title.trim();
+				//title = title.replaceAll("^\"|\"$", "");
+				IMDBMovie mov = new IMDBMovie(title.replaceAll("\\[[^\\[\\]]*\\]",""));
+				currentMovie = mov.toString();
 				
-				String yearOfProduction = cleanedParts.get(cleanedParts.size()-1).replace("(", "").replace(")", "");
-
-				writeCSV(title, yearOfProduction, rating, ratingCount, ratingDistribution);
+				writeRDF(IMDBRDFBuilder.imdbMovie(currentMovie), IMDBRDFBuilder.rating(),("\""+rating+"\"^^xsd:float"));
+				writeRDF(IMDBRDFBuilder.imdbMovie(currentMovie), IMDBRDFBuilder.ratingCount(),("\""+ratingCount+"\"^^xsd:integer"));
 			}
 
 		}
