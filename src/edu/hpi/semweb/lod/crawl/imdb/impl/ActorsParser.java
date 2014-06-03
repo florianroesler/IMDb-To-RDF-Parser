@@ -16,7 +16,6 @@ public class ActorsParser extends IMDBParser{
 	}
 
 	private String currentActor = "";
-	private IMDBRDFBuilder builder = new IMDBRDFBuilder();
 
 
 	@Override
@@ -68,12 +67,12 @@ public class ActorsParser extends IMDBParser{
 			String title = RegexHelper.findFirstOccurence(cleanLine, ".+?[(]").replace("(", "").trim();
 			IMDBMovie mov = new IMDBMovie(cleanLine.replaceAll("\\[[^\\[\\]]*\\]",""));
 			title = mov.toString();
-			String year = RegexHelper.findFirstOccurence(cleanLine, "\\(\\d+\\)").replace("(", "").replace(")", "");
+			//String year = RegexHelper.findFirstOccurence(cleanLine, "\\(\\d+\\)").replace("(", "").replace(")", "");
 			String role = RegexHelper.findFirstOccurence(cleanLine, "\\[\\w+\\]").replace("[", "").replace("]", "").replace(" ", "_");
 
-			writeRDF(builder.imdbMovie(title), builder.prop("starring"), builder.imdbActor(currentActor));
+			writeRDF(IMDBRDFBuilder.imdbMovie(title), IMDBRDFBuilder.prop("starring"), IMDBRDFBuilder.imdbActor(currentActor));
 			if ((role.length() > 0)&&!(role.contains("Himself"))&&!(role.contains("Themselves"))){
-				writeRDF(builder.imdbActor(currentActor), builder.prop("starringAs"), builder.arbitrary("resource/fictional_character", role));
+				writeRDF(IMDBRDFBuilder.imdbActor(currentActor), IMDBRDFBuilder.prop("starringAs"), IMDBRDFBuilder.arbitrary("resource/fictional_character", role));
 			} 
 		}
 

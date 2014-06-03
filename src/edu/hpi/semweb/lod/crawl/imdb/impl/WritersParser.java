@@ -6,7 +6,6 @@ import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBMovie;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBRDFBuilder;
-import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
 public class WritersParser extends IMDBParser{
 
@@ -22,7 +21,6 @@ public class WritersParser extends IMDBParser{
 	
 	private String currentPerson;
 	private String currentMovie;
-	private IMDBRDFBuilder builder = new IMDBRDFBuilder();
 	
 
 	@Override
@@ -68,7 +66,8 @@ public class WritersParser extends IMDBParser{
 		//String year = RegexHelper.findFirstOccurence(cleanLine, "\\(\\d+\\)").replace("(", "").replace(")", "");
 		//String role = RegexHelper.findFirstOccurence(cleanLine, "\\[\\w+\\]").replace("[", "").replace("]", "").replace(" ", "_");
 
-		writeRDF(builder.imdbMovie(currentMovie), builder.prop("writer"), builder.arbitrary("Person", currentPerson));
+		writeRDF(IMDBRDFBuilder.imdbMovie(currentMovie), IMDBRDFBuilder.prop("writer"), IMDBRDFBuilder.person(currentPerson));
+		writeRDF(IMDBRDFBuilder.person(currentPerson), IMDBRDFBuilder.is(), IMDBRDFBuilder.writer());
 		//writeCSV(currentPerson, title, year, role);
 	}
 
