@@ -130,7 +130,7 @@ public class IMDBRDFBuilder {
 	public static final String person(String uniquePersonName){
 		uniquePersonName = uniquePersonName.replace("/", "_");
 		try {
-			return "<"+new URI("http", "www.imdb.com", "/actor/"+uniquePersonName, null).toASCIIString()+">";
+			return "<"+new URI("http", "www.imdb.com", "/person/"+uniquePersonName, null).toASCIIString()+">";
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}

@@ -3,7 +3,10 @@ package edu.hpi.semweb.lod.crawl.imdb.impl;
 import java.util.List;
 
 import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBActor;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBMovie;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBRDFBuilder;
 import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
 public class MiscFilmographyParser extends IMDBParser{
@@ -51,9 +54,15 @@ public class MiscFilmographyParser extends IMDBParser{
 		
 		titlePart = titlePart.replaceAll("\\(.+?\\)", "").replace("\"", "");
 		
-		String title = titlePart.trim();
+		IMDBMovie mov = new IMDBMovie(titlePart+" ("+year+")");
+		titlePart = mov.toString();
+		role = role.replace(" ", "_");
 		
-		writeCSV(currentPerson, title, year, role);
+		writeRDF(IMDBRDFBuilder.imdbMovie(titlePart), IMDBRDFBuilder.prop(role), IMDBRDFBuilder.person(currentPerson));
+		
+		//String title = titlePart.trim();
+		
+		//writeCSV(currentPerson, titlePart, year, role);
 	}
 
 	@Override
