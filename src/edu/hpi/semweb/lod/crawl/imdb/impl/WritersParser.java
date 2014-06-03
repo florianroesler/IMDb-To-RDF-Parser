@@ -63,6 +63,8 @@ public class WritersParser extends IMDBParser{
 		//String title = RegexHelper.findFirstOccurence(cleanLine, ".+?[(]").replace("(", "").trim();
 		IMDBMovie mov = new IMDBMovie(titlePart.replaceAll("\\[[^\\[\\]]*\\]",""));
 		currentMovie = mov.toString();
+		IMDBActor per = new IMDBActor(currentPerson);
+		currentPerson = per.toString();
 		//String year = RegexHelper.findFirstOccurence(cleanLine, "\\(\\d+\\)").replace("(", "").replace(")", "");
 		//String role = RegexHelper.findFirstOccurence(cleanLine, "\\[\\w+\\]").replace("[", "").replace("]", "").replace(" ", "_");
 
