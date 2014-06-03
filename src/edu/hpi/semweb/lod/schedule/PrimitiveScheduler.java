@@ -5,6 +5,7 @@ import java.text.ParseException;
 
 import edu.hpi.semweb.lod.crawl.imdb.diff.Patcher;
 import edu.hpi.semweb.lod.crawl.imdb.impl.ActorsParser;
+import edu.hpi.semweb.lod.crawl.imdb.impl.ActressesParser;
 import edu.hpi.semweb.lod.crawl.imdb.impl.KeywordsParser;
 import edu.hpi.semweb.lod.crawl.imdb.impl.MoviesParser;
 import edu.hpi.semweb.lod.crawl.imdb.impl.PlotParser;
@@ -19,7 +20,6 @@ public class PrimitiveScheduler extends IScheduler{
 
 
 	public static void main(String[] args) throws IOException, ParseException{
-		new KeywordsParser(false).run();;
-
+		new ActorsParser(false).run();
 	}
 }

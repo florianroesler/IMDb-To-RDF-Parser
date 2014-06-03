@@ -8,7 +8,7 @@ public class ActressesParser extends ActorsParser{
 	}
 
 	@Override
-	protected String defineInputFilePath() {
-		return "/Users/froesler/Downloads/moviedb-3.24/lists/actresses.list";
+	protected String defineFileName() {
+		return "actresses.list";
 	}
 }

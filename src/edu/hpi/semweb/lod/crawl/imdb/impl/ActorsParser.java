@@ -1,8 +1,11 @@
 package edu.hpi.semweb.lod.crawl.imdb.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBActor;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBMovie;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBRDFBuilder;
@@ -11,12 +14,11 @@ import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
 public class ActorsParser extends IMDBParser{
 
+	private IMDBActor currentActor;
+
 	public ActorsParser(boolean isPatchedFile) {
 		super(isPatchedFile);
 	}
-
-	private String currentActor = "";
-
 
 	@Override
 	protected String defineFileName() {
@@ -57,9 +59,10 @@ public class ActorsParser extends IMDBParser{
 
 				String name = cleanedTiles.get(0);
 
-				currentActor = CleaningHelper.cleanActorName(name).replace(" ", "_");
-
+				currentActor = new IMDBActor(name);
+				
 				dirtyTitle = cleanedTiles.get(1);
+				
 			}
 
 			String cleanLine = cleanTitleLine(dirtyTitle);
@@ -70,9 +73,9 @@ public class ActorsParser extends IMDBParser{
 			//String year = RegexHelper.findFirstOccurence(cleanLine, "\\(\\d+\\)").replace("(", "").replace(")", "");
 			String role = RegexHelper.findFirstOccurence(cleanLine, "\\[\\w+\\]").replace("[", "").replace("]", "").replace(" ", "_");
 
-			writeRDF(IMDBRDFBuilder.imdbMovie(title), IMDBRDFBuilder.prop("starring"), IMDBRDFBuilder.imdbActor(currentActor));
+			writeRDF(IMDBRDFBuilder.imdbMovie(title), IMDBRDFBuilder.prop("starring"), IMDBRDFBuilder.imdbActor(currentActor.toString()));
 			if ((role.length() > 0)&&!(role.contains("Himself"))&&!(role.contains("Themselves"))){
-				writeRDF(IMDBRDFBuilder.imdbActor(currentActor), IMDBRDFBuilder.prop("starringAs"), IMDBRDFBuilder.arbitrary("resource/fictional_character", role));
+				writeRDF(IMDBRDFBuilder.imdbActor(currentActor.toString()), IMDBRDFBuilder.prop("starringAs"), IMDBRDFBuilder.arbitrary("resource/fictional_character", role));
 			} 
 		}
 
@@ -88,7 +91,6 @@ public class ActorsParser extends IMDBParser{
 
 	@Override
 	protected void onFileEnd() {
-		// TODO Auto-generated method stub
 
 	}
 
