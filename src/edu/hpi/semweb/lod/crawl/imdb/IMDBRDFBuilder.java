@@ -18,14 +18,14 @@ public class IMDBRDFBuilder {
 	private static final String LABEL = "<http://www.w3.org/2000/01/rdf-schema#label>";
 	private static final String RELEASEDATE = "<http://dbpedia.org/property/releaseDate>";
 	private static final String IMDBMOVIE = "<http://www.imdb.com/movie/";
-	private static final String TRIVIA = "<http://www.imdb.com/trivia/>";
-	private static final String SOUNDTRACK = "<http://www.imdb.com/soundtrack/>";
-	private static final String PLOT = "<http://www.imdb.com/plot/>";
-	private static final String RUNTIME = "<http://www.imdb.com/runtime/>";
-	private static final String KEYWORD = "<http://www.imdb.com/keyword/>";
-	private static final String WRITER = "<http://dbpedia.org/ontology/writer/>";
-	private static final String PRODUCER = "<http://dbpedia.org/ontology/producer/>";
-	private static final String RATING = "<http://schema.org/Rating/>";
+	private static final String TRIVIA = "<http://www.imdb.com/trivia>";
+	private static final String SOUNDTRACK = "<http://www.imdb.com/soundtrack>";
+	private static final String PLOT = "<http://www.imdb.com/plot>";
+	private static final String RUNTIME = "<http://www.imdb.com/runtime>";
+	private static final String KEYWORD = "<http://www.imdb.com/keyword>";
+	private static final String WRITER = "<http://dbpedia.org/ontology/writer>";
+	private static final String PRODUCER = "<http://dbpedia.org/ontology/producer>";
+	private static final String RATING = "<http://schema.org/Rating>";
 	private static final String RATINGCOUNT = "<http://schema.org/ratingCount>";
 
 

@@ -39,10 +39,10 @@ public class RunningTimesParser extends IMDBParser{
 		}else{
 			runtime = timePart;
 		}
-		String versionName;
+		/*String versionName;
 		if(tiles.size() >= 3){
 			versionName = CleaningHelper.removeRoundBrackets(tiles.get(2));
-		}
+		}*/
 		
 		writeRDF(IMDBRDFBuilder.imdbMovie(movie.toString()), IMDBRDFBuilder.runtime(), IMDBRDFBuilder.string(runtime));
 	}

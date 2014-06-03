@@ -15,7 +15,7 @@ public class ProducersParser extends IMDBGenericPersonParser{
 		// TODO Auto-generated constructor stub
 	}
 
-	private String type;
+	private String typeString;
 	private String localType;
 	private String currentFilm;
 	private String producer;
@@ -29,10 +29,10 @@ public class ProducersParser extends IMDBGenericPersonParser{
 			currentFilm = line;
 			currentFilm = currentFilm.replace("{{SUSPENDED}}", "").trim();
 			if ((localType = RegexHelper.returnGroup(currentFilm, "\\(([^\\(]*producer[^\\)]*)\\)", 1)) != "") {
-				type = localType;
+				typeString = localType;
 			}
 			else {
-				type = "producer";
+				typeString = "producer";
 			}
 		
 		}else{
@@ -44,10 +44,10 @@ public class ProducersParser extends IMDBGenericPersonParser{
 				producer = producer.replace("(TV)", "").replace("(V)", "").replaceAll("\\(\\d+\\)", "").replace("(VG)", "").replace("(????)", "").replaceAll("\\(.*?\\)","").trim();
 			}
 			if ((localType = RegexHelper.returnGroup(currentFilm, "\\(([^\\(]*producer[^\\)]*)\\)", 1)) != "") {
-				type = localType;
+				typeString = localType;
 			}
 			else {
-				type = "producer";
+				typeString = "producer";
 			}
 			currentFilm = currentFilm.trim();
 		}	
@@ -56,9 +56,10 @@ public class ProducersParser extends IMDBGenericPersonParser{
 	currentFilm = mov.toString();
 	IMDBActor per = new IMDBActor(producer);
 	producer = per.toString();
+	//typeString = "producer"; // Producer-subproperties are ignored to fit Ontology
+	typeString = typeString.replace(" ","_");
 	
-	//writeCSV(producer, type, currentFilm);
-	writeRDF(IMDBRDFBuilder.imdbMovie(currentFilm), IMDBRDFBuilder.prop("producer"), IMDBRDFBuilder.person(producer));
+	writeRDF(IMDBRDFBuilder.imdbMovie(currentFilm), IMDBRDFBuilder.prop(typeString), IMDBRDFBuilder.person(producer));
 	writeRDF(IMDBRDFBuilder.person(producer), IMDBRDFBuilder.is(), IMDBRDFBuilder.producer());
 		
 	}

@@ -75,7 +75,7 @@ public class ActorsParser extends IMDBParser{
 
 			writeRDF(IMDBRDFBuilder.imdbMovie(title), IMDBRDFBuilder.prop("starring"), IMDBRDFBuilder.imdbActor(currentActor.toString()));
 			if ((role.length() > 0)&&!(role.contains("Himself"))&&!(role.contains("Themselves"))){
-				writeRDF(IMDBRDFBuilder.imdbActor(currentActor.toString()), IMDBRDFBuilder.prop("starringAs"), IMDBRDFBuilder.arbitrary("resource/fictional_character", role));
+				writeRDF(IMDBRDFBuilder.imdbActor(currentActor.toString()), IMDBRDFBuilder.prop("starringAs"), IMDBRDFBuilder.arbitrary("fictional_character", role));
 			} 
 		}
 

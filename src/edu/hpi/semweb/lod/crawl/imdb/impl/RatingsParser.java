@@ -49,7 +49,7 @@ public class RatingsParser extends IMDBParser{
 					}
 				}
 
-				String ratingDistribution = cleanedParts.get(0);
+				//String ratingDistribution = cleanedParts.get(0);
 				String ratingCount = cleanedParts.get(1);
 
 				String rating = cleanedParts.get(2);

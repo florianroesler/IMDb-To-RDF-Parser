@@ -1,13 +1,8 @@
 package edu.hpi.semweb.lod.crawl.imdb.impl;
 
-import java.util.List;
-
-import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
-import edu.hpi.semweb.lod.crawl.imdb.IMDBActor;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBMovie;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBRDFBuilder;
-import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
 public class MovieLinkParser extends IMDBParser {
 	public MovieLinkParser(boolean isPatchedFile) {
