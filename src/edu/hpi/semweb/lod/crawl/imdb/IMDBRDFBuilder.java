@@ -1,9 +1,7 @@
 package edu.hpi.semweb.lod.crawl.imdb;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URLEncoder;
 
 
 public class IMDBRDFBuilder {
@@ -27,7 +25,7 @@ public class IMDBRDFBuilder {
 
 
 	public static final String string(String s){
-		return "\""+s.replace("\\", "\\\\")+"\"";
+		return "\""+s.replace("\\", "\\\\").replace("\"", "\\\"")+"\"";
 	}
 
 	public static final String imdbMovie(String uniqueMovieTitle){
@@ -35,7 +33,6 @@ public class IMDBRDFBuilder {
 		try {
 			return "<"+new URI("http", "www.imdb.com", "/movie/"+uniqueMovieTitle, null).toASCIIString()+">";
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "";
@@ -46,7 +43,13 @@ public class IMDBRDFBuilder {
 	}
 
 	public static final String imdbActor(String uniqueActorName){
-		return buildRDF(IMDBACTOR, uniqueActorName);
+		uniqueActorName = uniqueActorName.replace("/", "_");
+		try {
+			return "<"+new URI("http", "www.imdb.com", "/actor/"+uniqueActorName, null).toASCIIString()+">";
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 	
 	public static final String film(){
