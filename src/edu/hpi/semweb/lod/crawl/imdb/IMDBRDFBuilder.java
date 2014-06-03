@@ -8,8 +8,9 @@ public class IMDBRDFBuilder {
 
 
 	private static final String IMDBACTOR = "<http://www.imdb.com/actor/";
-	private static final String PROPERTY = "<http://www.imdb.com/property/";
+	private static final String PROPERTY = "<http://dbpedia.org/property/";
 	private static final String RESOURCE = "<http://www.imdb.com/resource/";
+	private static final String PERSON = "<http://dbpedia.org/ontology/person/";
 	private static final String ACTOR = "<http://dbpedia.org/ontology/Actor>";
 	private static final String FILM = "<http://dbpedia.org/ontology/Film>";
 	private static final String IS = "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>";
@@ -22,6 +23,10 @@ public class IMDBRDFBuilder {
 	private static final String PLOT = "<http://www.imdb.com/plot/>";
 	private static final String RUNTIME = "<http://www.imdb.com/runtime/>";
 	private static final String KEYWORD = "<http://www.imdb.com/keyword/>";
+	private static final String WRITER = "<http://dbpedia.org/ontology/writer/>";
+	private static final String RATING = "<http://schema.org/Rating/>";
+	private static final String RATINGCOUNT = "<http://schema.org/ratingCount>";
+
 
 
 	public static final String string(String s){
@@ -102,6 +107,23 @@ public class IMDBRDFBuilder {
 	
 	public static final String keyword(){
 		return KEYWORD;
+	}
+	
+	public static final String writer(){
+		return WRITER;
+	}
+	
+	public static final String rating(){
+		return RATING;
+	}
+	
+	public static final String ratingCount(){
+		return RATINGCOUNT;
+	}
+	
+	
+	public static final String person(String specific){
+		return buildRDF(PERSON, specific);
 	}
 	
 	private static String buildRDF(String genericURI, String specificPart){

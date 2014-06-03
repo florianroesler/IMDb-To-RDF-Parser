@@ -14,13 +14,11 @@ import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
 public class ActorsParser extends IMDBParser{
 
+	private IMDBActor currentActor;
+
 	public ActorsParser(boolean isPatchedFile) {
 		super(isPatchedFile);
 	}
-
-	private IMDBActor currentActor;
-	private IMDBRDFBuilder builder = new IMDBRDFBuilder();
-
 
 	@Override
 	protected String defineFileName() {
@@ -42,7 +40,6 @@ public class ActorsParser extends IMDBParser{
 		return "-----------------------------------------------------------------------------";
 	}
 
-	private Map<String,Integer> actors = new HashMap<String, Integer>();
 	@Override
 	protected void onNewLine(String line) {
 		if(!isStopped()){
@@ -66,26 +63,20 @@ public class ActorsParser extends IMDBParser{
 				
 				dirtyTitle = cleanedTiles.get(1);
 				
-				if(actors.containsKey(currentActor.toString())){
-					actors.put(currentActor.toString(), actors.get(currentActor.toString())+1);
-					System.out.println(name);
-				}else{
-					actors.put(currentActor.toString(), 1);
-				}
 			}
 
-//			String cleanLine = cleanTitleLine(dirtyTitle);
-//
-//			String title = RegexHelper.findFirstOccurence(cleanLine, ".+?[(]").replace("(", "").trim();
-//			IMDBMovie mov = new IMDBMovie(cleanLine.replaceAll("\\[[^\\[\\]]*\\]",""));
-//			title = mov.toString();
-//			String year = RegexHelper.findFirstOccurence(cleanLine, "\\(\\d+\\)").replace("(", "").replace(")", "");
-//			String role = RegexHelper.findFirstOccurence(cleanLine, "\\[\\w+\\]").replace("[", "").replace("]", "").replace(" ", "_");
-//
-//			writeRDF(builder.imdbMovie(title), builder.prop("starring"), builder.imdbActor(currentActor.toString()));
-//			if ((role.length() > 0)&&!(role.contains("Himself"))&&!(role.contains("Themselves"))){
-//				writeRDF(builder.imdbActor(currentActor.toString()), builder.prop("starringAs"), builder.arbitrary("resource/fictional_character", role));
-//			} 
+			String cleanLine = cleanTitleLine(dirtyTitle);
+
+			String title = RegexHelper.findFirstOccurence(cleanLine, ".+?[(]").replace("(", "").trim();
+			IMDBMovie mov = new IMDBMovie(cleanLine.replaceAll("\\[[^\\[\\]]*\\]",""));
+			title = mov.toString();
+			//String year = RegexHelper.findFirstOccurence(cleanLine, "\\(\\d+\\)").replace("(", "").replace(")", "");
+			String role = RegexHelper.findFirstOccurence(cleanLine, "\\[\\w+\\]").replace("[", "").replace("]", "").replace(" ", "_");
+
+			writeRDF(IMDBRDFBuilder.imdbMovie(title), IMDBRDFBuilder.prop("starring"), IMDBRDFBuilder.imdbActor(currentActor.toString()));
+			if ((role.length() > 0)&&!(role.contains("Himself"))&&!(role.contains("Themselves"))){
+				writeRDF(IMDBRDFBuilder.imdbActor(currentActor.toString()), IMDBRDFBuilder.prop("starringAs"), IMDBRDFBuilder.arbitrary("resource/fictional_character", role));
+			} 
 		}
 
 	}		
@@ -100,14 +91,7 @@ public class ActorsParser extends IMDBParser{
 
 	@Override
 	protected void onFileEnd() {
-		int count = 0;
-		for(String s:actors.keySet()){
-			if(actors.get(s)>1){
-				System.out.println(s+": "+actors.get(s));
-				count++;
-			}
-		}
-		System.out.println(count);
+
 	}
 
 
