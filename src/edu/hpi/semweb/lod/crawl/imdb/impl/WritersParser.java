@@ -48,30 +48,13 @@ public class WritersParser extends IMDBParser{
 		
 		titlePart = titlePart.replaceAll("<.+?>", "");
 		
-		//String year = CleaningHelper.removeRoundBrackets(RegexHelper.findFirstOccurence(titlePart, "\\(\\d+\\)"));
-		
-		//String role = titlePart.replace("(TV)", "").replace("(V)", "").replace("(VG)", "").replaceAll("\\(\\d{4}.*?\\)", "");
-		//role = RegexHelper.findFirstOccurence(role, "\\(.+?\\)");
-		//role = CleaningHelper.removeRoundBrackets(role).trim();
-		
-		/*if(role.length()==0 || role.equals("written by")){
-			role = "writer";
-		}
-		titlePart = titlePart.replaceAll("\\(.+?\\)", "").replace("\"", "");
-		
-		String title = titlePart.trim();
-		*/
-		//String title = RegexHelper.findFirstOccurence(cleanLine, ".+?[(]").replace("(", "").trim();
-		IMDBMovie mov = new IMDBMovie(titlePart.replaceAll("\\[[^\\[\\]]*\\]",""));
+		IMDBMovie mov = new IMDBMovie(titlePart.replaceAll("\\([^\\(\\)]*\\)",""));
 		currentMovie = mov.toString();
 		IMDBActor per = new IMDBActor(currentPerson);
 		currentPerson = per.toString();
-		//String year = RegexHelper.findFirstOccurence(cleanLine, "\\(\\d+\\)").replace("(", "").replace(")", "");
-		//String role = RegexHelper.findFirstOccurence(cleanLine, "\\[\\w+\\]").replace("[", "").replace("]", "").replace(" ", "_");
 
 		writeRDF(IMDBRDFBuilder.imdbMovie(currentMovie), IMDBRDFBuilder.prop("writer"), IMDBRDFBuilder.person(currentPerson));
 		writeRDF(IMDBRDFBuilder.person(currentPerson), IMDBRDFBuilder.is(), IMDBRDFBuilder.writer());
-		//writeCSV(currentPerson, title, year, role);
 	}
 
 	@Override
