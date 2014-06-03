@@ -3,7 +3,10 @@ package edu.hpi.semweb.lod.crawl.imdb.impl;
 import java.util.List;
 
 import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBActor;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBGenericPersonParser;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBMovie;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBRDFBuilder;
 import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
 public class ProducersParser extends IMDBGenericPersonParser{
@@ -49,8 +52,14 @@ public class ProducersParser extends IMDBGenericPersonParser{
 			currentFilm = currentFilm.trim();
 		}	
 	currentFilm = currentFilm.replaceAll("\\([^\\(]*producer.*\\)","").replaceAll("\\(as [^\\)]*\\)","");
+	IMDBMovie mov = new IMDBMovie(currentFilm);
+	currentFilm = mov.toString();
+	IMDBActor per = new IMDBActor(producer);
+	producer = per.toString();
 	
-	writeCSV(producer, type, currentFilm);
+	//writeCSV(producer, type, currentFilm);
+	writeRDF(IMDBRDFBuilder.imdbMovie(currentFilm), IMDBRDFBuilder.prop("producer"), IMDBRDFBuilder.person(producer));
+	writeRDF(IMDBRDFBuilder.person(producer), IMDBRDFBuilder.is(), IMDBRDFBuilder.producer());
 		
 	}
 	

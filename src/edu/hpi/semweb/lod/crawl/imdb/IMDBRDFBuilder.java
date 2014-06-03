@@ -24,6 +24,7 @@ public class IMDBRDFBuilder {
 	private static final String RUNTIME = "<http://www.imdb.com/runtime/>";
 	private static final String KEYWORD = "<http://www.imdb.com/keyword/>";
 	private static final String WRITER = "<http://dbpedia.org/ontology/writer/>";
+	private static final String PRODUCER = "<http://dbpedia.org/ontology/producer/>";
 	private static final String RATING = "<http://schema.org/Rating/>";
 	private static final String RATINGCOUNT = "<http://schema.org/ratingCount>";
 
@@ -113,6 +114,10 @@ public class IMDBRDFBuilder {
 		return WRITER;
 	}
 	
+	public static final String producer(){
+		return PRODUCER;
+	}
+	
 	public static final String rating(){
 		return RATING;
 	}
@@ -122,8 +127,14 @@ public class IMDBRDFBuilder {
 	}
 	
 	
-	public static final String person(String specific){
-		return buildRDF(PERSON, specific);
+	public static final String person(String uniquePersonName){
+		uniquePersonName = uniquePersonName.replace("/", "_");
+		try {
+			return "<"+new URI("http", "www.imdb.com", "/actor/"+uniquePersonName, null).toASCIIString()+">";
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 	
 	private static String buildRDF(String genericURI, String specificPart){
