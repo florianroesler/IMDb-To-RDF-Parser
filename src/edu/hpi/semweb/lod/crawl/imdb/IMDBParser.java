@@ -47,21 +47,13 @@ public abstract class IMDBParser extends PlainTextCrawler{
 		return pathToDump+defineFileName();
 	};
 	
-	@Deprecated
-	protected void writeCSV(String... tiles){
-		if(tiles.length == 0) return;
-		StringBuilder builder = new StringBuilder();
-		for(String s:tiles){
-			builder.append(s);
-			builder.append(",");
-		}
-		builder.deleteCharAt(builder.length()-1);
-		builder.append("\n");
-		writer.write(builder.toString());
-	}
+
 	
-	protected void writeRDF(String s, String p, String o){		
+	protected void writeRDF(String s, String p, String o){	
+		
+		if(s==null || p == null || o == null) return;
 		if(s.length() == 0 || p.length() == 0 || o.length() == 0) return;
+		
 		StringBuilder builder = new StringBuilder();
 		builder.append(s+" ");
 		builder.append(p+" ");

@@ -1,12 +1,12 @@
 package edu.hpi.semweb.lod.crawl.imdb.impl;
 
 import edu.hpi.semweb.lod.crawl.imdb.IMDBGenericPersonParser;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBRDFBuilder;
 
 public class DirectorsParser extends IMDBGenericPersonParser{
 
 	public DirectorsParser(boolean isPatchedFile) {
 		super(isPatchedFile);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -24,4 +24,8 @@ public class DirectorsParser extends IMDBGenericPersonParser{
 		return "-----------------------------------------------------------------------------";
 	}
 
+	@Override
+	protected String definePersonRDFProperty() {
+		return IMDBRDFBuilder.director();
+	}
 }

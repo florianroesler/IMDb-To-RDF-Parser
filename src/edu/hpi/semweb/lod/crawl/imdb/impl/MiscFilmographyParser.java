@@ -3,7 +3,6 @@ package edu.hpi.semweb.lod.crawl.imdb.impl;
 import java.util.List;
 
 import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
-import edu.hpi.semweb.lod.crawl.imdb.IMDBActor;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBMovie;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBRDFBuilder;
@@ -13,7 +12,6 @@ public class MiscFilmographyParser extends IMDBParser{
 
 	public MiscFilmographyParser(boolean isPatchedFile) {
 		super(isPatchedFile);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

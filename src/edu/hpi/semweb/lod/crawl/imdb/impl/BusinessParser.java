@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBMovie;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 
 public class BusinessParser extends IMDBParser{
 
-	private String movieTitle;
+	private IMDBMovie currentMovie;
 	private List<String>  rentals;
 	private List<String>  copyRight;
 	private List<String> budgets;
@@ -26,7 +27,6 @@ public class BusinessParser extends IMDBParser{
 
 	public BusinessParser(boolean isPatchedFile){
 		super(isPatchedFile);
-		movieTitle = "";
 		
 		listMappings.put("RT", rentals);
 		listMappings.put("CP", copyRight);
@@ -71,7 +71,7 @@ public class BusinessParser extends IMDBParser{
 			String sentence = tiles.get(1).trim();
 			
 			if(abbrv.equals("MV")){
-				movieTitle = sentence;			
+				currentMovie = new IMDBMovie(sentence);			
 			}else{
 				listMappings.get(abbrv).add(sentence);
 			}
@@ -79,9 +79,7 @@ public class BusinessParser extends IMDBParser{
 	}
 
 	@Override
-	protected void onFileEnd() {
-		// TODO Auto-generated method stub
-		
+	protected void onFileEnd() {		
 	}
 
 	@Override

@@ -1,17 +1,17 @@
 package edu.hpi.semweb.lod.crawl.imdb.impl;
 
-import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBActor;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBRDFBuilder;
 import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
 public class AkaNamesParser extends IMDBParser{
+	private IMDBActor currentActor;
 
 	public AkaNamesParser(boolean isPatchedFile) {
 		super(isPatchedFile);
-		// TODO Auto-generated constructor stub
 	}
 
-	private String currentActor;
 	@Override
 	protected String defineFileName() {
 		return "aka-names.list";
@@ -25,11 +25,10 @@ public class AkaNamesParser extends IMDBParser{
 	@Override
 	protected void onNewLine(String line) {
 		if(line.startsWith(" ")){
-			String name = RegexHelper.findFirstOccurence(line, "aka\\s[^)]+").replace("aka ", "");
-			name = CleaningHelper.cleanActorName(name);
-			writeCSV(currentActor, name);
+			IMDBActor aka = new IMDBActor(RegexHelper.findFirstOccurence(line, "aka\\s[^)]+").replace("aka ", ""));
+			writeRDF(IMDBRDFBuilder.imdbActor(currentActor.toString()), IMDBRDFBuilder.akaName(), IMDBRDFBuilder.string(aka.toString()));
 		}else{
-			currentActor = CleaningHelper.cleanActorName(line);
+			currentActor = new IMDBActor(line);
 			return;
 		}
 	}

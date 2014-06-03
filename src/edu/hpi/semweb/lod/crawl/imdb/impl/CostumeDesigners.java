@@ -1,12 +1,12 @@
 package edu.hpi.semweb.lod.crawl.imdb.impl;
 
 import edu.hpi.semweb.lod.crawl.imdb.IMDBGenericPersonParser;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBRDFBuilder;
 
 public class CostumeDesigners extends IMDBGenericPersonParser{
 
 	public CostumeDesigners(boolean isPatchedFile) {
 		super(isPatchedFile);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -22,6 +22,11 @@ public class CostumeDesigners extends IMDBGenericPersonParser{
 	@Override
 	protected String defineRelevanceEndingLine() {
 		return "-----------------------------------------------------------------------------";
+	}
+	
+	@Override
+	protected String definePersonRDFProperty() {
+		return IMDBRDFBuilder.costumeDesigner();
 	}
 
 }

@@ -1,8 +1,6 @@
 package edu.hpi.semweb.lod.crawl.imdb.impl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBActor;
@@ -65,13 +63,13 @@ public class ActorsParser extends IMDBParser{
 				
 			}
 
-			String cleanLine = cleanTitleLine(dirtyTitle);
 
-			String title = RegexHelper.findFirstOccurence(cleanLine, ".+?[(]").replace("(", "").trim();
-			IMDBMovie mov = new IMDBMovie(cleanLine.replaceAll("\\[[^\\[\\]]*\\]",""));
-			title = mov.toString();
-			//String year = RegexHelper.findFirstOccurence(cleanLine, "\\(\\d+\\)").replace("(", "").replace(")", "");
-			String role = RegexHelper.findFirstOccurence(cleanLine, "\\[\\w+\\]").replace("[", "").replace("]", "").replace(" ", "_");
+
+			
+			IMDBMovie mov = new IMDBMovie(dirtyTitle.replaceAll("<\\d*>", "").replaceAll("\\[[^\\[\\]]*\\]","").replace("(uncredited)", ""));
+			String title = mov.toString();
+
+			String role = RegexHelper.findFirstOccurence(dirtyTitle, "\\[\\w+\\]").replace("[", "").replace("]", "").replace(" ", "_");
 
 			writeRDF(IMDBRDFBuilder.imdbMovie(title), IMDBRDFBuilder.prop("starring"), IMDBRDFBuilder.imdbActor(currentActor.toString()));
 			if ((role.length() > 0)&&!(role.contains("Himself"))&&!(role.contains("Themselves"))){
@@ -81,15 +79,7 @@ public class ActorsParser extends IMDBParser{
 		}
 
 	}		
-
-
-	private String cleanTitleLine(String dirtyTitle){
-		dirtyTitle = dirtyTitle.replace("(V)", "");
-		dirtyTitle = dirtyTitle.replace("\"", "");
-		dirtyTitle = dirtyTitle.replaceAll("<\\d*>", "");
-		return dirtyTitle;
-	}
-
+	
 	@Override
 	protected void onFileEnd() {
 

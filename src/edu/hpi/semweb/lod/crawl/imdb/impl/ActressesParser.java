@@ -4,7 +4,6 @@ public class ActressesParser extends ActorsParser{
 
 	public ActressesParser(boolean isPatchedFile) {
 		super(isPatchedFile);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

@@ -3,19 +3,18 @@ package edu.hpi.semweb.lod.crawl.imdb.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBMovie;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBRDFBuilder;
 
 public class AlternateVersionsParser extends IMDBParser{
 
+	private List<StringBuilder> versions = new ArrayList<StringBuilder>();
+	private IMDBMovie currentMovie;
+	
 	public AlternateVersionsParser(boolean isPatchedFile) {
 		super(isPatchedFile);
-		// TODO Auto-generated constructor stub
 	}
-
-	private String title = "";
-	private String year = "";
-	private List<StringBuilder> versions = new ArrayList<StringBuilder>();
 
 	@Override
 	protected String defineFileName() {
@@ -31,29 +30,24 @@ public class AlternateVersionsParser extends IMDBParser{
 	protected void onNewLine(String line) {
 
 		if(line.startsWith("#") && !line.contains("{")){
-			if(title.length()!=0){
+			if(currentMovie!=null){
 				writeToFile();
 			}
+			currentMovie = new IMDBMovie(line.replace("# ", "").trim());
 
-			List<String> titleTiles = CleaningHelper.removeEmptyElements(line.replace("# ", "").split("\\("));
-			title = titleTiles.get(0).replace("\\s\\(", "").replace("\"", "").trim();
-			if(titleTiles.size()>1){
-				year = CleaningHelper.removeRoundBrackets(titleTiles.get(1).trim());
-			}
-		}else if(line.startsWith("- ") && title.length()!=0){
+		}else if(line.startsWith("- ") && currentMovie!=null){
 			String firstLine = line.replaceFirst("- ", "");
 			versions.add(new StringBuilder().append(firstLine.trim()));
-		}else if(line.startsWith(" ") && title.length()!=0){
+		}else if(line.startsWith(" ") && currentMovie!=null){
 			versions.get(versions.size()-1).append(line.trim());
 		}
 	}
 
 	private void writeToFile(){
 		for(StringBuilder b:versions){
-			writeCSV(title, year, b.toString());
+			writeRDF(IMDBRDFBuilder.imdbMovie(currentMovie.toString()), IMDBRDFBuilder.alternateVersion(), IMDBRDFBuilder.string(b.toString()));
 		}
-		title = "";
-		year = "";
+		currentMovie = null;
 		versions = new ArrayList<StringBuilder>();
 	}
 

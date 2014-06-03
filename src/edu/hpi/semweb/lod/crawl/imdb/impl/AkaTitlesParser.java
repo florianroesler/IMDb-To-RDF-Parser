@@ -3,17 +3,18 @@ package edu.hpi.semweb.lod.crawl.imdb.impl;
 import java.util.List;
 
 import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBMovie;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
-import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBRDFBuilder;
 
 public class AkaTitlesParser extends IMDBParser{
+	
+	
+	private IMDBMovie currentMovie;
+	
 	public AkaTitlesParser(boolean isPatchedFile) {
 		super(isPatchedFile);
-		// TODO Auto-generated constructor stub
 	}
-
-	private String currentTitle;
-	private String currentYear;
 	
 	@Override
 	protected String defineFileName() {
@@ -34,10 +35,8 @@ public class AkaTitlesParser extends IMDBParser{
 			List<String> tiles = CleaningHelper.removeEmptyElements(line.trim().split("\t"));
 			String titlePart = tiles.get(0);
 
-			List<String> titleTiles = CleaningHelper.removeEmptyElements(titlePart.trim().replace("(aka ", "").split("\\("));
-			String alternativeTitle = titleTiles.get(0).trim().replace("\"", "");
-
-			String alternativeYear = CleaningHelper.removeRoundBrackets(titleTiles.get(1).trim());
+			String dirtyTitle = titlePart.trim().replace("(aka ", "").replaceAll("\\)$", "");
+			IMDBMovie alternativeMovie = new IMDBMovie(dirtyTitle);
 			
 			String country = "";
 			String type = "";
@@ -52,11 +51,9 @@ public class AkaTitlesParser extends IMDBParser{
 					type = CleaningHelper.removeRoundBrackets(splitTypeTile[1].replace(")", ""));
 				}
 			}
-			writeCSV(currentTitle, currentYear, alternativeTitle, alternativeYear, country, type);
-
+			writeRDF(IMDBRDFBuilder.imdbMovie(currentMovie.toString()), IMDBRDFBuilder.akaTitle(), IMDBRDFBuilder.string(alternativeMovie.getTitle()));
 		}else{
-			currentTitle = RegexHelper.findFirstOccurence(line, "\".+?\"").replace("\"", "");
-			currentYear = RegexHelper.findFirstOccurence(line, "\\(\\d+\\)").replace("(", "").replace(")", "");
+			currentMovie = new IMDBMovie(line);
 		}		
 	}
 
@@ -72,7 +69,6 @@ public class AkaTitlesParser extends IMDBParser{
 
 	@Override
 	protected void onFileEnd() {
-		// TODO Auto-generated method stub
 		
 	}
 

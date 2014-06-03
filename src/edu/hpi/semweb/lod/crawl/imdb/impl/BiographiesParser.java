@@ -5,14 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
 import java.util.TreeSet;
 
 import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBActor;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBRDFBuilder;
 
 public class BiographiesParser extends IMDBParser{
-	
+
 	// all these attributes are not really neccessary but shall 
 	// give insight into the mapping of the found abbreviations to their respective meaning
 	private List<String> articles;
@@ -28,7 +29,7 @@ public class BiographiesParser extends IMDBParser{
 	private List<String> portrayals;
 	private List<String> biographies;
 	private List<String> salaries;
-	
+
 	private String dateBorn;
 	private String deathDate;
 	private String nickname;
@@ -42,7 +43,8 @@ public class BiographiesParser extends IMDBParser{
 	private Map<String, String> stringMappings = new HashMap<String, String>();
 
 	private Set<String> sortedStringKeys = new TreeSet<String>();
-	
+	private Map<String, String> rdfMappings = new HashMap<String, String>();
+
 	public BiographiesParser(boolean isPatchedFile){
 		super(isPatchedFile);
 		listMappings.put("AR", articles);
@@ -68,12 +70,33 @@ public class BiographiesParser extends IMDBParser{
 		stringMappings.put("BG", backgrounds);
 
 
+		rdfMappings.put("AR", IMDBRDFBuilder.article());
+		rdfMappings.put("CV", IMDBRDFBuilder.cover());
+		rdfMappings.put("OW", IMDBRDFBuilder.otherWork());
+		rdfMappings.put("BT", IMDBRDFBuilder.miscCrew());
+		rdfMappings.put("TM", IMDBRDFBuilder.trademark());
+		rdfMappings.put("IT", IMDBRDFBuilder.interview());
+		rdfMappings.put("SP", IMDBRDFBuilder.spouse());
+		rdfMappings.put("TR", IMDBRDFBuilder.trivia());
+		rdfMappings.put("PT", IMDBRDFBuilder.pictorial());
+		rdfMappings.put("QU", IMDBRDFBuilder.quote());
+		rdfMappings.put("PI", IMDBRDFBuilder.portrayal());
+		rdfMappings.put("BO", IMDBRDFBuilder.biography());
+		rdfMappings.put("SA", IMDBRDFBuilder.salary());
+		rdfMappings.put("DB", IMDBRDFBuilder.dateBorn());
+		rdfMappings.put("DD", IMDBRDFBuilder.deathDate());
+		rdfMappings.put("NK", IMDBRDFBuilder.nickname());
+		rdfMappings.put("NM", IMDBRDFBuilder.name());
+		rdfMappings.put("HT", IMDBRDFBuilder.height());
+		rdfMappings.put("RN", IMDBRDFBuilder.realName());
+		rdfMappings.put("BG", IMDBRDFBuilder.background());
+
 
 		for(String s:stringMappings.keySet()){
 			sortedStringKeys.add(s);
 		}
 	}
-	
+
 	@Override
 	protected String defineFileName() {
 		return "biographies.list";
@@ -85,44 +108,59 @@ public class BiographiesParser extends IMDBParser{
 	}
 
 	private void writeBiography(){
-		List<String> output = new ArrayList<String>();
-		for(String s:sortedStringKeys){
-			output.add(stringMappings.get(s));
+		IMDBActor actor = new IMDBActor(stringMappings.get("NM"));
+
+		for(String s:stringMappings.keySet()){
+			String value = stringMappings.get(s);
+			writeKeyValue(actor, s, value);
 		}
-		writeCSV(output.toArray(new String[output.size()]));
+
+		for(String s:listMappings.keySet()){
+			List<String> list = listMappings.get(s);
+			for(String value:list){
+				writeKeyValue(actor, s, value);
+			}
+		}
 	}
 	
+	private void writeKeyValue(IMDBActor actor,String key, String value){
+		if(value == null || value.length()==0) return;
+		writeRDF(IMDBRDFBuilder.imdbActor(actor.toString()), rdfMappings.get(key), IMDBRDFBuilder.string(value));
+	}
+
 	@Override
 	protected void onNewLine(String line) {
-		
+
 		if(line.length() == 0) return;
-		
+
 		if(line.startsWith("-------------------------------------------------------------------------------")){
-			
-			writeBiography();
-			
+
+			if(stringMappings.get("NM")!=null){
+				writeBiography();
+			}
+
 			for(String key:listMappings.keySet()){
 				listMappings.put(key, new ArrayList<String>());
 			}
-			
+
 			for(String key:stringMappings.keySet()){
 				stringMappings.put(key, "");
 			}
-			
-			
+
+
 		}else{
 			List<String> tiles = CleaningHelper.removeEmptyElements(line.split(":"));
 			String abbrv = tiles.get(0).trim();
 			String sentence = tiles.get(1).trim().replace("_", "");
-			
+
 			if(listMappings.containsKey(abbrv)){
-				
+
 				if(sentence.startsWith("*")){
 					sentence = sentence.replaceFirst("\\*", "").trim();
 					listMappings.get(abbrv).add(sentence);
 				}else{
 					List<String> targetedList = listMappings.get(abbrv);
-					
+
 					String lastString = "";
 					try{
 						lastString = targetedList.get(targetedList.size()-1);
@@ -132,10 +170,10 @@ public class BiographiesParser extends IMDBParser{
 					}
 					targetedList.set(targetedList.size()-1, lastString+sentence);
 				}
-				
+
 			}else{
 				if(abbrv.equals("BG")){
-					stringMappings.put(abbrv, stringMappings.get(abbrv)+sentence);
+					stringMappings.put(abbrv, stringMappings.get(abbrv)+" "+sentence);
 				}else{
 					stringMappings.put(abbrv, sentence);
 				}

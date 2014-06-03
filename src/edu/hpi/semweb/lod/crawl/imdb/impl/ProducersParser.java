@@ -12,7 +12,6 @@ import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 public class ProducersParser extends IMDBGenericPersonParser{
 	public ProducersParser(boolean isPatchedFile) {
 		super(isPatchedFile);
-		// TODO Auto-generated constructor stub
 	}
 
 	private String typeString;
@@ -77,6 +76,11 @@ public class ProducersParser extends IMDBGenericPersonParser{
 	@Override
 	protected String defineRelevanceEndingLine() {
 		return "---------------------------------------------------------------------------";
+	}
+
+	@Override
+	protected String definePersonRDFProperty() {
+		return IMDBRDFBuilder.producer();
 	}
 
 }

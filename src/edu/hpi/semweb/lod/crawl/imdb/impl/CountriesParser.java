@@ -11,7 +11,6 @@ import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 public class CountriesParser extends IMDBParser {
 	public CountriesParser(boolean isPatchedFile) {
 		super(isPatchedFile);
-		// TODO Auto-generated constructor stub
 	}
 
 	private String currentFilm;
@@ -37,12 +36,10 @@ public class CountriesParser extends IMDBParser {
 		List<String> tiles = CleaningHelper.removeEmptyElements(line.split("\t"));
 		currentFilm = tiles.get(0);
 		//currentFilm = currentFilm.replace("{{SUSPENDED}}", "").replace("(TV)", "").replace("(V)", "").replaceAll("\\(\\d+\\)", "").replace("(VG)", "").replace("(????)", "").trim();
-		IMDBMovie mov = new IMDBMovie(currentFilm);
-		currentFilm = mov.toString();
+		currentFilm = new IMDBMovie(currentFilm).toString();
 		
 		country = tiles.get(1).replace(" ", "_");
 		
-		//writeCSV(currentFilm, country);
 		writeRDF(IMDBRDFBuilder.imdbMovie(currentFilm), IMDBRDFBuilder.location(),"\""+country+"\"");
 		
 	}

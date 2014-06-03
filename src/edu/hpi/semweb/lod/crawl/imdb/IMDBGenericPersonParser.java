@@ -7,13 +7,13 @@ import java.util.List;
  */
 public abstract class IMDBGenericPersonParser extends IMDBParser{
 
+	private IMDBActor currentPerson;
+
+	protected abstract String definePersonRDFProperty();
 	
 	public IMDBGenericPersonParser(boolean isPatchedFile) {
 		super(isPatchedFile);
 	}
-
-	private String currentPerson;
-	
 
 	@Override
 	protected String defineEncoding() {
@@ -30,7 +30,7 @@ public abstract class IMDBGenericPersonParser extends IMDBParser{
 		
 		if(tiles.size() == 2){		
 			//thats a new director and a trailing movie
-			currentPerson = CleaningHelper.cleanActorName(tiles.get(0));
+			currentPerson = new IMDBActor(tiles.get(0));
 			titlePart = tiles.get(1);
 		}else{
 			titlePart = tiles.get(0);
@@ -38,13 +38,9 @@ public abstract class IMDBGenericPersonParser extends IMDBParser{
 		
 		if(titlePart.contains("{")) return;
 		
-		String year = CleaningHelper.removeRoundBrackets(RegexHelper.findFirstOccurence(titlePart, "\\(\\d+\\)"));
-		
-		titlePart = titlePart.replaceAll("\\(.+?\\)", "").replace("\"", "");
-		
-		String title = titlePart.trim();
-		
-		writeCSV(currentPerson, title, year);
+		IMDBMovie movie = new IMDBMovie(titlePart);
+			
+		writeRDF(IMDBRDFBuilder.imdbMovie(movie.toString()), definePersonRDFProperty(), IMDBRDFBuilder.imdbActor(currentPerson.toString()));
 	}
 
 	@Override
