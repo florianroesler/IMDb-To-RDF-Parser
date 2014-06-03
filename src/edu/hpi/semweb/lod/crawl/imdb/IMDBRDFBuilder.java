@@ -27,6 +27,7 @@ public class IMDBRDFBuilder {
 	private static final String PRODUCER = "<http://dbpedia.org/ontology/producer>";
 	private static final String RATING = "<http://schema.org/Rating>";
 	private static final String RATINGCOUNT = "<http://schema.org/ratingCount>";
+	private static final String LOCATION = "<http://www.imdb.com/location>";
 
 
 
@@ -124,6 +125,10 @@ public class IMDBRDFBuilder {
 	
 	public static final String ratingCount(){
 		return RATINGCOUNT;
+	}
+	
+	public static final String location(){
+		return LOCATION;
 	}
 	
 	

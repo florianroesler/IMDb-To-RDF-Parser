@@ -3,7 +3,9 @@ package edu.hpi.semweb.lod.crawl.imdb.impl;
 import java.util.List;
 
 import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBMovie;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBRDFBuilder;
 import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
 public class CountriesParser extends IMDBParser {
@@ -34,11 +36,14 @@ public class CountriesParser extends IMDBParser {
 		}
 		List<String> tiles = CleaningHelper.removeEmptyElements(line.split("\t"));
 		currentFilm = tiles.get(0);
-		currentFilm = currentFilm.replace("{{SUSPENDED}}", "").replace("(TV)", "").replace("(V)", "").replaceAll("\\(\\d+\\)", "").replace("(VG)", "").replace("(????)", "").trim();
+		//currentFilm = currentFilm.replace("{{SUSPENDED}}", "").replace("(TV)", "").replace("(V)", "").replaceAll("\\(\\d+\\)", "").replace("(VG)", "").replace("(????)", "").trim();
+		IMDBMovie mov = new IMDBMovie(currentFilm);
+		currentFilm = mov.toString();
 		
-		country = tiles.get(1);
+		country = tiles.get(1).replace(" ", "_");
 		
-		writeCSV(currentFilm, country);
+		//writeCSV(currentFilm, country);
+		writeRDF(IMDBRDFBuilder.imdbMovie(currentFilm), IMDBRDFBuilder.location(),"\""+country+"\"");
 		
 	}
 
