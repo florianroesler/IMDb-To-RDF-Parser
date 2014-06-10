@@ -72,7 +72,7 @@ public class ActorsParser extends IMDBParser{
 			String role = RegexHelper.findFirstOccurence(dirtyTitle, "\\[\\w+\\]").replace("[", "").replace("]", "").replace(" ", "_");
 
 			writeRDF(IMDBRDFBuilder.imdbMovie(title), IMDBRDFBuilder.prop("starring"), IMDBRDFBuilder.imdbActor(currentActor.toString()));
-			if ((role.length() > 0)&&!(role.contains("Himself"))&&!(role.contains("Themselves"))){
+			if ((role.length() > 0)&&!(role.contains("Himself"))&&!(role.contains("Themselves"))&&!(role.contains("Herself"))){
 				writeRDF(IMDBRDFBuilder.imdbActor(currentActor.toString()), IMDBRDFBuilder.prop("starringAs"), IMDBRDFBuilder.arbitrary("fictional_character", role));
 				writeRDF(IMDBRDFBuilder.imdbMovie(title), IMDBRDFBuilder.prop("hasCharacter"), IMDBRDFBuilder.arbitrary("fictional_character", role));
 			} 
