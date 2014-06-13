@@ -40,7 +40,7 @@ public class CountriesParser extends IMDBParser {
 		
 		country = tiles.get(1).replace(" ", "_");
 		
-		writeRDF(IMDBRDFBuilder.imdbMovie(currentFilm), IMDBRDFBuilder.location(),"\""+country+"\"");
+		writeRDF(IMDBRDFBuilder.hpilodMovie(currentFilm), IMDBRDFBuilder.location(),"\""+country+"\"");
 		
 	}
 

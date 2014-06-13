@@ -31,7 +31,7 @@ public class KeywordsParser extends IMDBParser{
 
 		IMDBMovie movie = new IMDBMovie(tiles.get(0));
 		String keyword = tiles.get(1);
-		writeRDF(IMDBRDFBuilder.imdbMovie(movie.toString()), IMDBRDFBuilder.keyword(), IMDBRDFBuilder.string(keyword));
+		writeRDF(IMDBRDFBuilder.hpilodMovie(movie.toString()), IMDBRDFBuilder.keyword(), IMDBRDFBuilder.string(keyword));
 	}
 
 	@Override

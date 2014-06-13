@@ -34,7 +34,7 @@ public class ReleaseDatesParser extends IMDBParser{
 		String country = RegexHelper.returnGroup(releaseInfo, regex, 1);
 		String date = RegexHelper.returnGroup(releaseInfo, regex, 3);
 		
-		writeRDF(IMDBRDFBuilder.imdbMovie(movie.toString()), IMDBRDFBuilder.releaseDate(), IMDBRDFBuilder.string(date+" ("+country+")"));
+		writeRDF(IMDBRDFBuilder.hpilodMovie(movie.toString()), IMDBRDFBuilder.releaseDate(), IMDBRDFBuilder.string(date+" ("+country+")"));
 
 	}
 

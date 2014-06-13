@@ -56,7 +56,7 @@ public class PlotParser extends IMDBParser{
 		
 		for(StringBuilder plot: currentPlots){
 			if(plot.length() == 0) continue;
-			writeRDF(IMDBRDFBuilder.imdbMovie(currentMovie.toString()), IMDBRDFBuilder.plot(), IMDBRDFBuilder.string(plot.toString().trim()));
+			writeRDF(IMDBRDFBuilder.hpilodMovie(currentMovie.toString()), IMDBRDFBuilder.plot(), IMDBRDFBuilder.string(plot.toString().trim()));
 		}
 	}
 

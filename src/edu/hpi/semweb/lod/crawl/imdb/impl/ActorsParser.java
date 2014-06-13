@@ -71,13 +71,19 @@ public class ActorsParser extends IMDBParser{
 
 			String role = RegexHelper.findFirstOccurence(dirtyTitle, "\\[\\w+\\]").replace("[", "").replace("]", "").replace(" ", "_");
 
-			writeRDF(IMDBRDFBuilder.imdbMovie(title), IMDBRDFBuilder.prop("starring"), IMDBRDFBuilder.imdbActor(currentActor.toString()));
+			writeRDF(IMDBRDFBuilder.hpilodMovie(title), IMDBRDFBuilder.onto("starring"), IMDBRDFBuilder.hpilodActor(currentActor.toString()));
+			writeRDF(IMDBRDFBuilder.hpilodActor(currentActor.toString()), IMDBRDFBuilder.is(), IMDBRDFBuilder.actor());
+			writeRDF(IMDBRDFBuilder.hpilodMovie(title), IMDBRDFBuilder.is(), IMDBRDFBuilder.film());
 			if ((role.length() > 0)&&!(role.contains("Himself"))&&!(role.contains("Themselves"))&&!(role.contains("Herself"))){
-				writeRDF(IMDBRDFBuilder.imdbActor(currentActor.toString()), IMDBRDFBuilder.prop("starringAs"), IMDBRDFBuilder.arbitrary("fictional_character", role));
-				writeRDF(IMDBRDFBuilder.imdbMovie(title), IMDBRDFBuilder.prop("hasCharacter"), IMDBRDFBuilder.arbitrary("fictional_character", role));
+				writeRDF(IMDBRDFBuilder.hpilodActor(currentActor.toString()), IMDBRDFBuilder.prop("character"), IMDBRDFBuilder.arbitrary("fictionalCharacter", role));
+				writeRDF(IMDBRDFBuilder.arbitrary("fictionalCharacter", role), IMDBRDFBuilder.lod("appearsIn"), IMDBRDFBuilder.hpilodMovie(title));
+				writeRDF(IMDBRDFBuilder.arbitrary("fictionalCharacter", role), IMDBRDFBuilder.onto("portrayer"), IMDBRDFBuilder.hpilodActor(currentActor.toString()));
+				writeRDF(IMDBRDFBuilder.arbitrary("fictionalCharacter", role), IMDBRDFBuilder.is(), IMDBRDFBuilder.onto("FictionalCharacter"));
 			} 
 		}
-
+		// ontology/starring (Movie -> Actor)
+		// ontology/portrayer (Character -> Actor)
+		// http://www.hpi.de/lod/appearsIn (Character -> Movie)
 	}		
 	
 	@Override

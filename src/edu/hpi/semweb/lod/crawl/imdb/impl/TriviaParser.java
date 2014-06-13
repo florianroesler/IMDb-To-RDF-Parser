@@ -54,7 +54,7 @@ public class TriviaParser extends IMDBParser{
 	private void writeTrivia(){
 		if(currentMovie==null) return;
 		for(StringBuilder trivia: currentTrivias){
-			writeRDF(IMDBRDFBuilder.imdbMovie(currentMovie.toString()), IMDBRDFBuilder.trivia(), IMDBRDFBuilder.string(trivia.toString()));
+			writeRDF(IMDBRDFBuilder.hpilodMovie(currentMovie.toString()), IMDBRDFBuilder.trivia(), IMDBRDFBuilder.string(trivia.toString()));
 		}
 	}
 	@Override

@@ -125,7 +125,7 @@ public class BiographiesParser extends IMDBParser{
 	
 	private void writeKeyValue(IMDBActor actor,String key, String value){
 		if(value == null || value.length()==0) return;
-		writeRDF(IMDBRDFBuilder.imdbActor(actor.toString()), rdfMappings.get(key), IMDBRDFBuilder.string(value));
+		writeRDF(IMDBRDFBuilder.hpilodActor(actor.toString()), rdfMappings.get(key), IMDBRDFBuilder.string(value));
 	}
 
 	@Override

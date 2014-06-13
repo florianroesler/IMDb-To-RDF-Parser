@@ -58,8 +58,8 @@ public class ProducersParser extends IMDBGenericPersonParser{
 	//typeString = "producer"; // Producer-subproperties are ignored to fit Ontology
 	typeString = typeString.replace(" ","_");
 	
-	writeRDF(IMDBRDFBuilder.imdbMovie(currentFilm), IMDBRDFBuilder.prop(typeString), IMDBRDFBuilder.person(producer));
-	writeRDF(IMDBRDFBuilder.person(producer), IMDBRDFBuilder.is(), IMDBRDFBuilder.producer());
+	writeRDF(IMDBRDFBuilder.hpilodMovie(currentFilm), IMDBRDFBuilder.prop(typeString), IMDBRDFBuilder.imdbPerson(producer));
+	writeRDF(IMDBRDFBuilder.imdbPerson(producer), IMDBRDFBuilder.is(), IMDBRDFBuilder.producer());
 		
 	}
 	

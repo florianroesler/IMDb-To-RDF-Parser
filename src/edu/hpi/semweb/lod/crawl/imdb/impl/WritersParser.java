@@ -53,8 +53,8 @@ public class WritersParser extends IMDBParser{
 		IMDBActor per = new IMDBActor(currentPerson);
 		currentPerson = per.toString();
 
-		writeRDF(IMDBRDFBuilder.imdbMovie(currentMovie), IMDBRDFBuilder.prop("writer"), IMDBRDFBuilder.person(currentPerson));
-		writeRDF(IMDBRDFBuilder.person(currentPerson), IMDBRDFBuilder.is(), IMDBRDFBuilder.writer());
+		writeRDF(IMDBRDFBuilder.hpilodMovie(currentMovie), IMDBRDFBuilder.prop("writer"), IMDBRDFBuilder.imdbPerson(currentPerson));
+		writeRDF(IMDBRDFBuilder.imdbPerson(currentPerson), IMDBRDFBuilder.is(), IMDBRDFBuilder.writer());
 	}
 
 	@Override

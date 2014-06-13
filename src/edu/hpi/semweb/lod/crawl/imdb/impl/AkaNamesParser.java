@@ -26,7 +26,7 @@ public class AkaNamesParser extends IMDBParser{
 	protected void onNewLine(String line) {
 		if(line.startsWith(" ")){
 			IMDBActor aka = new IMDBActor(RegexHelper.findFirstOccurence(line, "aka\\s[^)]+").replace("aka ", ""));
-			writeRDF(IMDBRDFBuilder.imdbActor(currentActor.toString()), IMDBRDFBuilder.akaName(), IMDBRDFBuilder.string(aka.toString()));
+			writeRDF(IMDBRDFBuilder.hpilodActor(currentActor.toString()), IMDBRDFBuilder.akaName(), IMDBRDFBuilder.string(aka.toString()));
 		}else{
 			currentActor = new IMDBActor(line);
 			return;

@@ -7,52 +7,54 @@ import java.net.URISyntaxException;
 public class IMDBRDFBuilder {
 
 
-	private static final String PROPERTY = "<http://dbpedia.org/property/";
-	private static final String RESOURCE = "<http://www.imdb.com/resource/";
-	private static final String ACTOR = "<http://dbpedia.org/ontology/Actor>";
-	private static final String FILM = "<http://dbpedia.org/ontology/Film>";
+	private static final String PROPERTY = "<http://www.dbpedia.org/property/";
+	private static final String HPILOD = "<http://www.hpi.de/lod/";
+	private static final String ONTOLOGY = "<http://www.dbpedia.org/ontology/";
+	private static final String ACTOR = "<http://www.dbpedia.org/ontology/Actor>";
+	private static final String PERSON = "<http://www.dbpedia.org/ontology/Person>";
+	private static final String FILM = "<http://www.dbpedia.org/ontology/Film>";
 	private static final String IS = "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>";
-	private static final String NAME = "<http://dbpedia.org/property/name>";
+	private static final String NAME = "<http://www.dbpedia.org/property/name>";
 	private static final String LABEL = "<http://www.w3.org/2000/01/rdf-schema#label>";
-	private static final String RELEASEDATE = "<http://dbpedia.org/property/releaseDate>";
-	private static final String TRIVIA = "<http://www.imdb.com/trivia>";
-	private static final String SOUNDTRACK = "<http://www.imdb.com/soundtrack>";
-	private static final String PLOT = "<http://www.imdb.com/plot>";
-	private static final String RUNTIME = "<http://www.imdb.com/runtime>";
-	private static final String KEYWORD = "<http://www.imdb.com/keyword>";
-	private static final String WRITER = "<http://dbpedia.org/ontology/writer>";
-	private static final String PRODUCER = "<http://dbpedia.org/ontology/producer>";
-	private static final String RATING = "<http://schema.org/Rating>";
-	private static final String RATINGCOUNT = "<http://schema.org/ratingCount>";
-	private static final String LOCATION = "<http://www.imdb.com/location>";
-	private static final String AKANAME = "<http://www.imdb.com/akaname>";
-	private static final String AKATITLE = "<http://www.imdb.com/akatitle>";
-	private static final String ALTERNATEVERSION = "<http://www.imdb.com/alternate_version>";
-	private static final String ARTICLE = "<http://www.imdb.com/article>";
-	private static final String COVER = "<http://www.imdb.com/cover>";
-	private static final String OTHERWORK = "<http://www.imdb.com/other_work>";
-	private static final String MISCCREW = "<http://www.imdb.com/misc_crew>";
-	private static final String TRADEMARK = "<http://www.imdb.com/trademark>";
-	private static final String INTERVIEW = "<http://www.imdb.com/interview>";
-	private static final String SPOUSE = "<http://www.imdb.com/spouse>";
-	private static final String PICTORIAL = "<http://www.imdb.com/pictorial>";
-	private static final String QUOTE = "<http://www.imdb.com/quote>";
-	private static final String PORTRAYAL = "<http://www.imdb.com/portrayal>";
-	private static final String BIOGRAPHY = "<http://www.imdb.com/biography>";
-	private static final String SALARY = "<http://www.imdb.com/salary>";
-	private static final String DATEBORN = "<http://www.imdb.com/date_born>";
-	private static final String DEATHDATE = "<http://www.imdb.com/death_date>";
-	private static final String NICKNAME = "<http://www.imdb.com/nickname>";
-	private static final String HEIGHT = "<http://www.imdb.com/height>";
-	private static final String REALNAME = "<http://www.imdb.com/real_name>";
-	private static final String BACKGROUND = "<http://www.imdb.com/background>";
+	private static final String RELEASEDATE = "<http://www.dbpedia.org/property/releaseDate>";
+	private static final String TRIVIA = "<http://www.hpi.de/lod/trivia>";
+	private static final String SOUNDTRACK = "<http://dbpedia.org/property/soundtrack>";
+	private static final String PLOT = "<http://dbpedia.org/property/plot>";
+	private static final String RUNTIME = "<http://dbpedia.org/ontology/runtime>";
+	private static final String KEYWORD = "<http://www.hpi.de/lod/keyword>";
+	private static final String WRITER = "<http://www.dbpedia.org/ontology/writer>";
+	private static final String PRODUCER = "<http://www.dbpedia.org/ontology/producer>";
+	private static final String RATING = "<http://dbpedia.org/property/imdbRating>";
+	private static final String RATINGCOUNT = "<http://www.schema.org/ratingCount>";
+	private static final String LOCATION = "<http://dbpedia.org/property/location>";
+	private static final String AKANAME = "<http://dbpedia.org/property/aka>";
+	private static final String AKATITLE = "<http://dbpedia.org/property/aka>";
+	private static final String ALTERNATEVERSION = "<http://dbpedia.org/property/alternateVersions>";
+	private static final String ARTICLE = "<http://www.hpi.de/lod/article>";
+	private static final String COVER = "<http://dbpedia.org/property/cover>";
+	private static final String OTHERWORK = "<http://www.hpi.de/lod/other_work>";
+	private static final String MISCCREW = "<http://www.hpi.de/lod/misc_crew>";
+	private static final String TRADEMARK = "<http://www.hpi.de/lod/trademark>";
+	private static final String INTERVIEW = "<http://www.hpi.de/lod/interview>";
+	private static final String SPOUSE = "<http://dbpedia.org/ontology/spouse>";
+	private static final String PICTORIAL = "<http://www.hpi.de/lod/pictorial>";
+	private static final String QUOTE = "<http://dbpedia.org/property/quote>";
+	private static final String PORTRAYAL = "<http://www.hpi.de/lod/portrayal>";
+	private static final String BIOGRAPHY = "<http://www.hpi.de/lod/biography>";
+	private static final String SALARY = "<http://dbpedia.org/property/grossIncome>";
+	private static final String DATEBORN = "<http://dbpedia.org/ontology/birthDate>";
+	private static final String DEATHDATE = "<http://dbpedia.org/ontology/deathDate>";
+	private static final String NICKNAME = "<http://dbpedia.org/property/nickname>";
+	private static final String HEIGHT = "<http://dbpedia.org/property/height>";
+	private static final String REALNAME = "<http://dbpedia.org/property/realName>";
+	private static final String BACKGROUND = "<http://dbpedia.org/property/background>";
 	
-	private static final String PRODUCTIONDESIGNER = "<http://www.imdb.com/production_designer>";
-	private static final String EDITOR = "<http://www.imdb.com/editor>";
-	private static final String DIRECTOR = "<http://www.imdb.com/director>";
-	private static final String COSTUMEDESIGNER = "<http://www.imdb.com/costume_designer>";
-	private static final String COMPOSER = "<http://www.imdb.com/composer>";
-	private static final String CINEMATOGRAPHER = "<http://www.imdb.com/cinematographer>";
+	private static final String PRODUCTIONDESIGNER = "<http://dbpedia.org/property/productionDesigner>";
+	private static final String EDITOR = "<http://dbpedia.org/property/editor>";
+	private static final String DIRECTOR = "<http://dbpedia.org/ontology/director>";
+	private static final String COSTUMEDESIGNER = "<http://dbpedia.org/property/costumeDesigner>";
+	private static final String COMPOSER = "<http://dbpedia.org/ontology/composer>";
+	private static final String CINEMATOGRAPHER = "<http://dbpedia.org/property/cinematographer>";
 
 
 
@@ -60,10 +62,10 @@ public class IMDBRDFBuilder {
 		return "\""+s.replace("\\", "\\\\").replace("\"", "\\\"")+"\"";
 	}
 
-	public static final String imdbMovie(String uniqueMovieTitle){
+	public static final String hpilodMovie(String uniqueMovieTitle){
 		uniqueMovieTitle = uniqueMovieTitle.replace("/", "_");
 		try {
-			return "<"+new URI("http", "www.imdb.com", "/movie/"+uniqueMovieTitle, null).toASCIIString()+">";
+			return "<"+new URI("http", "www.hpi.de", "/lod/movie/"+uniqueMovieTitle, null).toASCIIString()+">";
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
@@ -74,10 +76,10 @@ public class IMDBRDFBuilder {
 		return ACTOR;
 	}
 
-	public static final String imdbActor(String uniqueActorName){
+	public static final String hpilodActor(String uniqueActorName){
 		uniqueActorName = uniqueActorName.replace("/", "_");
 		try {
-			return "<"+new URI("http", "www.imdb.com", "/actor/"+uniqueActorName, null).toASCIIString()+">";
+			return "<"+new URI("http", "www.hpi.de", "/lod/actor/"+uniqueActorName, null).toASCIIString()+">";
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
@@ -92,12 +94,16 @@ public class IMDBRDFBuilder {
 		return buildRDF(PROPERTY, specific);
 	}
 	
-	public static final String res(String specific){
-		return buildRDF(RESOURCE, specific);
+	public static final String onto(String specific){
+		return buildRDF(ONTOLOGY, specific);
+	}
+	
+	public static final String lod(String specific){
+		return buildRDF(HPILOD, specific);
 	}
 	
 	public static final String arbitrary(String URI,String specificObject){
-		return buildRDF(RESOURCE,URI+"/"+specificObject);
+		return buildRDF(HPILOD,URI+"/"+specificObject);
 	}
 	
 	public static final String is(){
@@ -241,7 +247,7 @@ public class IMDBRDFBuilder {
 	public static final String costumeDesigner(){
 		return COSTUMEDESIGNER;
 	}
-	public static final String person(String uniquePersonName){
+	public static final String imdbPerson(String uniquePersonName){
 		uniquePersonName = uniquePersonName.replace("/", "_");
 		try {
 			return "<"+new URI("http", "www.imdb.com", "/person/"+uniquePersonName, null).toASCIIString()+">";
@@ -249,6 +255,10 @@ public class IMDBRDFBuilder {
 			e.printStackTrace();
 		}
 		return "";
+	}
+	
+	public static final String person(){
+		return PERSON;
 	}
 	
 	private static String buildRDF(String genericURI, String specificPart){

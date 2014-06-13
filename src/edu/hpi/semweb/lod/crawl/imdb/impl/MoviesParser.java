@@ -26,9 +26,9 @@ public class MoviesParser extends IMDBParser{
 		if(line.length() == 0 || line.contains("{")) return;
 	
 		IMDBMovie movie = new IMDBMovie(line);
-		writeRDF(IMDBRDFBuilder.imdbMovie(movie.toString()), IMDBRDFBuilder.is(), IMDBRDFBuilder.film());
-		writeRDF(IMDBRDFBuilder.imdbMovie(movie.toString()), IMDBRDFBuilder.label(), IMDBRDFBuilder.string(movie.getTitle()));
-		writeRDF(IMDBRDFBuilder.imdbMovie(movie.toString()), IMDBRDFBuilder.name(), IMDBRDFBuilder.string(movie.getTitle()));
+		writeRDF(IMDBRDFBuilder.hpilodMovie(movie.toString()), IMDBRDFBuilder.is(), IMDBRDFBuilder.film());
+		writeRDF(IMDBRDFBuilder.hpilodMovie(movie.toString()), IMDBRDFBuilder.label(), IMDBRDFBuilder.string(movie.getTitle()));
+		writeRDF(IMDBRDFBuilder.hpilodMovie(movie.toString()), IMDBRDFBuilder.name(), IMDBRDFBuilder.string(movie.getTitle()));
 		//writeRDF(IMDBRDFBuilder.imdbMovie(movie.toString()), IMDBRDFBuilder.releaseDate(), IMDBRDFBuilder.string(movie.getYear()));
 
 	}

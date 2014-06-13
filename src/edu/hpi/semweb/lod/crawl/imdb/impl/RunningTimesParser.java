@@ -44,7 +44,7 @@ public class RunningTimesParser extends IMDBParser{
 			versionName = CleaningHelper.removeRoundBrackets(tiles.get(2));
 		}*/
 		
-		writeRDF(IMDBRDFBuilder.imdbMovie(movie.toString()), IMDBRDFBuilder.runtime(), IMDBRDFBuilder.string(runtime));
+		writeRDF(IMDBRDFBuilder.hpilodMovie(movie.toString()), IMDBRDFBuilder.runtime(), IMDBRDFBuilder.string(runtime));
 	}
 
 	@Override

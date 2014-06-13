@@ -45,7 +45,7 @@ public class AlternateVersionsParser extends IMDBParser{
 
 	private void writeToFile(){
 		for(StringBuilder b:versions){
-			writeRDF(IMDBRDFBuilder.imdbMovie(currentMovie.toString()), IMDBRDFBuilder.alternateVersion(), IMDBRDFBuilder.string(b.toString()));
+			writeRDF(IMDBRDFBuilder.hpilodMovie(currentMovie.toString()), IMDBRDFBuilder.alternateVersion(), IMDBRDFBuilder.string(b.toString()));
 		}
 		currentMovie = null;
 		versions = new ArrayList<StringBuilder>();

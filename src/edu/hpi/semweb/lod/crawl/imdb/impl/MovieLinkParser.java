@@ -64,7 +64,7 @@ public class MovieLinkParser extends IMDBParser {
 			baseFilm = movB.toString();
 
 			
-			writeRDF(IMDBRDFBuilder.imdbMovie(baseFilm), IMDBRDFBuilder.prop(tripleType), IMDBRDFBuilder.imdbMovie(currentFilm));
+			writeRDF(IMDBRDFBuilder.hpilodMovie(baseFilm), IMDBRDFBuilder.prop(tripleType), IMDBRDFBuilder.hpilodMovie(currentFilm));
 			
 			
 		}

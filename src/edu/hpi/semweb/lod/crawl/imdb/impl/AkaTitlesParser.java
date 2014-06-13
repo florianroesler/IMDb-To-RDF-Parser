@@ -51,7 +51,7 @@ public class AkaTitlesParser extends IMDBParser{
 					type = CleaningHelper.removeRoundBrackets(splitTypeTile[1].replace(")", ""));
 				}
 			}
-			writeRDF(IMDBRDFBuilder.imdbMovie(currentMovie.toString()), IMDBRDFBuilder.akaTitle(), IMDBRDFBuilder.string(alternativeMovie.getTitle()));
+			writeRDF(IMDBRDFBuilder.hpilodMovie(currentMovie.toString()), IMDBRDFBuilder.akaTitle(), IMDBRDFBuilder.string(alternativeMovie.getTitle()));
 		}else{
 			currentMovie = new IMDBMovie(line);
 		}		

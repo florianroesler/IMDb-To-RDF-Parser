@@ -54,7 +54,7 @@ public class SoundtracksParser extends IMDBParser{
 	private void writeSoundtrack(){
 		if(currentMovie==null) return;
 		for(StringBuilder soundtrack: currentSoundtrack){
-			writeRDF(IMDBRDFBuilder.imdbMovie(currentMovie.toString()), IMDBRDFBuilder.soundtack(), IMDBRDFBuilder.string(soundtrack.toString().replace(" (qv)", "")));
+			writeRDF(IMDBRDFBuilder.hpilodMovie(currentMovie.toString()), IMDBRDFBuilder.soundtack(), IMDBRDFBuilder.string(soundtrack.toString().replace(" (qv)", "")));
 		}
 	}
 	
