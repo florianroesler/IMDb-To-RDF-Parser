@@ -23,6 +23,8 @@ public class IMDBDumpDownloader {
 		for(FTPFile file : filesToDownload){
 			conn.downloadFileToDumpFolder(file);
 		}
+		Decompressor.decompressOriginals(true);
+
 	}	
 
 	private static Collection<FTPFile> filterAlreadyExistantFiles(Collection<FTPFile> dumpFiles){

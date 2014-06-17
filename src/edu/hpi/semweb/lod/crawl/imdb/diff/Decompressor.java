@@ -29,52 +29,103 @@ public class Decompressor {
 			}
 		}
 	}
-	
+
+	public static void decompressOriginals(boolean deleteArchiveAfterDecompress){
+		File diffDir = new File(Config.ORIGINALPATH);
+		for(File f:diffDir.listFiles()){
+			if(f.isDirectory() || !f.getName().endsWith(".gz")) continue;
+			try {
+				uncompressGZ(f, new File(Config.ORIGINALPATH+f.getName().replace(".gz", "")));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			if(deleteArchiveAfterDecompress){
+				f.delete();
+			}
+		}
+	}
+
 	public static void uncompressTarGZ(File tarFile, File dest) throws IOException {
-        System.out.println("untaring: " + tarFile.getCanonicalPath());
-	    dest.mkdir();
-	    TarArchiveInputStream tarIn = null;
+		System.out.println("untaring: " + tarFile.getCanonicalPath());
+		dest.mkdir();
+		TarArchiveInputStream tarIn = null;
 
-	    tarIn = new TarArchiveInputStream(
-	                new GzipCompressorInputStream(
-	                    new BufferedInputStream(
-	                        new FileInputStream(
-	                            tarFile
-	                        )
-	                    )
-	                )
-	            );
+		tarIn = new TarArchiveInputStream(
+				new GzipCompressorInputStream(
+						new BufferedInputStream(
+								new FileInputStream(
+										tarFile
+										)
+								)
+						)
+				);
 
-	    TarArchiveEntry tarEntry = tarIn.getNextTarEntry();
-	    // tarIn is a TarArchiveInputStream
-	    while (tarEntry != null) {// create a file with the same name as the tarEntry
-	        File destPath = new File(dest, tarEntry.getName());
-	        if (tarEntry.isDirectory()) {
-	            destPath.mkdirs();
-	        } else {
-	            destPath.createNewFile();
-	            //byte [] btoRead = new byte[(int)tarEntry.getSize()];
-	            byte [] btoRead = new byte[1024];
-	            //FileInputStream fin 
-	            //  = new FileInputStream(destPath.getCanonicalPath());
-	            BufferedOutputStream bout = 
-	                new BufferedOutputStream(new FileOutputStream(destPath));
-	            int len = 0;
+		TarArchiveEntry tarEntry = tarIn.getNextTarEntry();
+		// tarIn is a TarArchiveInputStream
+		while (tarEntry != null) {// create a file with the same name as the tarEntry
+			File destPath = new File(dest, tarEntry.getName());
+			if (tarEntry.isDirectory()) {
+				destPath.mkdirs();
+			} else {
+				destPath.createNewFile();
+				//byte [] btoRead = new byte[(int)tarEntry.getSize()];
+				byte [] btoRead = new byte[1024];
+				//FileInputStream fin 
+				//  = new FileInputStream(destPath.getCanonicalPath());
+				BufferedOutputStream bout = 
+						new BufferedOutputStream(new FileOutputStream(destPath));
+				int len = 0;
 
-	            while((len = tarIn.read(btoRead)) != -1)
-	            {
-	                bout.write(btoRead,0,len);
-	            }
+				while((len = tarIn.read(btoRead)) != -1)
+				{
+					bout.write(btoRead,0,len);
+				}
 
-	            bout.close();
-	            btoRead = null;
+				bout.close();
+				btoRead = null;
 
-	        }
-	        tarEntry = tarIn.getNextTarEntry();
-	    }
-	    tarIn.close();
+			}
+			tarEntry = tarIn.getNextTarEntry();
+		}
+		tarIn.close();
 	} 
 
 
-	
+	public static void uncompressGZ(File gzFile, File dest) throws IOException {
+		System.out.println("unpacking: " + gzFile.getCanonicalPath());
+		GzipCompressorInputStream gzIn = null;
+
+		gzIn = new GzipCompressorInputStream(
+				new BufferedInputStream(
+						new FileInputStream(
+								gzFile
+								)
+						)
+
+				);
+
+
+		dest.createNewFile();
+		//byte [] btoRead = new byte[(int)tarEntry.getSize()];
+		byte [] btoRead = new byte[1024];
+		//FileInputStream fin 
+		//  = new FileInputStream(destPath.getCanonicalPath());
+		BufferedOutputStream bout = 
+				new BufferedOutputStream(new FileOutputStream(dest));
+		int len = 0;
+
+		while((len = gzIn.read(btoRead)) != -1)
+		{
+			bout.write(btoRead,0,len);
+		}
+
+		bout.close();
+		btoRead = null;
+
+
+
+		gzIn.close();
+	} 
+
+
 }
