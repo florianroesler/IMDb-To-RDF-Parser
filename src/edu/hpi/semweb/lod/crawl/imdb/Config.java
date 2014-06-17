@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
@@ -38,22 +39,27 @@ import edu.hpi.semweb.lod.crawl.imdb.impl.WritersParser;
 
 public class Config {
 
+
 	private static final Properties properties = new Properties();
-	private static final String CONFIGPATH = "config/imdb.properties";
+	private static String CONFIGPATH = "imdbImporter.properties";
 	static{
 		File configFile = new File(CONFIGPATH);
 		if(!configFile.exists()){
 			PrintWriter writer = null;
 			try {
+				System.out.println("Created ConfigFile at: "+configFile.getCanonicalPath());
+				configFile.createNewFile();
 				writer = new PrintWriter(configFile);
-				writer.write("dump.path = \n");
-				writer.write("ftp.server = \n");
-				writer.write("ftp.dumppath = \n");
-				writer.write("ftp.diffpath = \n");
-				writer.write("ftp.user = \n");
-				writer.write("ftp.password = \n");
+				writer.write("dump.path = data/\n");
+				writer.write("ftp.server = ftp.fu-berlin.de\n");
+				writer.write("ftp.dumppath = /pub/misc/movies/database/\n");
+				writer.write("ftp.diffpath = /pub/misc/movies/database/diffs/\n");
+				writer.write("ftp.user = anonymous\n");
+				writer.write("ftp.password =\n");
 
 			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
 				e.printStackTrace();
 			}finally{
 				if(writer != null){
@@ -61,8 +67,9 @@ public class Config {
 				}
 			}
 		}
-		
+
 		try {
+			System.out.println("Reading ConfigFile at: "+configFile.getCanonicalPath());
 			properties.load(new FileInputStream(CONFIGPATH));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -86,21 +93,21 @@ public class Config {
 	public static final Set<IMDBParser> PARSERS = new HashSet<IMDBParser>();
 
 	static {
-		File rootDir = new File(ROOTPATH);
-		if(ROOTPATH == null || !rootDir.isDirectory()){
-			throw new IllegalArgumentException("Path to IMDB-dumps is not correctly defined. Please check the config.");
-		}
 
-		for(String path: new String[]{DIFFPATH,ORIGINALPATH,ORIGINALPARSEDPATH,PATCHEDPATH,PATCHEDPARSEDPATH, RDFDIFFPATH}){
+		for(String path: new String[]{ROOTPATH,DIFFPATH,ORIGINALPATH,ORIGINALPARSEDPATH,PATCHEDPATH,PATCHEDPARSEDPATH, RDFDIFFPATH}){
 			File subDir = new File(path);
 			boolean isDir = subDir.isDirectory();
 			if(!isDir){
 				subDir.mkdir();
-				System.out.println("Creating missing dir:" + path);
+				try {
+					System.out.println("Creating missing dir:" + subDir.getCanonicalPath());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}	
-	
+
 	static{
 		PARSERS.add(new ActorsParser(false));
 		PARSERS.add(new ActressesParser(false));
