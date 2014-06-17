@@ -48,6 +48,11 @@ public class IMDBRDFBuilder {
 	private static final String HEIGHT = "<http://dbpedia.org/property/height>";
 	private static final String REALNAME = "<http://dbpedia.org/property/realName>";
 	private static final String BACKGROUND = "<http://dbpedia.org/property/background>";
+	private static final String DATE = "<http://dbpedia.org/property/date>";
+	private static final String YEAR = "<http://dbpedia.org/property/year>";
+	private static final String AKATYPE = "<http://hpi.de/lod/akaType>";
+	private static final String THING = "<http://www.w3.org/2002/07/owl#Thing>";
+	
 	
 	private static final String PRODUCTIONDESIGNER = "<http://dbpedia.org/property/productionDesigner>";
 	private static final String EDITOR = "<http://dbpedia.org/property/editor>";
@@ -110,6 +115,10 @@ public class IMDBRDFBuilder {
 		return IS;
 	}
 
+	public static final String akaType(){
+		return AKATYPE;
+	}
+	
 	public static final String name(){
 		return NAME;
 	}
@@ -122,8 +131,20 @@ public class IMDBRDFBuilder {
 		return LABEL;
 	}
 	
+	public static final String thing(){
+		return THING;
+	}
+	
 	public static final String trivia(){
 		return TRIVIA;
+	}
+	
+	public static final String date(){
+		return DATE;
+	}
+	
+	public static final String year(){
+		return YEAR;
 	}
 	
 	public static final String soundtack(){

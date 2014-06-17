@@ -37,13 +37,10 @@ public class AkaTitlesParser extends IMDBParser{
 			String titlePart = tiles.get(0);
 			String akaDate = "";
 			akaDate = RegexHelper.findFirstOccurence(titlePart, "\\((\\d+|\\?{4})(/\\w+)?\\)");
-
+			akaDate.replace("\\(", "").replace("\\)","");
+			titlePart.replaceAll("\\((\\d+|\\?{4})(/\\w+)?\\)", "");
 			String dirtyTitle = titlePart.trim().replace("(aka ", "").replaceAll("\\)$", "");
 			IMDBMovie alternativeMovie = new IMDBMovie(dirtyTitle);
-			
-			while (alternativeMovie.title.contains("__")){
-				alternativeMovie = alternativeMovie.replace("__","_");
-			}
 			
 			String country = "";
 			String type = "";
@@ -59,14 +56,18 @@ public class AkaTitlesParser extends IMDBParser{
 					type = CleaningHelper.removeRoundBrackets(splitTypeTile[1].replace(")", ""));
 				}
 				
-
-				
 			}
-			String IDadding = country+"_"+type+"_"+akaDate;
+			String ID = alternativeMovie.getTitle()+"_"+type+"_"+country+"_"+akaDate;
 			
-			writeRDF(IMDBRDFBuilder.hpilodMovie(currentMovie.toString()), IMDBRDFBuilder.akaTitle(), IMDBRDFBuilder.akaTitleObject(alternativeMovie.getTitle()+IDadding));
-			//writeRDF(IMDBRDFBuilder.hpilodMovie(currentMovie.toString()), IMDBRDFBuilder.akaTitle(), IMDBRDFBuilder.string(alternativeMovie.getTitle()));
-			//writeRDF(IMDBRDFBuilder.hpilodMovie(currentMovie.toString()), IMDBRDFBuilder.akaTitle(), IMDBRDFBuilder.string(alternativeMovie.getTitle()));
+			while (ID.contains("__")){
+				ID = ID.replace("__","_");
+			}
+			
+			writeRDF(IMDBRDFBuilder.hpilodMovie(currentMovie.toString()), IMDBRDFBuilder.akaTitle(), IMDBRDFBuilder.akaTitleObject(ID));
+			writeRDF(IMDBRDFBuilder.akaTitleObject(ID), IMDBRDFBuilder.label(), IMDBRDFBuilder.string(alternativeMovie.getTitle()));
+			writeRDF(IMDBRDFBuilder.akaTitleObject(ID), IMDBRDFBuilder.year(), IMDBRDFBuilder.string(akaDate));
+			writeRDF(IMDBRDFBuilder.akaTitleObject(ID), IMDBRDFBuilder.akaType(), IMDBRDFBuilder.string(type));
+			writeRDF(IMDBRDFBuilder.akaTitleObject(ID), IMDBRDFBuilder.is(), IMDBRDFBuilder.thing());
 			
 		
 		}else{

@@ -12,7 +12,7 @@ public class IMDBMovie{
 	private boolean mini;
 
 	public IMDBMovie(String movie){
-		tvSeries = movie.contains("\"");
+		tvSeries = movie.startsWith("\"");
 		movie = movie.replace("\"", "");
 
 		tvMovie = movie.contains("(TV)");
