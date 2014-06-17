@@ -18,7 +18,7 @@ public class RatingsParser extends IMDBParser{
 
 
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "ratings.list";
 	}
 	

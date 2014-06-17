@@ -10,7 +10,7 @@ public class CinematographersParser extends IMDBGenericPersonParser{
 	}
 
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "cinematographers.list";
 	}
 

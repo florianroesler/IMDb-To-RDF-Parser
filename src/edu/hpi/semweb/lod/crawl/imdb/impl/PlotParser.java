@@ -17,7 +17,7 @@ public class PlotParser extends IMDBParser{
 	}
 
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "plot.list";
 	}
 

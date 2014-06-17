@@ -7,7 +7,7 @@ public class ActressesParser extends ActorsParser{
 	}
 
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "actresses.list";
 	}
 }

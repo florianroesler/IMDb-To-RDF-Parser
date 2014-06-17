@@ -15,7 +15,7 @@ public class RunningTimesParser extends IMDBParser{
 	}
 
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "running-times.list";
 	}
 

@@ -17,7 +17,7 @@ public class CountriesParser extends IMDBParser {
 	private String country;
 
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "countries.list";
 	}
 

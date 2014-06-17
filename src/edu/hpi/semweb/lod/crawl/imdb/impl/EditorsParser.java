@@ -10,7 +10,7 @@ public class EditorsParser extends IMDBGenericPersonParser{
 	}
 
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "editors.list";
 	}
 

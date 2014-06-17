@@ -23,16 +23,18 @@ import java.util.TreeSet;
 import org.apache.commons.net.ftp.FTPFile;
 
 import edu.hpi.semweb.lod.crawl.imdb.Config;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
 public class Patcher {
 	
 	
-	private static final Set<String> ignoreFiles = new HashSet<String>();
+	private static final Set<String> allowedFiles = new HashSet<String>();
 	static{
-		ignoreFiles.add("complete-cast.list");
-		ignoreFiles.add("complete-crew.list");
-		ignoreFiles.add("laserdisc.list");
+		for(IMDBParser p:Config.PARSERS){
+			allowedFiles.add(p.defineFileName());
+		}
+
 	}
 	
 	public static void patch(){
@@ -75,7 +77,7 @@ public class Patcher {
 		File originalDir = new File(Config.ORIGINALPATH);
 		for(File f: originalDir.listFiles()){
 			String fileName = f.getName();
-			if(f.isDirectory() || !fileName.endsWith(".list") || ignoreFiles.contains(fileName)) continue;
+			if(f.isDirectory() || !fileName.endsWith(".list") || !allowedFiles.contains(fileName)) continue;
 			System.out.println("Copying File: "+fileName);
 			CommandLineHelper.execCommand("cp " + f.getAbsolutePath()+" " + Config.PATCHEDPATH+fileName);
 		}
@@ -190,7 +192,7 @@ public class Patcher {
 		Set<PatchFile> dates = new TreeSet<PatchFile>();
 		
 		for(File f:diffFiles){
-			if(!f.getName().endsWith(".list") || ignoreFiles.contains(f.getName())) continue;
+			if(!f.getName().endsWith(".list") || !allowedFiles.contains(f.getName())) continue;
 			InputStreamReader streamReader = new InputStreamReader(new FileInputStream(f));
 			BufferedReader reader = new BufferedReader(streamReader);
 			

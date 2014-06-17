@@ -98,7 +98,7 @@ public class BiographiesParser extends IMDBParser{
 	}
 
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "biographies.list";
 	}
 

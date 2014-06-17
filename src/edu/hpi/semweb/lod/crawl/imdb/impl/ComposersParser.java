@@ -10,7 +10,7 @@ public class ComposersParser extends IMDBGenericPersonParser{
 	}
 
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "composers.list";
 	}
 

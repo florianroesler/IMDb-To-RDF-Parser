@@ -17,7 +17,7 @@ public class MoviesParser extends IMDBParser{
 	Map<String,Integer> map = new HashMap<String, Integer>();
 	
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "movies.list";
 	}
 

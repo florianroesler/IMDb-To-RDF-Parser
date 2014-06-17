@@ -18,7 +18,7 @@ public class AkaTitlesParser extends IMDBParser{
 	}
 	
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "aka-titles.list";
 	}
 

@@ -17,7 +17,7 @@ public class TriviaParser extends IMDBParser{
 	}
 
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "trivia.list";
 	}
 

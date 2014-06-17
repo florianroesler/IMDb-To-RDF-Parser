@@ -10,7 +10,7 @@ public class ProductionDesigners extends IMDBGenericPersonParser{
 	}
 
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "production-designers.list";
 	}
 

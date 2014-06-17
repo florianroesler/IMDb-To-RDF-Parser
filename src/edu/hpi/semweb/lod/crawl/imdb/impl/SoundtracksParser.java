@@ -17,7 +17,7 @@ public class SoundtracksParser extends IMDBParser{
 	}
 
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "soundtracks.list";
 	}
 

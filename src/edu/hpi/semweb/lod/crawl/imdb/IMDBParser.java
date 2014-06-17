@@ -15,24 +15,28 @@ public abstract class IMDBParser extends PlainTextCrawler{
 	private String pathToDump;
 	private String parsedDirPath;
 
-	protected abstract String defineFileName();
+	public abstract String defineFileName();
 	
 	
 	
 	public IMDBParser(boolean isPatchedFile){
-		if(isPatchedFile){
-			pathToDump = Config.PATCHEDPATH;
-			parsedDirPath = Config.PATCHEDPARSEDPATH;
-		}else{
-			pathToDump = Config.ORIGINALPATH;
-			parsedDirPath = Config.ORIGINALPARSEDPATH;
-		}
+		setPatchedFile(isPatchedFile);
 		
 		try {
 			
 			writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(parsedDirPath+defineFileName()+"_parsed"), Charset.forName(defineEncoding())));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void setPatchedFile(boolean isPatchedFile){
+		if(isPatchedFile){
+			pathToDump = Config.PATCHEDPATH;
+			parsedDirPath = Config.PATCHEDPARSEDPATH;
+		}else{
+			pathToDump = Config.ORIGINALPATH;
+			parsedDirPath = Config.ORIGINALPARSEDPATH;
 		}
 	}
 	

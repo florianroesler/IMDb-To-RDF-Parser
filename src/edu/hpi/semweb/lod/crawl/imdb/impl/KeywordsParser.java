@@ -14,7 +14,7 @@ public class KeywordsParser extends IMDBParser{
 	}
 
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "keywords.list";
 	}
 

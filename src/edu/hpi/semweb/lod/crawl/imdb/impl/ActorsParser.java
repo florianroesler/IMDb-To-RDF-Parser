@@ -19,7 +19,7 @@ public class ActorsParser extends IMDBParser{
 	}
 
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "actors.list";
 	}
 

@@ -17,7 +17,7 @@ public class AlternateVersionsParser extends IMDBParser{
 	}
 
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "alternate-versions.list";
 	}
 

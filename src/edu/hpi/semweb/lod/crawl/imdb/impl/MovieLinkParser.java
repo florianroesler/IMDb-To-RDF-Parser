@@ -15,7 +15,7 @@ public class MovieLinkParser extends IMDBParser {
 	private boolean tripleComplete;
 	private String tripleType;
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "movie-links.list";
 	}
 

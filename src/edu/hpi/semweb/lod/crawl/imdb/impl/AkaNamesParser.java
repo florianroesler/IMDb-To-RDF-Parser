@@ -13,7 +13,7 @@ public class AkaNamesParser extends IMDBParser{
 	}
 
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "aka-names.list";
 	}
 

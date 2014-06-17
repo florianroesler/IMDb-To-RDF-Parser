@@ -16,7 +16,7 @@ public class WritersParser extends IMDBParser{
 	}
 
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "writers.list";
 	}
 	

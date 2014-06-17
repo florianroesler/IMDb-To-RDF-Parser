@@ -15,7 +15,7 @@ public class ReleaseDatesParser extends IMDBParser{
 	}
 
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "release-dates.list";
 	}
 

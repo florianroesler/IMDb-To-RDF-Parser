@@ -15,7 +15,7 @@ public class MiscFilmographyParser extends IMDBParser{
 	}
 
 	@Override
-	protected String defineFileName() {
+	public String defineFileName() {
 		return "miscellaneous.list";
 	}
 	
