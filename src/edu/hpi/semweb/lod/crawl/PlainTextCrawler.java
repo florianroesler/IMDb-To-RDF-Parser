@@ -54,7 +54,7 @@ public abstract class PlainTextCrawler extends ICrawler{
 		while((line = reader.readLine()) != null){
 			count++;
 			int progress = 100*count/lineCount;
-			if(progress>recentProgress){
+			if(progress>recentProgress && progress%10 == 0){
 				recentProgress = progress;
 				System.out.print(recentProgress+"%\r");
 			}

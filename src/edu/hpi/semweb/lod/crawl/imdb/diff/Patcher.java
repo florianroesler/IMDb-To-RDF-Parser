@@ -34,7 +34,6 @@ public class Patcher {
 		for(IMDBParser p:Config.PARSERS){
 			allowedFiles.add(p.defineFileName());
 		}
-
 	}
 	
 	public static void patch(){
@@ -62,9 +61,6 @@ public class Patcher {
 		Collection<FTPFile> notExistantFiles = new ArrayList<FTPFile>();
 		for(FTPFile f: diffFiles){
 			File localFile = new File(Config.DIFFPATH+ f.getName());
-			long localFileSize = localFile.length();
-			long ftpFileSize = f.getSize();
-			//System.out.println(localFileSize+" "+ftpFileSize);
 			File unpackedFolder = new File(Config.DIFFPATH+f.getName().replace(".tar.gz", ""));
 			if(!localFile.exists() && !unpackedFolder.exists()){
 				notExistantFiles.add(f);

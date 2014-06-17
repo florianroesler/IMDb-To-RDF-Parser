@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
@@ -38,9 +39,31 @@ import edu.hpi.semweb.lod.crawl.imdb.impl.WritersParser;
 public class Config {
 
 	private static final Properties properties = new Properties();
+	private static final String CONFIGPATH = "config/imdb.properties";
 	static{
+		File configFile = new File(CONFIGPATH);
+		if(!configFile.exists()){
+			PrintWriter writer = null;
+			try {
+				writer = new PrintWriter(configFile);
+				writer.write("dump.path = \n");
+				writer.write("ftp.server = \n");
+				writer.write("ftp.dumppath = \n");
+				writer.write("ftp.diffpath = \n");
+				writer.write("ftp.user = \n");
+				writer.write("ftp.password = \n");
+
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}finally{
+				if(writer != null){
+					writer.close();
+				}
+			}
+		}
+		
 		try {
-			properties.load(new FileInputStream("config/imdb.properties"));
+			properties.load(new FileInputStream(CONFIGPATH));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -49,20 +72,15 @@ public class Config {
 	}
 
 	public static final String ROOTPATH = properties.getProperty("dump.path");
-
 	public static final String DIFFPATH = ROOTPATH+"diffs/";
-
-
 	public static final String ORIGINALPATH = ROOTPATH+"original/";
-	public static final String ORIGINALPARSEDPATH = ORIGINALPATH+"parsed/";
-	
+	public static final String ORIGINALPARSEDPATH = ORIGINALPATH+"parsed/";	
 	public static final String PATCHEDPATH = ROOTPATH+"patched/";
-	public static final String PATCHEDPARSEDPATH = PATCHEDPATH+"parsed/";
-	
+	public static final String PATCHEDPARSEDPATH = PATCHEDPATH+"parsed/";	
 	public static final String RDFDIFFPATH = ROOTPATH+"RDF_Diff/";
-
 	public static final String FTPSERVER = properties.getProperty("ftp.server");
-	public static final String FTPPATH = properties.getProperty("ftp.path");
+	public static final String FTPDUMPPATH = properties.getProperty("ftp.dumppath");
+	public static final String FTPDIFFPATH = properties.getProperty("ftp.diffpath");
 	public static final String FTPUSER = properties.getProperty("ftp.user");
 	public static final String FTPPASSWORD = properties.getProperty("ftp.password");
 	public static final Set<IMDBParser> PARSERS = new HashSet<IMDBParser>();

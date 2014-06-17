@@ -1,11 +1,17 @@
 package edu.hpi.semweb.lod.crawl.imdb.cmd;
 
+import java.util.Set;
+
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+
+import edu.hpi.semweb.lod.crawl.imdb.Config;
+import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
+import edu.hpi.semweb.lod.crawl.imdb.diff.IMDBDumpDownloader;
 
 public class CmdRunner {
 
@@ -36,7 +42,23 @@ public class CmdRunner {
 		}
 		
 		if(cmd.hasOption(download)){
-			
+			IMDBDumpDownloader.downloadDump();
+		}
+		
+		if(cmd.hasOption(parseOriginals)){
+			Set<IMDBParser> parsers = Config.PARSERS;
+			for(IMDBParser p:parsers){
+				p.setPatchedFile(false);
+				p.run();
+			}
+		}
+		
+		if(cmd.hasOption(parsePatches)){
+			Set<IMDBParser> parsers = Config.PARSERS;
+			for(IMDBParser p:parsers){
+				p.setPatchedFile(true);
+				p.run();
+			}
 		}
 
 	}
