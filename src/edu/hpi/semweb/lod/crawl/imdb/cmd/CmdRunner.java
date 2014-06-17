@@ -12,6 +12,7 @@ import org.apache.commons.cli.ParseException;
 import edu.hpi.semweb.lod.crawl.imdb.Config;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 import edu.hpi.semweb.lod.crawl.imdb.diff.IMDBDumpDownloader;
+import edu.hpi.semweb.lod.crawl.imdb.diff.RDFDiffInterpreter;
 
 public class CmdRunner {
 
@@ -21,6 +22,7 @@ public class CmdRunner {
 	private static final String parsePatches = "parsePatches";
 	private static final String createDiff = "createDiff";
 	private static final String help = "help";
+	private static final String interpretDiff = "interpretDiff";
 
 	public static void main(String[] args) throws ParseException {
 		Options options = new Options();
@@ -31,6 +33,7 @@ public class CmdRunner {
 		options.addOption(parsePatches, false, "Creates a parsed dump of the patched folder");
 		options.addOption(createDiff, false, "Creates a diff between the original and patched folder");
 		options.addOption(help, false, "Outputs the commandline options");
+		options.addOption(interpretDiff, false, "Interprets the created diff and patches the database accordingly");
 
 		
 		CommandLineParser parser = new BasicParser();
@@ -59,6 +62,10 @@ public class CmdRunner {
 				p.setPatchedFile(true);
 				p.run();
 			}
+		}
+		
+		if(cmd.hasOption(interpretDiff)){
+			new RDFDiffInterpreter().run();
 		}
 
 	}

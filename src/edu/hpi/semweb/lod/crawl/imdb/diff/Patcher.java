@@ -80,7 +80,7 @@ public class Patcher {
 	}
 	
 	public static void diffParsedAndOriginalFolder(){
-		diffFiles(new File(Config.ORIGINALPARSEDPATH), new File(Config.PATCHEDPARSEDPATH), new File(Config.RDFDIFFPATH+"rdf_diff.diff"));
+		diffFiles(new File(Config.ORIGINALPARSEDPATH), new File(Config.PATCHEDPARSEDPATH), new File(Config.RDFDIFFFILE));
 	}
 	
 	public static void patchFile(PatchFile originalFile, PatchFile patch){

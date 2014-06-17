@@ -60,13 +60,13 @@ public abstract class PlainTextCrawler extends ICrawler{
 			}
 
 			if(isInRelevantPart){
-				if(defineRelevanceEndingLine()!=null && line.equals(defineRelevanceEndingLine())){
+				if(defineRelevanceEndingLine() != null && line.equals(defineRelevanceEndingLine())){
 					isInRelevantPart = false;
 					continue;
 				}
 				onNewLine(line);
 			}else{
-				if(line.equals(defineRelevanceStartingLine())){
+				if(defineRelevanceStartingLine() == null || line.equals(defineRelevanceStartingLine())){
 					isInRelevantPart = true;
 				}
 			}

@@ -85,6 +85,8 @@ public class Config {
 	public static final String PATCHEDPATH = ROOTPATH+"patched/";
 	public static final String PATCHEDPARSEDPATH = PATCHEDPATH+"parsed/";	
 	public static final String RDFDIFFPATH = ROOTPATH+"RDF_Diff/";
+	public static final String RDFDIFFFILE = RDFDIFFPATH+"rdf_diff.diff";
+
 	public static final String FTPSERVER = properties.getProperty("ftp.server");
 	public static final String FTPDUMPPATH = properties.getProperty("ftp.dumppath");
 	public static final String FTPDIFFPATH = properties.getProperty("ftp.diffpath");
