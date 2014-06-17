@@ -6,6 +6,7 @@ import edu.hpi.semweb.lod.crawl.imdb.CleaningHelper;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBMovie;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBRDFBuilder;
+import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 
 public class AkaTitlesParser extends IMDBParser{
 	
@@ -34,12 +35,19 @@ public class AkaTitlesParser extends IMDBParser{
 		if(line.startsWith(" ")){
 			List<String> tiles = CleaningHelper.removeEmptyElements(line.trim().split("\t"));
 			String titlePart = tiles.get(0);
+			String akaDate = "";
+			akaDate = RegexHelper.findFirstOccurence(titlePart, "\\((\\d+|\\?{4})(/\\w+)?\\)");
 
 			String dirtyTitle = titlePart.trim().replace("(aka ", "").replaceAll("\\)$", "");
 			IMDBMovie alternativeMovie = new IMDBMovie(dirtyTitle);
 			
+			while (alternativeMovie.title.contains("__")){
+				alternativeMovie = alternativeMovie.replace("__","_");
+			}
+			
 			String country = "";
 			String type = "";
+
 
 			if(tiles.size()>1){
 				String typeTile = tiles.get(1).trim();
@@ -50,8 +58,17 @@ public class AkaTitlesParser extends IMDBParser{
 				if(splitTypeTile.length>1){
 					type = CleaningHelper.removeRoundBrackets(splitTypeTile[1].replace(")", ""));
 				}
+				
+
+				
 			}
-			writeRDF(IMDBRDFBuilder.hpilodMovie(currentMovie.toString()), IMDBRDFBuilder.akaTitle(), IMDBRDFBuilder.string(alternativeMovie.getTitle()));
+			String IDadding = country+"_"+type+"_"+akaDate;
+			
+			writeRDF(IMDBRDFBuilder.hpilodMovie(currentMovie.toString()), IMDBRDFBuilder.akaTitle(), IMDBRDFBuilder.akaTitleObject(alternativeMovie.getTitle()+IDadding));
+			//writeRDF(IMDBRDFBuilder.hpilodMovie(currentMovie.toString()), IMDBRDFBuilder.akaTitle(), IMDBRDFBuilder.string(alternativeMovie.getTitle()));
+			//writeRDF(IMDBRDFBuilder.hpilodMovie(currentMovie.toString()), IMDBRDFBuilder.akaTitle(), IMDBRDFBuilder.string(alternativeMovie.getTitle()));
+			
+		
 		}else{
 			currentMovie = new IMDBMovie(line);
 		}		

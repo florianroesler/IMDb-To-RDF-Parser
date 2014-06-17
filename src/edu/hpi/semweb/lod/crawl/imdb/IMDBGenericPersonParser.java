@@ -41,6 +41,8 @@ public abstract class IMDBGenericPersonParser extends IMDBParser{
 		IMDBMovie movie = new IMDBMovie(titlePart);
 			
 		writeRDF(IMDBRDFBuilder.hpilodMovie(movie.toString()), definePersonRDFProperty(), IMDBRDFBuilder.hpilodActor(currentPerson.toString()));
+		writeRDF(IMDBRDFBuilder.hpilodMovie(movie.toString()), IMDBRDFBuilder.is(), IMDBRDFBuilder.actor());
+		
 	}
 
 	@Override

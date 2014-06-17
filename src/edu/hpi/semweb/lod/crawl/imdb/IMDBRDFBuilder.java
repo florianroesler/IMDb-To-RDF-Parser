@@ -166,6 +166,16 @@ public class IMDBRDFBuilder {
 		return AKATITLE;
 	}
 	
+	public static final String akaTitleObject(String id){
+		id = id.replace("/", "_");
+		try {
+			return "<"+new URI("http", "www.hpi.de", "/lod/akaTitle/"+id, null).toASCIIString()+">";
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
 	public static final String akaName(){
 		return AKANAME;
 	}

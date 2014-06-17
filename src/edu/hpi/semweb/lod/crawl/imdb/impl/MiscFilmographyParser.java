@@ -57,6 +57,7 @@ public class MiscFilmographyParser extends IMDBParser{
 		role = role.replace(" ", "_");
 		
 		writeRDF(IMDBRDFBuilder.hpilodMovie(titlePart), IMDBRDFBuilder.prop(role), IMDBRDFBuilder.imdbPerson(currentPerson));
+		writeRDF(IMDBRDFBuilder.imdbPerson(currentPerson), IMDBRDFBuilder.is(), IMDBRDFBuilder.person());
 		
 		//String title = titlePart.trim();
 		
