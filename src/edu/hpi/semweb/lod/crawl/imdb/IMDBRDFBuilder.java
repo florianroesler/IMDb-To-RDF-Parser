@@ -52,7 +52,9 @@ public class IMDBRDFBuilder {
 	private static final String YEAR = "<http://dbpedia.org/property/year>";
 	private static final String AKATYPE = "<http://hpi.de/lod/akaType>";
 	private static final String THING = "<http://www.w3.org/2002/07/owl#Thing>";
-	
+	private static final String IMDBID = "<http://dbpedia.org/ontology/imdbId>";	
+	private static final String SAMEAS = "<http://www.w3.org/2002/07/owl#sameAs>";
+
 	
 	private static final String PRODUCTIONDESIGNER = "<http://dbpedia.org/property/productionDesigner>";
 	private static final String EDITOR = "<http://dbpedia.org/property/editor>";
@@ -290,6 +292,14 @@ public class IMDBRDFBuilder {
 	
 	public static final String person(){
 		return PERSON;
+	}
+	
+	public static final String imdbId(){
+		return IMDBID;
+	}
+	
+	public static final String sameAs(){
+		return SAMEAS;
 	}
 	
 	private static String buildRDF(String genericURI, String specificPart){

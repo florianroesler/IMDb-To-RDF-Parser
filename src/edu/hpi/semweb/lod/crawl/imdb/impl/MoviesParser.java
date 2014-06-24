@@ -1,21 +1,55 @@
 package edu.hpi.semweb.lod.crawl.imdb.impl;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.nio.charset.Charset;
 
+import edu.hpi.semweb.lod.crawl.imdb.Config;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBMovie;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBRDFBuilder;
+import edu.hpi.semweb.lod.crawl.imdb.id.HashSetBuilder;
 
 public class MoviesParser extends IMDBParser{
 
+	private HashSetBuilder idLookup = new HashSetBuilder();
+
+	private PrintWriter writer;
+
+	private boolean onlyMatchIds = false;
+
+
 	public MoviesParser(boolean isPatchedFile) {
 		super(isPatchedFile);
-		// TODO Auto-generated constructor stub
+
+	}
+	@Override
+	protected boolean omitOutput() {
+		return true;
+	}
+	@Override
+	public void run() {
+		if(onlyMatchIds){
+			idLookup.run();
+			try {
+				writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(Config.ORIGINALPARSEDPATH+"MatchedIds"), Charset.forName("Windows-1252")));
+				System.out.println("Writing matched IDs to "+Config.ORIGINALPARSEDPATH+"MatchedIds");
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+
+		super.run();
+
+
 	}
 
-	Map<String,Integer> map = new HashMap<String, Integer>();
-	
+	public void setOnlyMatchIds(boolean onlyMatchIds) {
+		this.onlyMatchIds = onlyMatchIds;
+	}
+
 	@Override
 	public String defineFileName() {
 		return "movies.list";
@@ -24,8 +58,21 @@ public class MoviesParser extends IMDBParser{
 	@Override
 	protected void onNewLine(String line) {
 		if(line.length() == 0 || line.contains("{")) return;
-	
+
 		IMDBMovie movie = new IMDBMovie(line);
+		if(onlyMatchIds){
+			String lookUp = movie.getTitle()+"_"+movie.getYear();
+			String imdbId = idLookup.getIdForTitle(lookUp);
+			final String imdbUrl = "<http://www.imdb.com";
+			if(imdbId != null && !movie.isVideoGame()){
+				writer.write(IMDBRDFBuilder.hpilodMovie(movie.toString()) +" "+ IMDBRDFBuilder.sameAs() +" "+ imdbUrl+imdbId+">"+" .\n");
+				
+				String cleanId = imdbId.replace("/title/", "").replace("/", "");
+				writer.write(IMDBRDFBuilder.hpilodMovie(movie.toString()) +" "+ IMDBRDFBuilder.imdbId() +" "+ IMDBRDFBuilder.string(cleanId)+" .\n");
+			}
+			return;
+		}
+
 		writeRDF(IMDBRDFBuilder.hpilodMovie(movie.toString()), IMDBRDFBuilder.is(), IMDBRDFBuilder.film());
 		writeRDF(IMDBRDFBuilder.hpilodMovie(movie.toString()), IMDBRDFBuilder.label(), IMDBRDFBuilder.string(movie.getTitle()));
 		writeRDF(IMDBRDFBuilder.hpilodMovie(movie.toString()), IMDBRDFBuilder.name(), IMDBRDFBuilder.string(movie.getTitle()));
@@ -50,7 +97,9 @@ public class MoviesParser extends IMDBParser{
 
 	@Override
 	protected void onFileEnd() {
-
+		if(onlyMatchIds){
+			writer.close();
+		}
 	}
 
 }

@@ -83,11 +83,11 @@ public class LDSpiderCrawler extends ICrawler{
 		int maxURIs = 100;
 		this.crawler.evaluateLoadBalanced(this.frontier, maxURIs);
 		//this.stop();
-		try {
-			ICrawler.saveTriples(this.result);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			ICrawler.saveTriples(this.result);
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
 		
 	}
 

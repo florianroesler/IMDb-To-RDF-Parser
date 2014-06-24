@@ -24,9 +24,10 @@ public abstract class WebCrawler extends ICrawler {
 	private static HtmlCleaner cleaner = new HtmlCleaner();
 	private Set<String> alreadyVisitedPages = new HashSet<String>();
 	private Queue<WebLink> pagesToVisit = new PriorityQueue<WebLink>();
+	
 	protected abstract String defineSeedPage();
 	protected abstract boolean shouldFollowLink(String link);
-	protected abstract Collection<Quad> extract(TagNode rootNode);
+	protected abstract Collection<String> extract(TagNode rootNode);
 
 	private static String baseUrl;
 
@@ -37,10 +38,10 @@ public abstract class WebCrawler extends ICrawler {
 	@Override
 	protected void startCrawling() {
 		String fullUrl = defineSeedPage();
-		fullUrl = fullUrl.substring(fullUrl.indexOf("www"));
+		fullUrl = fullUrl.substring(fullUrl.indexOf("www")).replace("www.", "");
 		baseUrl = "http://"+fullUrl.substring(0, fullUrl.indexOf("/"));
 
-		WebLink seedLink = new WebLink(defineSeedPage(), 0);
+		WebLink seedLink = new WebLink(defineSeedPage().replace("www.", ""), 0);
 		pagesToVisit.add(seedLink);
 		while(!isStopped() && !pagesToVisit.isEmpty()){
 			crawlPage(pagesToVisit.poll());
@@ -50,10 +51,12 @@ public abstract class WebCrawler extends ICrawler {
 	private void crawlPage(WebLink webLink){
 
 		String link = webLink.getLink();
-		if(alreadyVisitedPages.contains(link)) return;
+		if(alreadyVisitedPages.contains(link) || alreadyVisitedPages.contains(link.replaceAll("&tok.*", ""))) return;
 
 		System.out.println("Crawl "+link);
 		alreadyVisitedPages.add(link);
+		alreadyVisitedPages.add(link.replaceAll("&tok.*", ""));
+
 
 		TagNode rootNode = null;
 		try {
@@ -64,7 +67,7 @@ public abstract class WebCrawler extends ICrawler {
 
 		if(rootNode == null) return;
 
-		Collection<Quad> triples = extract(rootNode);
+		Collection<String> triples = extract(rootNode);
 
 		try {
 			saveTriples(triples);

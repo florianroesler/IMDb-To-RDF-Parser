@@ -14,25 +14,24 @@ import edu.hpi.semweb.lod.crawl.PlainTextCrawler;
 public abstract class IMDBParser extends PlainTextCrawler{
 
 	private PrintWriter writer;
-	
+
 	private String pathToDump;
 	private String parsedDirPath;
 	private Timer timer = new Timer();
-	private Date startTime = new Date();
+	private Date startTime;
+	private String outputFilePath; 
+
 	public abstract String defineFileName();
-	
-	
-	
+
+	protected boolean omitOutput(){
+		return false;
+	}
+
 	public IMDBParser(boolean isPatchedFile){
 		setPatchedFile(isPatchedFile);
-		try {
-			
-			writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(parsedDirPath+defineFileName()+"_parsed"), Charset.forName(defineEncoding())));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+
 	}
-	
+
 	public void setPatchedFile(boolean isPatchedFile){
 		if(isPatchedFile){
 			pathToDump = Config.PATCHEDPATH;
@@ -41,13 +40,25 @@ public abstract class IMDBParser extends PlainTextCrawler{
 			pathToDump = Config.ORIGINALPATH;
 			parsedDirPath = Config.ORIGINALPARSEDPATH;
 		}
+		outputFilePath = parsedDirPath+defineFileName()+"_parsed";
 	}
-	
+
 	@Override
 	public void run() {
-		System.out.println("Reading "+defineInputFilePath());
+		if(omitOutput()){
+			System.out.println("Reading "+defineInputFilePath());
+			System.out.println("Writing to "+outputFilePath);
+			try {
+
+				writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(outputFilePath), Charset.forName(defineEncoding())));
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+
+		}
+		startTime = new Date();
 		TimerTask task = new TimerTask() {
-			
+
 			@Override
 			public void run() {
 				long difference = new Date().getTime() - startTime.getTime();
@@ -62,19 +73,19 @@ public abstract class IMDBParser extends PlainTextCrawler{
 		super.run();
 		closeWriter();
 	};
-	
+
 	@Override
 	protected String defineInputFilePath() {
 		return pathToDump+defineFileName();
 	};
-	
 
-	
+
+
 	protected void writeRDF(String s, String p, String o){	
-		
+
 		if(s==null || p == null || o == null) return;
 		if(s.length() == 0 || p.length() == 0 || o.length() == 0) return;
-		
+
 		StringBuilder builder = new StringBuilder();
 		builder.append(s+" ");
 		builder.append(p+" ");
@@ -83,7 +94,7 @@ public abstract class IMDBParser extends PlainTextCrawler{
 		builder.append(" .\n");
 		writer.write(builder.toString());
 	}
-	
+
 	private void closeWriter(){
 		writer.close();
 	}
