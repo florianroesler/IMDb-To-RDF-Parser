@@ -37,15 +37,15 @@ public class MovieLinkParser extends IMDBParser {
 				currentFilm = currentFilm.replace("  (follows ", "");
 			}
 			if(currentFilm.startsWith("  (followed by ")) {
-				tripleType = "followed_by";
+				tripleType = "followedBy";
 				currentFilm = currentFilm.replace("  (followed by ", "");
 			}
 			if(currentFilm.startsWith("  (version of ")) {
-				tripleType = "version_of";
+				tripleType = "alternateVersions";
 				currentFilm = currentFilm.replace("  (version of ", "");
 			}
 			if(currentFilm.startsWith("  (alternate language version of ")) {
-				tripleType = "alternate_language_version_of";
+				tripleType = "alternateVersions";
 				currentFilm = currentFilm.replace("  (alternate language version of ", "");
 			}
 			currentFilm = currentFilm.substring(0, currentFilm.length()-1).replace("\"", "").trim();
