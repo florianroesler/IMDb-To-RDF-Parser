@@ -303,6 +303,7 @@ public class IMDBRDFBuilder {
 	}
 	
 	private static String buildRDF(String genericURI, String specificPart){
+		specificPart = specificPart.replaceAll("<.*?>", "");
 		return new StringBuilder(genericURI).append(specificPart).append(">").toString();
 	}
 }

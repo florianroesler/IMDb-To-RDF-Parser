@@ -17,12 +17,10 @@ import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.TagNode;
 import org.htmlcleaner.XPatherException;
 
-import edu.hpi.semweb.lod.data.Quad;
-
 
 public abstract class WebCrawler extends ICrawler {
 	private static HtmlCleaner cleaner = new HtmlCleaner();
-	private Set<String> alreadyVisitedPages = new HashSet<String>();
+	protected Set<String> alreadyVisitedPages = new HashSet<String>();
 	private Queue<WebLink> pagesToVisit = new PriorityQueue<WebLink>();
 	
 	protected abstract String defineSeedPage();
@@ -41,7 +39,7 @@ public abstract class WebCrawler extends ICrawler {
 		fullUrl = fullUrl.substring(fullUrl.indexOf("www")).replace("www.", "");
 		baseUrl = "http://"+fullUrl.substring(0, fullUrl.indexOf("/"));
 
-		WebLink seedLink = new WebLink(defineSeedPage().replace("www.", ""), 0);
+		WebLink seedLink = new WebLink(defineSeedPage().replace("www.", ""), 0, "http://imdb.com");
 		pagesToVisit.add(seedLink);
 		while(!isStopped() && !pagesToVisit.isEmpty()){
 			crawlPage(pagesToVisit.poll());
@@ -51,16 +49,17 @@ public abstract class WebCrawler extends ICrawler {
 	private void crawlPage(WebLink webLink){
 
 		String link = webLink.getLink();
-		if(alreadyVisitedPages.contains(link) || alreadyVisitedPages.contains(link.replaceAll("&tok.*", ""))) return;
+		link = link.replaceAll("count=\\d+", "count=100");
+		link = link.replaceAll("&num_votes=\\d+,", "");
+		if(alreadyVisitedPages.contains(link)) return;
 
 		System.out.println("Crawl "+link);
 		alreadyVisitedPages.add(link);
-		alreadyVisitedPages.add(link.replaceAll("&tok.*", ""));
-
+		
 
 		TagNode rootNode = null;
 		try {
-			rootNode = retrieveCleanHTML(link);
+			rootNode = retrieveCleanHTML(webLink);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -70,20 +69,22 @@ public abstract class WebCrawler extends ICrawler {
 		Collection<String> triples = extract(rootNode);
 
 		try {
-			saveTriples(triples);
+			if(triples.size()>0){
+				saveTriples(triples);
+			}
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
 
 		try {
-			collectLinks(rootNode, webLink.getDepth()+1);
+			collectLinks(rootNode, webLink.getDepth()+1, webLink.getLink());
 		} catch (XPatherException e) {
 			e.printStackTrace();
 		}		
 
 	}
 
-	private void collectLinks(TagNode root, int depth) throws XPatherException{
+	private void collectLinks(TagNode root, int depth, String foundOn) throws XPatherException{
 		Object[] foundObjects = root.evaluateXPath("//a/[@href]");
 		for(Object o:foundObjects){
 			TagNode foundNode = (TagNode)o;
@@ -93,15 +94,21 @@ public abstract class WebCrawler extends ICrawler {
 			}
 
 			if(shouldFollowLink(link)){
-				pagesToVisit.add(new WebLink(link, depth));
+				pagesToVisit.add(new WebLink(link, depth, foundOn));
 			}
 		}
 	}
 
-	protected static TagNode retrieveCleanHTML(final String urlPath) throws IOException {
-		URLConnection connection = new URL(urlPath).openConnection(Proxy.NO_PROXY);
+	protected static TagNode retrieveCleanHTML(WebLink link) throws IOException {
+		URLConnection connection = new URL(link.getLink()).openConnection(Proxy.NO_PROXY);
 		connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
+		connection.setRequestProperty("Connection", "keep-alive");
+		if(link.getFoundOn()!=null){
+            connection.setRequestProperty("Referer", link.getFoundOn());
+		}
+		
 		connection.connect();
+
 
 		BufferedReader r  = new BufferedReader(new InputStreamReader(connection.getInputStream(), Charset.forName("UTF-8")));
 
