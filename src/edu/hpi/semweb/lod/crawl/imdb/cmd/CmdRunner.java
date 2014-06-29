@@ -1,5 +1,6 @@
 package edu.hpi.semweb.lod.crawl.imdb.cmd;
 
+import java.io.IOException;
 import java.util.Set;
 
 import org.apache.commons.cli.BasicParser;
@@ -12,7 +13,11 @@ import org.apache.commons.cli.ParseException;
 import edu.hpi.semweb.lod.crawl.imdb.Config;
 import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 import edu.hpi.semweb.lod.crawl.imdb.diff.IMDBDumpDownloader;
+import edu.hpi.semweb.lod.crawl.imdb.diff.Patcher;
 import edu.hpi.semweb.lod.crawl.imdb.diff.RDFDiffInterpreter;
+import edu.hpi.semweb.lod.crawl.imdb.id.IMDBIDCrawler;
+import edu.hpi.semweb.lod.crawl.imdb.id.IdMatcher;
+import edu.hpi.semweb.lod.crawl.imdb.impl.MoviesParser;
 
 public class CmdRunner {
 
@@ -23,6 +28,9 @@ public class CmdRunner {
 	private static final String createDiff = "createDiff";
 	private static final String help = "help";
 	private static final String interpretDiff = "interpretDiff";
+	private static final String init = "init";
+	private static final String crawlIds = "crawlIds";
+	private static final String matchIds = "matchIds";
 
 	public static void main(String[] args) throws ParseException {
 		Options options = new Options();
@@ -34,6 +42,9 @@ public class CmdRunner {
 		options.addOption(createDiff, false, "Creates a diff between the original and patched folder");
 		options.addOption(help, false, "Outputs the commandline options");
 		options.addOption(interpretDiff, false, "Interprets the created diff and patches the database accordingly");
+		options.addOption(init, false, "Initializes Required Folders and Init Files");
+		options.addOption(crawlIds, false, "Crawls IMDB for the IMDB-Ids");
+		options.addOption(matchIds, false, "Matches Crawled IDs with the parsed movies list");
 
 		
 		CommandLineParser parser = new BasicParser();
@@ -42,6 +53,11 @@ public class CmdRunner {
 		if(cmd.hasOption(help) || cmd.getOptions().length == 0){
 			HelpFormatter formatter = new HelpFormatter();
 			formatter.printHelp("*.jar", options );
+		}
+		
+		if(cmd.hasOption(init)){
+			Config c = new Config();
+			c.hashCode();			
 		}
 		
 		if(cmd.hasOption(download)){
@@ -66,6 +82,21 @@ public class CmdRunner {
 		
 		if(cmd.hasOption(interpretDiff)){
 			new RDFDiffInterpreter().run();
+		}
+		
+		if(cmd.hasOption(patch)){
+			Patcher.patch();
+		}
+		
+		if(cmd.hasOption(crawlIds)){
+			IMDBIDCrawler crawler = new IMDBIDCrawler();
+			crawler.run();
+		}
+		
+		if(cmd.hasOption(matchIds)){
+				MoviesParser moviesParser = new MoviesParser(false);
+				moviesParser.setOnlyMatchIds(true);
+				moviesParser.run();
 		}
 
 	}

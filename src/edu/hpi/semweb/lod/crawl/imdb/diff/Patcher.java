@@ -37,7 +37,6 @@ public class Patcher {
 	}
 	
 	public static void patch(){
-		
 		downloadMissingDiffs();
 		Decompressor.decompressDiffs(true);
 
@@ -51,7 +50,9 @@ public class Patcher {
 		Date d = Patcher.retrieveOldestPatchDate();
 		FTPConnection conn = new FTPConnection();
 		Collection<FTPFile> diffFiles = conn.retrieveRelevantDiffFiles(d).values();	
-		for(FTPFile f:filterAlreadyExistantFiles(diffFiles)){
+		Collection<FTPFile> filesToDownload = filterAlreadyExistantFiles(diffFiles);
+		System.out.println("Downloading "+filesToDownload.size()+ " Diff-Files.");
+		for(FTPFile f:filesToDownload){
 			conn.downloadFileToDiffFolder(f);
 			
 		}
@@ -69,7 +70,7 @@ public class Patcher {
 		return notExistantFiles;
 	}
 	
-	public static void copyPatchjobFilesToPatchedFolder(){
+	private static void copyPatchjobFilesToPatchedFolder(){
 		File originalDir = new File(Config.ORIGINALPATH);
 		for(File f: originalDir.listFiles()){
 			String fileName = f.getName();
