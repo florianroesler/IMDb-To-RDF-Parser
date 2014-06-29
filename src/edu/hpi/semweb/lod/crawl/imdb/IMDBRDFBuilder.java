@@ -55,7 +55,7 @@ public class IMDBRDFBuilder {
 	
 	
 	private static final String PRODUCTIONDESIGNER = "<http://dbpedia.org/property/productionDesigner>";
-	private static final String EDITOR = "<http://dbpedia.org/property/editor>";
+	private static final String EDITOR = "<http://dbpedia.org/ontology/editor>";
 	private static final String DIRECTOR = "<http://dbpedia.org/ontology/director>";
 	private static final String COSTUMEDESIGNER = "<http://dbpedia.org/property/costumeDesigner>";
 	private static final String COMPOSER = "<http://dbpedia.org/ontology/composer>";
