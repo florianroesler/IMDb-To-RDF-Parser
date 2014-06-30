@@ -45,7 +45,7 @@ public abstract class IMDBParser extends PlainTextCrawler{
 
 	@Override
 	public void run() {
-		if(omitOutput()){
+		if(!omitOutput()){
 			System.out.println("Reading "+defineInputFilePath());
 			System.out.println("Writing to "+outputFilePath);
 			try {

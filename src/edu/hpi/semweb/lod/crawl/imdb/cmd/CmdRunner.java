@@ -1,6 +1,5 @@
 package edu.hpi.semweb.lod.crawl.imdb.cmd;
 
-import java.io.IOException;
 import java.util.Set;
 
 import org.apache.commons.cli.BasicParser;
@@ -17,7 +16,7 @@ import edu.hpi.semweb.lod.crawl.imdb.diff.Patcher;
 import edu.hpi.semweb.lod.crawl.imdb.diff.RDFDiffInterpreter;
 import edu.hpi.semweb.lod.crawl.imdb.id.IMDBIDCrawlerByGenre;
 import edu.hpi.semweb.lod.crawl.imdb.id.IMDBIDCrawlerByYear;
-import edu.hpi.semweb.lod.crawl.imdb.id.IdMatcher;
+import edu.hpi.semweb.lod.crawl.imdb.impl.MiscFilmographyParser;
 import edu.hpi.semweb.lod.crawl.imdb.impl.MoviesParser;
 
 public class CmdRunner {
@@ -91,9 +90,9 @@ public class CmdRunner {
 		
 		if(cmd.hasOption(crawlIds)){
 			Thread crawlByGenre = new Thread(new IMDBIDCrawlerByGenre());
-			crawlByGenre.run();
+			crawlByGenre.start();
 			Thread crawlByYear = new Thread(new IMDBIDCrawlerByYear());
-			crawlByYear.run();
+			crawlByYear.start();
 		}
 		
 		if(cmd.hasOption(matchIds)){
