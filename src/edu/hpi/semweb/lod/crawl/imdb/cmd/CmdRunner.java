@@ -15,7 +15,8 @@ import edu.hpi.semweb.lod.crawl.imdb.IMDBParser;
 import edu.hpi.semweb.lod.crawl.imdb.diff.IMDBDumpDownloader;
 import edu.hpi.semweb.lod.crawl.imdb.diff.Patcher;
 import edu.hpi.semweb.lod.crawl.imdb.diff.RDFDiffInterpreter;
-import edu.hpi.semweb.lod.crawl.imdb.id.IMDBIDCrawler;
+import edu.hpi.semweb.lod.crawl.imdb.id.IMDBIDCrawlerByGenre;
+import edu.hpi.semweb.lod.crawl.imdb.id.IMDBIDCrawlerByYear;
 import edu.hpi.semweb.lod.crawl.imdb.id.IdMatcher;
 import edu.hpi.semweb.lod.crawl.imdb.impl.MoviesParser;
 
@@ -89,8 +90,10 @@ public class CmdRunner {
 		}
 		
 		if(cmd.hasOption(crawlIds)){
-			IMDBIDCrawler crawler = new IMDBIDCrawler();
-			crawler.run();
+			Thread crawlByGenre = new Thread(new IMDBIDCrawlerByGenre());
+			crawlByGenre.run();
+			Thread crawlByYear = new Thread(new IMDBIDCrawlerByYear());
+			crawlByYear.run();
 		}
 		
 		if(cmd.hasOption(matchIds)){

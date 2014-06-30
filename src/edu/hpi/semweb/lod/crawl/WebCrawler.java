@@ -51,10 +51,13 @@ public abstract class WebCrawler extends ICrawler {
 		String link = webLink.getLink();
 		link = link.replaceAll("count=\\d+", "count=100");
 		link = link.replaceAll("&num_votes=\\d+,", "");
-		if(alreadyVisitedPages.contains(link)) return;
+		
+		String linkWithoutToken = link.replaceAll("&tok=.*", "");
+		if(alreadyVisitedPages.contains(link) || alreadyVisitedPages.contains(linkWithoutToken)) return;
 
 		System.out.println("Crawl "+link);
 		alreadyVisitedPages.add(link);
+		alreadyVisitedPages.add(linkWithoutToken);
 		
 
 		TagNode rootNode = null;

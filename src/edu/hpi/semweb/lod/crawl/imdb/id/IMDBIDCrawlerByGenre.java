@@ -13,12 +13,12 @@ import edu.hpi.semweb.lod.crawl.imdb.RegexHelper;
 import edu.hpi.semweb.lod.data.Quad;
 
 
-public class IMDBIDCrawler extends WebCrawler{
+public class IMDBIDCrawlerByGenre extends WebCrawler{
 
-	private static final String base = "http://www.imdb.com/genre/?ref_=nv_ch_gr_5";
+	private static final String base = "http://www.akas.imdb.com/genre/?ref_=nv_ch_gr_5";
 
 
-	public IMDBIDCrawler(){
+	public IMDBIDCrawlerByGenre(){
 
 	}
 
