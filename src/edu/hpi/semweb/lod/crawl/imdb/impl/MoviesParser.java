@@ -25,10 +25,12 @@ public class MoviesParser extends IMDBParser{
 		super(isPatchedFile);
 
 	}
+
 	@Override
 	protected boolean omitOutput() {
-		return true;
+		return onlyMatchIds;
 	}
+
 	@Override
 	public void run() {
 		if(onlyMatchIds){
@@ -40,9 +42,7 @@ public class MoviesParser extends IMDBParser{
 				e.printStackTrace();
 			}
 		}
-
 		super.run();
-
 
 	}
 
@@ -66,7 +66,7 @@ public class MoviesParser extends IMDBParser{
 			final String imdbUrl = "<http://www.imdb.com";
 			if(imdbId != null && !movie.isVideoGame()){
 				writer.write(IMDBRDFBuilder.hpilodMovie(movie.toString()) +" "+ IMDBRDFBuilder.sameAs() +" "+ imdbUrl+imdbId+">"+" .\n");
-				
+
 				String cleanId = imdbId.replace("/title/", "").replace("/", "");
 				writer.write(IMDBRDFBuilder.hpilodMovie(movie.toString()) +" "+ IMDBRDFBuilder.imdbId() +" "+ IMDBRDFBuilder.string(cleanId)+" .\n");
 			}

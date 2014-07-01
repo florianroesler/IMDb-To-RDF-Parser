@@ -16,7 +16,6 @@ import edu.hpi.semweb.lod.crawl.imdb.diff.Patcher;
 import edu.hpi.semweb.lod.crawl.imdb.diff.RDFDiffInterpreter;
 import edu.hpi.semweb.lod.crawl.imdb.id.IMDBIDCrawlerByGenre;
 import edu.hpi.semweb.lod.crawl.imdb.id.IMDBIDCrawlerByYear;
-import edu.hpi.semweb.lod.crawl.imdb.impl.MiscFilmographyParser;
 import edu.hpi.semweb.lod.crawl.imdb.impl.MoviesParser;
 
 public class CmdRunner {

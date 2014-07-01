@@ -72,6 +72,7 @@ public abstract class IMDBParser extends PlainTextCrawler{
 		timer.schedule(task, 30000);
 		super.run();
 		closeWriter();
+
 	};
 
 	@Override
@@ -82,7 +83,7 @@ public abstract class IMDBParser extends PlainTextCrawler{
 
 
 	protected void writeRDF(String s, String p, String o){	
-
+		if(omitOutput()) return;
 		if(s==null || p == null || o == null) return;
 		if(s.length() == 0 || p.length() == 0 || o.length() == 0) return;
 
@@ -96,7 +97,10 @@ public abstract class IMDBParser extends PlainTextCrawler{
 	}
 
 	private void closeWriter(){
-		writer.close();
+		if(!omitOutput()){
+
+			writer.close();
+		}
 	}
 
 
