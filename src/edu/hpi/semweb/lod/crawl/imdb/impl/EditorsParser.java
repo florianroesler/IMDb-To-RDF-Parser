@@ -28,4 +28,8 @@ public class EditorsParser extends IMDBGenericPersonParser{
 	protected String definePersonRDFProperty() {
 		return IMDBRDFBuilder.editor();
 	}
+	@Override
+	protected String definePersonRDFType() {
+		return IMDBRDFBuilder.editorType();
+	}
 }

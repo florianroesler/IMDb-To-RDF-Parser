@@ -10,6 +10,7 @@ public abstract class IMDBGenericPersonParser extends IMDBParser{
 	private IMDBActor currentPerson;
 
 	protected abstract String definePersonRDFProperty();
+	protected abstract String definePersonRDFType();
 	
 	public IMDBGenericPersonParser(boolean isPatchedFile) {
 		super(isPatchedFile);
@@ -40,8 +41,9 @@ public abstract class IMDBGenericPersonParser extends IMDBParser{
 		
 		IMDBMovie movie = new IMDBMovie(titlePart);
 			
-		writeRDF(IMDBRDFBuilder.hpilodMovie(movie.toString()), definePersonRDFProperty(), IMDBRDFBuilder.hpilodActor(currentPerson.toString()));
-		writeRDF(IMDBRDFBuilder.hpilodMovie(movie.toString()), IMDBRDFBuilder.is(), IMDBRDFBuilder.actor());
+		writeRDF(IMDBRDFBuilder.hpilodMovie(movie.toString()), definePersonRDFProperty(), IMDBRDFBuilder.hpilodPerson(currentPerson.toString()));
+		writeRDF(IMDBRDFBuilder.hpilodPerson(currentPerson.toString()), IMDBRDFBuilder.is(), IMDBRDFBuilder.person());
+		writeRDF(IMDBRDFBuilder.hpilodPerson(currentPerson.toString()), IMDBRDFBuilder.is(), definePersonRDFType());
 		
 	}
 

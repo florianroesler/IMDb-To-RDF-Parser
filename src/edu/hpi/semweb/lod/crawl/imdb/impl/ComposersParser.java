@@ -28,5 +28,10 @@ public class ComposersParser extends IMDBGenericPersonParser{
 	protected String definePersonRDFProperty() {
 		return IMDBRDFBuilder.composer();
 	}
+	
+	@Override
+	protected String definePersonRDFType() {
+		return IMDBRDFBuilder.composerType();
+	}
 
 }

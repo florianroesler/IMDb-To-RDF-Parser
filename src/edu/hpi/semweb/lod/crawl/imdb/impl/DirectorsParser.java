@@ -28,4 +28,9 @@ public class DirectorsParser extends IMDBGenericPersonParser{
 	protected String definePersonRDFProperty() {
 		return IMDBRDFBuilder.director();
 	}
+	
+	@Override
+	protected String definePersonRDFType() {
+		return IMDBRDFBuilder.directorType();
+	}
 }

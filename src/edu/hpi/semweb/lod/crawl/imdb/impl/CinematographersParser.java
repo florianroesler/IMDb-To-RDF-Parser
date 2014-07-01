@@ -29,4 +29,9 @@ public class CinematographersParser extends IMDBGenericPersonParser{
 		return IMDBRDFBuilder.cinematographer();
 	}
 
+	@Override
+	protected String definePersonRDFType() {
+		return IMDBRDFBuilder.cinematographerType();
+	}
+
 }

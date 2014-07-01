@@ -28,5 +28,10 @@ public class CostumeDesigners extends IMDBGenericPersonParser{
 	protected String definePersonRDFProperty() {
 		return IMDBRDFBuilder.costumeDesigner();
 	}
+	
+	@Override
+	protected String definePersonRDFType() {
+		return IMDBRDFBuilder.costumeDesignerType();
+	}
 
 }

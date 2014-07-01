@@ -57,11 +57,17 @@ public class IMDBRDFBuilder {
 
 	
 	private static final String PRODUCTIONDESIGNER = "<http://dbpedia.org/property/productionDesigner>";
+	private static final String PRODUCTIONDESIGNERTYPE = "<http://dbpedia.org/class/yago/ProductionDesigners>";
 	private static final String EDITOR = "<http://dbpedia.org/ontology/editor>";
+	private static final String EDITORTYPE = "<http://dbpedia.org/class/yago/Editor110044879>";
 	private static final String DIRECTOR = "<http://dbpedia.org/ontology/director>";
+	private static final String DIRECTORTYPE = "<http://dbpedia.org/class/yago/FilmDirector110088200>";
 	private static final String COSTUMEDESIGNER = "<http://dbpedia.org/property/costumeDesigner>";
+	private static final String COSTUMEDESIGNERTYPE = "<http://dbpedia.org/class/yago/Costumier109968259>";
 	private static final String COMPOSER = "<http://dbpedia.org/ontology/composer>";
+	private static final String COMPOSERTYPE = "<http://dbpedia.org/class/yago/Composer109947232>";
 	private static final String CINEMATOGRAPHER = "<http://dbpedia.org/property/cinematographer>";
+	private static final String CINEMATOGRAPHERTYPE = "<http://dbpedia.org/class/yago/Cameraman109889539>";
 
 
 
@@ -87,6 +93,16 @@ public class IMDBRDFBuilder {
 		uniqueActorName = uniqueActorName.replace("/", "_");
 		try {
 			return "<"+new URI("http", "www.hpi.de", "/lod/actor/"+uniqueActorName, null).toASCIIString()+">";
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	public static final String hpilodPerson(String uniquePersonName){
+		uniquePersonName = uniquePersonName.replace("/", "_");
+		try {
+			return "<"+new URI("http", "www.hpi.de", "/lod/person/"+uniquePersonName, null).toASCIIString()+">";
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
@@ -265,21 +281,40 @@ public class IMDBRDFBuilder {
 	public static final String productionDesigner(){
 		return PRODUCTIONDESIGNER;
 	}
+	public static final String productionDesignerType(){
+		return PRODUCTIONDESIGNERTYPE;
+	}
 	public static final String director(){
 		return DIRECTOR;
+	}
+	public static final String directorType(){
+		return DIRECTORTYPE;
 	}
 	public static final String editor(){
 		return EDITOR;
 	}
+	public static final String editorType(){
+		return EDITORTYPE;
+	}
 	public static final String cinematographer(){
 		return CINEMATOGRAPHER;
+	}
+	public static final String cinematographerType(){
+		return CINEMATOGRAPHERTYPE;
 	}
 	public static final String composer(){
 		return COMPOSER;
 	}
+	public static final String composerType(){
+		return COMPOSERTYPE;
+	}
 	public static final String costumeDesigner(){
 		return COSTUMEDESIGNER;
 	}
+	public static final String costumeDesignerType(){
+		return COSTUMEDESIGNERTYPE;
+	}
+	
 	public static final String imdbPerson(String uniquePersonName){
 		uniquePersonName = uniquePersonName.replace("/", "_");
 		try {
