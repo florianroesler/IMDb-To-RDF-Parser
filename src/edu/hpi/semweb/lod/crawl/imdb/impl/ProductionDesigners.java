@@ -28,5 +28,10 @@ public class ProductionDesigners extends IMDBGenericPersonParser{
 	protected String definePersonRDFProperty() {
 		return IMDBRDFBuilder.productionDesigner();
 	}
+	
+	@Override
+	protected String definePersonRDFType() {
+		return IMDBRDFBuilder.productionDesignerType();
+	}
 
 }

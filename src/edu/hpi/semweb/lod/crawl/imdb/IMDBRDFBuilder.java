@@ -24,6 +24,7 @@ public class IMDBRDFBuilder {
 	private static final String KEYWORD = "<http://www.hpi.de/lod/keyword>";
 	private static final String WRITER = "<http://www.dbpedia.org/ontology/writer>";
 	private static final String PRODUCER = "<http://www.dbpedia.org/ontology/producer>";
+	private static final String PRODUCERTYPE = "<http://dbpedia.org/class/yago/Producer110480018>";
 	private static final String RATING = "<http://dbpedia.org/property/imdbRating>";
 	private static final String RATINGCOUNT = "<http://www.schema.org/ratingCount>";
 	private static final String LOCATION = "<http://dbpedia.org/property/location>";
@@ -187,6 +188,10 @@ public class IMDBRDFBuilder {
 	
 	public static final String producer(){
 		return PRODUCER;
+	}
+	
+	public static final String producerType(){
+		return PRODUCERTYPE;
 	}
 	
 	public static final String rating(){
