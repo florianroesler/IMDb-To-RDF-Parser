@@ -86,6 +86,10 @@ public class Config {
 	public static final String PATCHEDPARSEDPATH = PATCHEDPATH+"parsed/";	
 	public static final String RDFDIFFPATH = ROOTPATH+"RDF_Diff/";
 	public static final String RDFDIFFFILE = RDFDIFFPATH+"rdf_diff.diff";
+	
+	public static final String CRAWLPATH = ROOTPATH+"crawl/";	
+	public static final String CRAWLRAWPATH = CRAWLPATH+"raw/";	
+	public static final String CRAWLCOMBINEDPATH = CRAWLPATH+"combined/";	
 
 	public static final String FTPSERVER = properties.getProperty("ftp.server");
 	public static final String FTPDUMPPATH = properties.getProperty("ftp.dumppath");
@@ -96,7 +100,7 @@ public class Config {
 
 	static {
 
-		for(String path: new String[]{ROOTPATH,DIFFPATH,ORIGINALPATH,ORIGINALPARSEDPATH,PATCHEDPATH,PATCHEDPARSEDPATH, RDFDIFFPATH}){
+		for(String path: new String[]{ROOTPATH,DIFFPATH,ORIGINALPATH,ORIGINALPARSEDPATH,PATCHEDPATH,PATCHEDPARSEDPATH, RDFDIFFPATH, CRAWLPATH, CRAWLRAWPATH, CRAWLCOMBINEDPATH}){
 			File subDir = new File(path);
 			boolean isDir = subDir.isDirectory();
 			if(!isDir){

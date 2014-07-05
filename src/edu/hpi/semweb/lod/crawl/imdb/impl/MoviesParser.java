@@ -36,8 +36,8 @@ public class MoviesParser extends IMDBParser{
 		if(onlyMatchIds){
 			idLookup.run();
 			try {
-				writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(Config.ORIGINALPARSEDPATH+"MatchedIds"), Charset.forName("Windows-1252")));
-				System.out.println("Writing matched IDs to "+Config.ORIGINALPARSEDPATH+"MatchedIds");
+				writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(Config.ORIGINALPARSEDPATH+"MatchedIds.list_parsed"), Charset.forName("Windows-1252")));
+				System.out.println("Writing matched IDs to "+Config.ORIGINALPARSEDPATH+"MatchedIds.list_parsed");
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}

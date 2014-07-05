@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.Date;
 
+import edu.hpi.semweb.lod.crawl.imdb.Config;
 import edu.hpi.semweb.lod.data.Quad;
 
 
@@ -30,7 +31,7 @@ public abstract class ICrawler implements Runnable{
 	}
 
 	protected static void saveTriples(Collection<String> triples) throws FileNotFoundException{
-		File file = new File("./Crawl/Crawler"+new Date().getTime()+"_"+String.valueOf(Math.random()).replace(".", "")+".triples");
+		File file = new File(Config.CRAWLRAWPATH+"Crawler"+new Date().getTime()+"_"+String.valueOf(Math.random()).replace(".", "")+".triples");
 		StringBuilder builder = new  StringBuilder();
 		for(String triple:triples){
 			builder.append(triple.toString()+"\n");

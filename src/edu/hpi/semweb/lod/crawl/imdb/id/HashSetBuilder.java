@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.hpi.semweb.lod.crawl.PlainTextCrawler;
+import edu.hpi.semweb.lod.crawl.imdb.Config;
 
 public class HashSetBuilder extends PlainTextCrawler{
 
@@ -15,7 +16,7 @@ public class HashSetBuilder extends PlainTextCrawler{
 	
 	@Override
 	protected String defineInputFilePath() {
-		return "combinedIds";
+		return Config.CRAWLCOMBINEDPATH+"combinedIds";
 	}
 
 	@Override
