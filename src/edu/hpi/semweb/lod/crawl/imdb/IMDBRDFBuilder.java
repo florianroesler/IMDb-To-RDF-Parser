@@ -73,7 +73,7 @@ public class IMDBRDFBuilder {
 
 
 	public static final String string(String s){
-		return "\""+s.replace("\\", "\\\\").replace("\"", "\\\"")+"\"";
+		return "\""+s.replace("\\", "/").replace("\"", "'")+"\"";
 	}
 
 	public static final String hpilodMovie(String uniqueMovieTitle){
