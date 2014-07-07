@@ -77,13 +77,7 @@ public class IMDBRDFBuilder {
 	}
 
 	public static final String hpilodMovie(String uniqueMovieTitle){
-		uniqueMovieTitle = uniqueMovieTitle.replace("/", "_");
-		try {
-			return "<"+new URI("http", "www.hpi.de", "/lod/movie/"+uniqueMovieTitle, null).toASCIIString()+">";
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-		return "";
+		return hpiEscapedUri("/lod/movie/", uniqueMovieTitle);
 	}
 
 	public static final String actor(){
@@ -91,19 +85,17 @@ public class IMDBRDFBuilder {
 	}
 
 	public static final String hpilodActor(String uniqueActorName){
-		uniqueActorName = uniqueActorName.replace("/", "_");
-		try {
-			return "<"+new URI("http", "www.hpi.de", "/lod/actor/"+uniqueActorName, null).toASCIIString()+">";
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-		return "";
+		return hpiEscapedUri("/lod/actor/", uniqueActorName);
 	}
 	
 	public static final String hpilodPerson(String uniquePersonName){
-		uniquePersonName = uniquePersonName.replace("/", "_");
+		return hpiEscapedUri("/lod/person/", uniquePersonName);
+	}
+	
+	private static String hpiEscapedUri(String path, String string){
+		string = string.replace("/", "_").replace("\"", "'");
 		try {
-			return "<"+new URI("http", "www.hpi.de", "/lod/person/"+uniquePersonName, null).toASCIIString()+">";
+			return "<"+new URI("http", "www.hpi.de", path+string, null).toASCIIString()+">";
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
@@ -211,13 +203,7 @@ public class IMDBRDFBuilder {
 	}
 	
 	public static final String akaTitleObject(String id){
-		id = id.replace("/", "_");
-		try {
-			return "<"+new URI("http", "www.hpi.de", "/lod/akaTitle/"+id, null).toASCIIString()+">";
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-		return "";
+		return hpiEscapedUri("/lod/akaTitle/", id);
 	}
 	
 	public static final String akaName(){
@@ -321,13 +307,7 @@ public class IMDBRDFBuilder {
 	}
 	
 	public static final String imdbPerson(String uniquePersonName){
-		uniquePersonName = uniquePersonName.replace("/", "_");
-		try {
-			return "<"+new URI("http", "www.imdb.com", "/person/"+uniquePersonName, null).toASCIIString()+">";
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-		return "";
+		return hpiEscapedUri("/person/", uniquePersonName);
 	}
 	
 	public static final String person(){
