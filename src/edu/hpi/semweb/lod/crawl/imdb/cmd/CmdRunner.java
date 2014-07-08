@@ -31,10 +31,11 @@ public class CmdRunner {
 	private static final String init = "init";
 	private static final String crawlIds = "crawlIds";
 	private static final String matchIds = "matchIds";
+	private static final String combineIds = "combineIds";
 
 	public static void main(String[] args) throws ParseException {
 		Options options = new Options();
-		
+
 		options.addOption(download, false, "Downloads the initial IMDB-dump via FTP");
 		options.addOption(patch, false, "Updates the IMDB-dump via FTP");
 		options.addOption(parseOriginals, false, "Creates a parsed dump of the original folder");
@@ -45,25 +46,26 @@ public class CmdRunner {
 		options.addOption(init, false, "Initializes Required Folders and Init Files");
 		options.addOption(crawlIds, false, "Crawls IMDB for the IMDB-Ids");
 		options.addOption(matchIds, false, "Matches Crawled IDs with the parsed movies list");
+		options.addOption(combineIds, false, "Combines Crawled IDs");
 
-		
-		CommandLineParser parser = new BasicParser();
+
+				CommandLineParser parser = new BasicParser();
 		CommandLine cmd = parser.parse( options, args);
-		
+
 		if(cmd.hasOption(help) || cmd.getOptions().length == 0){
 			HelpFormatter formatter = new HelpFormatter();
 			formatter.printHelp("*.jar", options );
 		}
-		
+
 		if(cmd.hasOption(init)){
 			Config c = new Config();
 			c.hashCode();			
 		}
-		
+
 		if(cmd.hasOption(download)){
 			IMDBDumpDownloader.downloadDump();
 		}
-		
+
 		if(cmd.hasOption(parseOriginals)){
 			Set<IMDBParser> parsers = Config.PARSERS;
 			for(IMDBParser p:parsers){
@@ -71,7 +73,7 @@ public class CmdRunner {
 				p.run();
 			}
 		}
-		
+
 		if(cmd.hasOption(parsePatches)){
 			Set<IMDBParser> parsers = Config.PARSERS;
 			for(IMDBParser p:parsers){
@@ -79,39 +81,45 @@ public class CmdRunner {
 				p.run();
 			}
 		}
-		
+
 		if(cmd.hasOption(interpretDiff)){
 			new RDFDiffInterpreter().run();
 		}
-		
+
 		if(cmd.hasOption(patch)){
 			Patcher.patch();
 		}
-		
+
 		if(cmd.hasOption(crawlIds)){
-//			Thread crawlByGenre = new Thread(new IMDBIDCrawlerByGenre());
-//			crawlByGenre.start();
+			//			Thread crawlByGenre = new Thread(new IMDBIDCrawlerByGenre());
+			//			crawlByGenre.start();
 			Thread crawlByYear = new Thread(new IMDBIDCrawlerByYear());
 			crawlByYear.start();
-			
+
 			while(crawlByYear.isAlive()){
-				
+
 				try {
 					Thread.sleep(10000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
+			
+			IDCrawlerCommandLines.combine();
+
 		}
-		
+
+		if(cmd.hasOption(combineIds)){
+			IDCrawlerCommandLines.combine();
+		}
+
 		if(cmd.hasOption(matchIds)){
-				IDCrawlerCommandLines.combine();
-				MoviesParser moviesParser = new MoviesParser(false);
-				moviesParser.setOnlyMatchIds(true);
-				moviesParser.run();
+			MoviesParser moviesParser = new MoviesParser(false);
+			moviesParser.setOnlyMatchIds(true);
+			moviesParser.run();
 		}
-		
-		
+
+
 		System.exit(0);
 
 	}

@@ -66,8 +66,8 @@ public class RatingsParser extends IMDBParser{
 				IMDBMovie mov = new IMDBMovie(title.replaceAll("\\[[^\\[\\]]*\\]",""));
 				currentMovie = mov.toString();
 				
-				writeRDF(IMDBRDFBuilder.hpilodMovie(currentMovie), IMDBRDFBuilder.rating(),("\""+rating+"\"^^xsd:float"));
-				writeRDF(IMDBRDFBuilder.hpilodMovie(currentMovie), IMDBRDFBuilder.ratingCount(),("\""+ratingCount+"\"^^xsd:integer"));
+				writeRDF(IMDBRDFBuilder.hpilodMovie(currentMovie), IMDBRDFBuilder.rating(),IMDBRDFBuilder.floatt(rating));
+				writeRDF(IMDBRDFBuilder.hpilodMovie(currentMovie), IMDBRDFBuilder.ratingCount(),IMDBRDFBuilder.floatt(ratingCount));
 			}
 
 		}

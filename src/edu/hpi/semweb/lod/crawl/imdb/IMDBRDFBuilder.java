@@ -70,8 +70,19 @@ public class IMDBRDFBuilder {
 	private static final String CINEMATOGRAPHER = "<http://dbpedia.org/property/cinematographer>";
 	private static final String CINEMATOGRAPHERTYPE = "<http://dbpedia.org/class/yago/Cameraman109889539>";
 
+	private static final String INTEGER = "^^<http://www.w3.org/2001/XMLSchema#integer>";
+	private static final String FLOAT = "^^<http://www.w3.org/2001/XMLSchema#float>";
 
 
+	public static final String integer(String s){
+		return string(s)+INTEGER;
+	}
+	
+	public static final String floatt(String s){
+		return string(s)+FLOAT;
+	}
+	
+	
 	public static final String string(String s){
 		return "\""+s.replace("\\", "/").replace("\"", "'")+"\"";
 	}

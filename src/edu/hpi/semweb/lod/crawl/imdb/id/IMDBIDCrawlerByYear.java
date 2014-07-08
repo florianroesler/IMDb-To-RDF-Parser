@@ -16,7 +16,7 @@ public class IMDBIDCrawlerByYear extends IMDBIDCrawlerByGenre{
 			return true;
 		}
 		
-		if(link.contains("imdb.com/search/title?year=")){
+		if(link.contains("imdb.com/search/title") && link.contains("year=")){
 			return true;
 		}
 		return false;
