@@ -73,10 +73,6 @@ public class RatingsParser extends IMDBParser{
 		}
 	}
 
-	@Override
-	protected String defineEncoding() {
-		return "Windows-1252";
-	}
 
 
 	@Override

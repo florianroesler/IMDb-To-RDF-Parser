@@ -47,10 +47,6 @@ public class BusinessParser extends IMDBParser{
 
 	}
 
-	@Override
-	protected String defineEncoding() {
-		return "Windows-1252";
-	}
 	
 	private void writeEntry(){
 		

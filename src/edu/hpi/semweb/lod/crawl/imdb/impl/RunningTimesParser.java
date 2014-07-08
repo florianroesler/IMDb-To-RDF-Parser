@@ -19,10 +19,6 @@ public class RunningTimesParser extends IMDBParser{
 		return "running-times.list";
 	}
 
-	@Override
-	protected String defineEncoding() {
-		return "Windows-1252";
-	}
 
 	@Override
 	protected void onNewLine(String line) {

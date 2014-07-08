@@ -24,11 +24,6 @@ public class ActorsParser extends IMDBParser{
 	}
 
 	@Override
-	protected String defineEncoding() {
-		return "Windows-1252";
-	}
-
-	@Override
 	protected String defineRelevanceStartingLine() {
 		return "----			------";
 	}

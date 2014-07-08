@@ -22,10 +22,6 @@ public class MiscFilmographyParser extends IMDBParser{
 	private String currentPerson;
 	
 
-	@Override
-	protected String defineEncoding() {
-		return "Windows-1252";
-	}
 
 	@Override
 	protected void onNewLine(String line) {

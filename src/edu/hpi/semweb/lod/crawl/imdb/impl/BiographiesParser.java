@@ -102,10 +102,6 @@ public class BiographiesParser extends IMDBParser{
 		return "biographies.list";
 	}
 
-	@Override
-	protected String defineEncoding() {
-		return "Windows-1252";
-	}
 
 	private void writeBiography(){
 		IMDBActor actor = new IMDBActor(stringMappings.get("NM"));

@@ -25,11 +25,6 @@ public class WritersParser extends IMDBParser{
 	
 
 	@Override
-	protected String defineEncoding() {
-		return "Windows-1252";
-	}
-
-	@Override
 	protected void onNewLine(String line) {
 		if(line.length()==0) return;
 		List<String> tiles = CleaningHelper.removeEmptyElements(line.split("\t"));

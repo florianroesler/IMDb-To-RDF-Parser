@@ -18,11 +18,6 @@ public class AkaNamesParser extends IMDBParser{
 	}
 
 	@Override
-	protected String defineEncoding() {
-		return "Windows-1252";
-	}
-
-	@Override
 	protected void onNewLine(String line) {
 		if(line.startsWith(" ")){
 			IMDBActor aka = new IMDBActor(RegexHelper.findFirstOccurence(line, "aka\\s[^)]+").replace("aka ", ""));

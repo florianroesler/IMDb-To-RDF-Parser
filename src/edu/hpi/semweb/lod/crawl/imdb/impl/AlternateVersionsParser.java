@@ -21,10 +21,6 @@ public class AlternateVersionsParser extends IMDBParser{
 		return "alternate-versions.list";
 	}
 
-	@Override
-	protected String defineEncoding() {
-		return "Windows-1252";
-	}
 
 	@Override
 	protected void onNewLine(String line) {

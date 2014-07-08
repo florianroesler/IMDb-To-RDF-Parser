@@ -22,10 +22,6 @@ public class AkaTitlesParser extends IMDBParser{
 		return "aka-titles.list";
 	}
 
-	@Override
-	protected String defineEncoding() {
-		return "Windows-1252";
-	}
 
 	@Override
 	protected void onNewLine(String line) {

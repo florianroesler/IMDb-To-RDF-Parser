@@ -19,10 +19,6 @@ public class ReleaseDatesParser extends IMDBParser{
 		return "release-dates.list";
 	}
 
-	@Override
-	protected String defineEncoding() {
-		return "Windows-1252";
-	}
 
 	@Override
 	protected void onNewLine(String line) {

@@ -16,12 +16,17 @@ public abstract class PlainTextCrawler extends ICrawler{
 
 
 	protected abstract String defineInputFilePath();
-	protected abstract String defineEncoding();
 	protected abstract void onNewLine(String line);
 	protected abstract void onFileEnd();
 	protected abstract String defineRelevanceStartingLine();
 	protected abstract String defineRelevanceEndingLine();
 
+	
+	protected String defineEncoding(){
+		return "UTF-8";
+	}
+
+	
 	@Override
 	protected void startCrawling() {
 		try {

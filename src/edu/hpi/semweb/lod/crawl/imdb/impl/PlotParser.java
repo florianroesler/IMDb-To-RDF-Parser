@@ -21,10 +21,6 @@ public class PlotParser extends IMDBParser{
 		return "plot.list";
 	}
 
-	@Override
-	protected String defineEncoding() {
-		return "Windows-1252";
-	}
 
 	@Override
 	protected void onNewLine(String line) {

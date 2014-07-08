@@ -19,10 +19,6 @@ public class MovieLinkParser extends IMDBParser {
 		return "movie-links.list";
 	}
 
-	@Override
-	protected String defineEncoding() {
-		return "Windows-1252";
-	}
 
 	@Override
 	protected void onNewLine(String line) {

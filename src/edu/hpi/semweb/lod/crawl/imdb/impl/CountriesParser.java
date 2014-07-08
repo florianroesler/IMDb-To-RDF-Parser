@@ -21,11 +21,6 @@ public class CountriesParser extends IMDBParser {
 		return "countries.list";
 	}
 
-	@Override
-	protected String defineEncoding() {
-		
-		return "Windows-1252";
-	}
 
 	@Override
 	protected void onNewLine(String line) {

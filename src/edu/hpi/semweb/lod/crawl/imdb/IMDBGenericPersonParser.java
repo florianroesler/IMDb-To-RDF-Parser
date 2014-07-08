@@ -16,10 +16,6 @@ public abstract class IMDBGenericPersonParser extends IMDBParser{
 		super(isPatchedFile);
 	}
 
-	@Override
-	protected String defineEncoding() {
-		return "Windows-1252";
-	}
 
 	@Override
 	protected void onNewLine(String line) {
