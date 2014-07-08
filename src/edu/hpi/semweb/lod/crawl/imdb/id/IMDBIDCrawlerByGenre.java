@@ -75,5 +75,11 @@ public class IMDBIDCrawlerByGenre extends WebCrawler{
 
 	}
 
+	@Override
+	protected String modifyLink(String link) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

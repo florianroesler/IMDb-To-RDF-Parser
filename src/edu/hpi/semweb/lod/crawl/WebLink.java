@@ -1,6 +1,10 @@
 package edu.hpi.semweb.lod.crawl;
 
 public class WebLink implements Comparable<WebLink>{
+	public void setLink(String link) {
+		this.link = link;
+	}
+
 	private String link;
 	private int depth;
 	private String foundOn;

@@ -27,6 +27,8 @@ public abstract class WebCrawler extends ICrawler {
 	protected abstract boolean shouldFollowLink(String link);
 	protected abstract Collection<String> extract(TagNode rootNode);
 
+	protected abstract String modifyLink(String link);
+	
 	private static String baseUrl;
 
 	public WebCrawler() {
@@ -49,10 +51,17 @@ public abstract class WebCrawler extends ICrawler {
 	private void crawlPage(WebLink webLink){
 
 		String link = webLink.getLink();
+		
+		String modifiedLink = modifyLink(link);
+		if(modifiedLink != null){
+			link = modifiedLink;
+		}
+		
 		link = link.replaceAll("count=\\d+", "count=100");
 		link = link.replaceAll("&num_votes=\\d+,", "");
 		
 		String linkWithoutToken = link.replaceAll("&tok=.*", "");
+		webLink.setLink(link);
 		if(alreadyVisitedPages.contains(link) || alreadyVisitedPages.contains(linkWithoutToken)) return;
 
 		System.out.println("Crawl "+link);
