@@ -65,7 +65,9 @@ public class MoviesParser extends IMDBParser{
 			String imdbId = idLookup.getIdForTitle(lookUp);
 			final String imdbUrl = "<http://www.imdb.com";
 			if(imdbId != null && !movie.isVideoGame()){
-				writer.write(IMDBRDFBuilder.hpilodMovie(movie.toString()) +" "+ IMDBRDFBuilder.sameAs() +" "+ imdbUrl+imdbId+">"+" .\n");
+				String imdbBuiltUrl= imdbUrl+imdbId;
+				writer.write(IMDBRDFBuilder.hpilodMovie(movie.toString()) +" "+ IMDBRDFBuilder.sameAs() +" "+imdbBuiltUrl +">"+" .\n");
+				writer.write(IMDBRDFBuilder.hpilodMovie(movie.toString()) +" "+ IMDBRDFBuilder.sameAs() +" "+imdbBuiltUrl+"/>"+" .\n");
 
 				String cleanId = imdbId.replace("/title/", "").replace("/", "");
 				writer.write(IMDBRDFBuilder.hpilodMovie(movie.toString()) +" "+ IMDBRDFBuilder.imdbId() +" "+ IMDBRDFBuilder.string(cleanId)+" .\n");
