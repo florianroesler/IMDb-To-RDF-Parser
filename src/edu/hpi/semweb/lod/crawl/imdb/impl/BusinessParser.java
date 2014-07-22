@@ -63,6 +63,7 @@ public class BusinessParser extends IMDBParser{
 			}
 		}else{
 			List<String> tiles = CleaningHelper.removeEmptyElements(line.split(":"));
+			if(tiles.size()<2) return;
 			String abbrv = tiles.get(0).trim();
 			String sentence = tiles.get(1).trim();
 			

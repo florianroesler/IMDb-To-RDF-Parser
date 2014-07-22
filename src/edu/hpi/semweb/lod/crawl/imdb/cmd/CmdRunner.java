@@ -49,7 +49,7 @@ public class CmdRunner {
 		options.addOption(combineIds, false, "Combines Crawled IDs");
 
 
-				CommandLineParser parser = new BasicParser();
+		CommandLineParser parser = new BasicParser();
 		CommandLine cmd = parser.parse( options, args);
 
 		if(cmd.hasOption(help) || cmd.getOptions().length == 0){
@@ -104,7 +104,7 @@ public class CmdRunner {
 					e.printStackTrace();
 				}
 			}
-			
+
 			IDCrawlerCommandLines.combine();
 
 		}
@@ -117,6 +117,10 @@ public class CmdRunner {
 			MoviesParser moviesParser = new MoviesParser(false);
 			moviesParser.setOnlyMatchIds(true);
 			moviesParser.run();
+		}
+
+		if(cmd.hasOption(createDiff)){
+			Patcher.diffParsedAndOriginalFolder();
 		}
 
 

@@ -8,7 +8,9 @@ public abstract class AbstractDiffInterpreter extends PlainTextCrawler{
 
 	protected abstract void onAddLine(String line);
 	protected abstract void onRemoveLine(String line);
+	protected abstract void onFileEnd();
 
+	
 	@Override
 	protected String defineEncoding() {
 		return "Windows-1252";
@@ -18,15 +20,11 @@ public abstract class AbstractDiffInterpreter extends PlainTextCrawler{
 	protected void onNewLine(String line) {
 		
 		if(line.startsWith(">")){
-			onAddLine(line);
+			onAddLine(line.replaceFirst("> ", ""));
 		}
 		if(line.startsWith("<")){
-			onRemoveLine(line);
+			onRemoveLine(line.replaceFirst("< ", ""));
 		}
-	}
-
-	@Override
-	protected void onFileEnd() {		
 	}
 
 	@Override

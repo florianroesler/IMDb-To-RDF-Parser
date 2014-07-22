@@ -86,7 +86,9 @@ public class Config {
 	public static final String PATCHEDPARSEDPATH = PATCHEDPATH+"parsed/";	
 	public static final String RDFDIFFPATH = ROOTPATH+"RDF_Diff/";
 	public static final String RDFDIFFFILE = RDFDIFFPATH+"rdf_diff.diff";
-	
+	public static final String RDFINCREMENTALNEW = RDFDIFFPATH+"new_triples.list";
+	public static final String RDFINCREMENTALDELETE = RDFDIFFPATH+"deleted_triples.list";
+
 	public static final String CRAWLPATH = ROOTPATH+"crawl/";	
 	public static final String CRAWLRAWPATH = CRAWLPATH+"raw/";	
 	public static final String CRAWLCOMBINEDPATH = CRAWLPATH+"combined/";	
