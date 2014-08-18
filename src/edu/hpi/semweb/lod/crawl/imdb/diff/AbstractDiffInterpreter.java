@@ -1,8 +1,8 @@
 package edu.hpi.semweb.lod.crawl.imdb.diff;
 
-import edu.hpi.semweb.lod.crawl.PlainTextCrawler;
+import edu.hpi.semweb.lod.crawl.PlainTextParser;
 
-public abstract class AbstractDiffInterpreter extends PlainTextCrawler{
+public abstract class AbstractDiffInterpreter extends PlainTextParser{
 
 	protected abstract String defineInputFilePath();
 

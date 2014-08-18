@@ -3,10 +3,10 @@ package edu.hpi.semweb.lod.crawl.imdb.id;
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.hpi.semweb.lod.crawl.PlainTextCrawler;
+import edu.hpi.semweb.lod.crawl.PlainTextParser;
 import edu.hpi.semweb.lod.crawl.imdb.Config;
 
-public class HashSetBuilder extends PlainTextCrawler{
+public class HashSetBuilder extends PlainTextParser{
 
 	private Map<String, String> titleToIdMap = new HashMap<String, String>();
 	

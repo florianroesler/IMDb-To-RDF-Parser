@@ -9,7 +9,7 @@ import java.io.LineNumberReader;
 import java.nio.charset.Charset;
 
 
-public abstract class PlainTextCrawler extends ICrawler{
+public abstract class PlainTextParser extends ICrawler{
 
 	private int lineCount = 0;
 	private boolean isInRelevantPart = false;

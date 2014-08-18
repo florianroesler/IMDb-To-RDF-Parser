@@ -8,10 +8,10 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import edu.hpi.semweb.lod.crawl.PlainTextCrawler;
+import edu.hpi.semweb.lod.crawl.PlainTextParser;
 
 
-public abstract class IMDBParser extends PlainTextCrawler{
+public abstract class IMDBParser extends PlainTextParser{
 
 	private PrintWriter writer;
 
